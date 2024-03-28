@@ -4,5 +4,7 @@ module project.muq {
 
 
     opens project.muq to javafx.fxml;
-    exports project.muq;
+
+    exports Controller;
+    opens Controller to javafx.fxml;
 }
