@@ -1,0 +1,16 @@
+
+
+#anchorPaneId{
+    -fx-background-image: url("fondoLogin.jpg");
+    -fx-background-size: cover; /* Opcional: ajusta el tamaño de la imagen para que cubra completamente el fondo */
+}
+
+
+#anchorPaneLog{
+    -fx-background-color: transparent;
+    -fx-opacity: 0.5;
+}
+
+#btnIngresar{
+ -fx-opacity: 1.0;
+}
