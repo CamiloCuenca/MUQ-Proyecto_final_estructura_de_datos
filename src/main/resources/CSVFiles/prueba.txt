@@ -1,0 +1,2 @@
+Pedro;Juarez;30
+Juan;Cuenca;20
