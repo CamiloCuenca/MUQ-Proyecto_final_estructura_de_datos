@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.utils.DataUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,7 +26,15 @@ public class LoginController {
 
     @FXML
     void ingresar(ActionEvent event) {
-
+        String rutaAdminFactura = "src/main/resources/CSVFiles/Administradores.txt";
+        boolean datos =  DataUtils.verificarDatosUsuarios(txtNombre.getText(),txtContrasena.getText(),rutaAdminFactura);
+        if(datos){
+            System.out.println("Funciono");
+            System.out.println(DataUtils.verificarTipoadmin());
+        }
+        else {
+            System.out.println("no es correto");
+        }
     }
 
     @FXML
