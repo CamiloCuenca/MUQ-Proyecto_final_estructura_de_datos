@@ -1,0 +1,7 @@
+Nombre;Contraseña;ID;tipoAdmin
+Camilo;123;1;factura
+Brandon;123;2;factura
+Diego;123;3;factura
+Santiago;123;4;factura
+pepe;321;5;premio
+carlos;321;6;ruta
