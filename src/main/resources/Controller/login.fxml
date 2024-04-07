@@ -14,11 +14,11 @@
 
 <AnchorPane id="anchorPaneId" fx:id="anchonPaneLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="719.0" stylesheets="@../Style/EstiloLogin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
-      <AnchorPane id="anchorPaneLog" layoutX="250.0" layoutY="69.0" opacity="0.5" prefHeight="326.0" prefWidth="219.0" style="-fx-background-color: #1c92ae; -fx-background-radius: 20;" stylesheets="@../Style/EstiloLogin.css">
+      <AnchorPane id="anchorPaneLog" layoutX="250.0" layoutY="34.0" opacity="0.5" prefHeight="397.0" prefWidth="220.0" style="-fx-background-radius: 20;" stylesheets="@../Style/EstiloLogin.css">
          <children>
-            <VBox id="vbox" layoutX="6.0" layoutY="110.0" prefHeight="72.0" prefWidth="206.0" stylesheets="@../Style/EstiloLogin.css">
+            <VBox id="vbox" layoutX="7.0" layoutY="161.0" prefHeight="72.0" prefWidth="206.0" stylesheets="@../Style/EstiloLogin.css">
                <children>
-                  <TextField fx:id="txtNombre" promptText="Nombre" style="-fx-background-color: #361c67; -fx-border-color: BLACK; -fx-border-radius: 10; -fx-background-radius: 10;">
+                  <TextField fx:id="txtNombre" promptText="Nombre" style="-fx-background-color: #1c92ae; -fx-border-color: BLACK; -fx-border-radius: 10; -fx-background-radius: 10;">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -26,7 +26,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txtContrasena" promptText="Contraseña" style="-fx-background-color: #361c67; -fx-border-color: BLACK; -fx-background-radius: 10; -fx-border-radius: 10;">
+                  <TextField fx:id="txtContrasena" promptText="Contraseña" style="-fx-background-color: #1c92ae; -fx-border-color: BLACK; -fx-background-radius: 10; -fx-border-radius: 10;">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -36,17 +36,17 @@
                   </TextField>
                </children>
             </VBox>
-            <Button id="btnIngresar" fx:id="btnIngresar" layoutX="79.0" layoutY="215.0" mnemonicParsing="false" onAction="#ingresar" style="-fx-background-color: #361c67; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: BLACK;" stylesheets="@../Style/EstiloLogin.css" text="Ingresar" textFill="WHITE">
+            <Button id="btnIngresar" fx:id="btnIngresar" layoutX="78.0" layoutY="272.0" mnemonicParsing="false" onAction="#ingresar" style="-fx-background-color: #1c92ae; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: BLACK;" stylesheets="@../Style/EstiloLogin.css" text="Ingresar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnRegistrarse" layoutX="71.0" layoutY="275.0" mnemonicParsing="false" onAction="#registrarse" style="-fx-background-color: #1c92ae; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 10;" text="Registrarse">
+            <Button fx:id="btnRegistrarse" layoutX="71.0" layoutY="321.0" mnemonicParsing="false" onAction="#registrarse" style="-fx-background-color: #361c67; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 10;" text="Registrarse" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView id="imgCandado" fitHeight="83.0" fitWidth="191.0" layoutX="67.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
+            <ImageView id="imgCandado" fitHeight="134.0" fitWidth="206.0" layoutX="42.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
                <image>
                   <Image url="@../img/padlock_2889676.png" />
                </image>

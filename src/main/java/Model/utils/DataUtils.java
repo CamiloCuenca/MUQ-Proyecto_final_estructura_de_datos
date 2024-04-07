@@ -14,13 +14,12 @@ import java.nio.file.StandardCopyOption;
 public class DataUtils {
     public static String tipoAdmin;
 
-
     /**
      * Esta función abre un cuadro de diálogo para que el usuario seleccione un archivo CSV.
      * Una vez seleccionado el archivo, lo copia al directorio "src/main/resources/CSVFiles" dentro del proyecto.
      * Si el directorio de destino no existe, se crea automáticamente.
      */
-    public static void UploadCSVfile() {
+    public static void cargarArchivoCSV() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de texto", "*.txt", "*.csv")); // Filtro para archivos de texto
         File selectedFile = fileChooser.showOpenDialog(new Stage());
@@ -84,6 +83,10 @@ public class DataUtils {
         return false;
     }
 
+    /** Esta función verifica que tipo de administrador es el usuario
+     *
+     * @return 1 en caso de que sea un administrador de facturas , 2 si es de premios y 3 si es de ruta , en caso contrario 0
+     */
     public static int verificarTipoadmin(){
         if(tipoAdmin.equalsIgnoreCase("factura")){
             return 1;
