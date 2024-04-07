@@ -1,4 +1,4 @@
-package Model;
+package Model.objetos;
 
 public class Premio {
     //Atributos

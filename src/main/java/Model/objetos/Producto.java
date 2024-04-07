@@ -1,6 +1,6 @@
-package Model;
+package Model.objetos;
 
-import enums.TipoProducto;
+import Model.enums.TipoProducto;
 
 public class Producto {
     //Atributos

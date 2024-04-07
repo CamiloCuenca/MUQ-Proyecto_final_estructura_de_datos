@@ -1,4 +1,4 @@
-package utils;
+package Model.utils;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
