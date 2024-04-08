@@ -14,13 +14,16 @@
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tblFacturas" layoutX="14.0" layoutY="29.0" prefHeight="436.0" prefWidth="224.0" style="-fx-background-color: #8cdaec };">
+            <TableView fx:id="tblFacturas" layoutX="51.0" layoutY="102.0" prefHeight="368.0" prefWidth="617.0" style="-fx-background-color: #8cdaec };">
               <columns>
                 <TableColumn fx:id="Colfactura" prefWidth="110.66665840148926" style="-fx-background-color: #1c92ae;" text="Factura" />
-                <TableColumn fx:id="ColFechaFactura" prefWidth="112.00000762939453" style="-fx-background-color: #1c92ae;" text="Fecha de carga" />
+                <TableColumn fx:id="ColFechaFactura" prefWidth="112.00000762939453" style="-fx-background-color: #1c92ae;" text="Fecha" />
+                  <TableColumn fx:id="colNumeroFactura" prefWidth="131.33331298828125" style="-fx-background-color: #1c92ae;" text="Número factura" />
+                  <TableColumn fx:id="colCliente" prefWidth="99.3333740234375" style="-fx-background-color: #1c92ae;" text="Cliente" />
+                  <TableColumn fx:id="colPremios" prefWidth="164.0" style="-fx-background-color: #1c92ae;" text="Premios" />
               </columns>
             </TableView>
-            <HBox layoutX="317.0" layoutY="48.0" prefHeight="29.0" prefWidth="352.0">
+            <HBox layoutX="184.0" layoutY="40.0" prefHeight="29.0" prefWidth="352.0">
                <children>
                   <Button fx:id="btnCargarfactura" mnemonicParsing="false" onAction="#cargarFactura" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: #1c92ae;" text="Cargar Factura" textFill="WHITE">
                      <cursor>
@@ -57,13 +60,7 @@
                   </Button>
                </children>
             </HBox>
-            <TableView layoutX="365.0" layoutY="193.0" prefHeight="286.0" prefWidth="255.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
-            <Button fx:id="btnRegresar" layoutX="93.0" layoutY="479.0" mnemonicParsing="false" onAction="#Regresar" style="-fx-background-color: #361c67;" text="Regresar" textFill="WHITE">
+            <Button fx:id="btnRegresar" layoutX="51.0" layoutY="485.0" mnemonicParsing="false" onAction="#Regresar" style="-fx-background-color: #361c67;" text="Regresar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
