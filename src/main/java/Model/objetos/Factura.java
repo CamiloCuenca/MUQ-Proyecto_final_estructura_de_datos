@@ -7,12 +7,12 @@ public class Factura {
     //Atributos
     private ArrayList<Producto> productos = new ArrayList<>();
     private Date fecha;
-    private int numFactura;
+    private String numFactura;
     private Cliente cliente;
 
     //Constructor
 
-    public Factura(ArrayList<Producto> productos, Date fecha, int numFactura, Cliente cliente) {
+    public Factura(ArrayList<Producto> productos, Date fecha, String numFactura, Cliente cliente) {
         this.productos = productos;
         this.fecha = fecha;
         this.numFactura = numFactura;
@@ -37,11 +37,11 @@ public class Factura {
         this.fecha = fecha;
     }
 
-    public int getNumFactura() {
+    public String getNumFactura() {
         return numFactura;
     }
 
-    public void setNumFactura(int numFactura) {
+    public void setNumFactura(String numFactura) {
         this.numFactura = numFactura;
     }
 
