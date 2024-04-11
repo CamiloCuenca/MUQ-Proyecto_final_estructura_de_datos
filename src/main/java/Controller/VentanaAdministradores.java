@@ -1,9 +1,9 @@
 package Controller;
 
 import Model.objetos.Factura;
+import Model.objetos.Premio;
 import Model.utils.DataUtils;
 import Model.utils.SceneUtils;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,13 +29,13 @@ public class VentanaAdministradores implements Initializable {
     private TableColumn<Factura,String> Colfactura;
 
     @FXML
-    private TableColumn<?, ?> colCliente;
+    private TableColumn<Factura, String> colCliente;
 
     @FXML
-    private TableColumn<?, ?> colNumeroFactura;
+    private TableColumn<Factura, String> colNumeroFactura;
 
     @FXML
-    private TableColumn<?, ?> colPremios;
+    private TableColumn<Premio, String> colPremios;
 
 
     @FXML
@@ -47,6 +48,9 @@ public class VentanaAdministradores implements Initializable {
     private Button btnProcesarFactura;
     @FXML
     private Button btnRegresar;
+
+    @FXML
+    private ImageView viwLogo;
 
     @FXML
     private TableView<String> tblFacturas;
@@ -77,6 +81,7 @@ public class VentanaAdministradores implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        CoreMethod.girarImagen(viwLogo);
 
 
 

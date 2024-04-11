@@ -21,6 +21,8 @@
 
 /* Cambia el color de la línea de guía cuando el mouse está sobre el TextField */
 .text-field:hover {
-    -fx-border-color: #3194b7; /* Cambia el color de la línea de guía al pasar el mouse sobre el TextField */
+    -fx-border-color:  #36375a; /* Cambia el color de la línea de guía al pasar el mouse sobre el TextField */
 }
+
+
 

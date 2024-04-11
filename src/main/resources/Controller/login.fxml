@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -14,10 +15,14 @@
    <children>
       <AnchorPane id="anchorPaneD" fx:id="anchorPaneD" layoutY="-1.0" prefHeight="514.0" prefWidth="493.0">
          <children>
-            <Text fill="WHITE" layoutX="173.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GiftLogic">
+            <Text id="txtLogo" fx:id="txtLogo" fill="WHITE" layoutX="173.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GiftLogic">
                <font>
                   <Font size="35.0" />
                </font>
+               <styleClass>
+                  <String fx:value="texto-con-sombra" />
+                  <String fx:value="text-field" />
+               </styleClass>
             </Text>
          </children>
       </AnchorPane>
