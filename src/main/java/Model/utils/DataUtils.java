@@ -1,12 +1,13 @@
 package Model.utils;
 
+import Model.enums.Genero;
+import Model.enums.Paises;
+import Model.objetos.Factura;
+import Model.objetos.PersonaPremio;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -98,4 +99,80 @@ public class DataUtils {
             return 0;
         }
     }
+
+
+    public static void CSVWriter(String ruta) throws IOException {
+        String[] encabezado = {"Nombre","Edad","Email"};
+        //Caso de prueba:
+        String[][] data = {{"Juan", "30", "juan@example.com"}, // Datos para escribir en el CSV
+                {"María", "25", "maria@example.com"},
+                {"Pedro", "35", "pedro@example.com"}};
+        try{
+            FileWriter fw = new FileWriter(ruta);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            // Escribir encabezados
+            for (int i = 0; i < encabezado.length; i++) {
+                bw.write(encabezado[i]);
+                if (i < encabezado.length - 1) {
+                    bw.write(";");
+                }
+            }
+            bw.newLine();
+
+            // Escribir datos
+            for (String[] row : data) {
+                for (int i = 0; i < row.length; i++) {
+                    bw.write(row[i]);
+                    if (i < row.length - 1) {
+                        bw.write(";");
+                    }
+                }
+                bw.newLine();
+            }
+
+            bw.close();
+            System.out.println("¡Archivo CSV creado con éxito!");
+
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static PersonaPremio creadorPersonaPremio (Factura factura, int secuencia){
+
+        int prioridad = 0;
+        int pais=0;
+
+
+        if(factura.getCliente().getEdad()>60){
+            prioridad=3;
+
+        }else if(factura.getCliente().getSexo()== Genero.HOMBRE){
+            prioridad=1;
+        }else if(factura.getCliente().getSexo()==Genero.MUJER) {
+            prioridad = 2;
+        }
+
+        if(factura.getCliente().getDireccion().getPais()== Paises.COLOMBIA){
+            pais=1;
+            //otro paises
+        }else if(factura.getCliente().getDireccion().getPais()==Paises.CONGO){
+            //pais en calamidad
+            pais=2;
+        }else if(factura.getCliente().getDireccion().getPais()==Paises.HAITI){
+            //pais en conflicto
+            pais=3;
+        }
+        else{
+
+        }
+
+        PersonaPremio premio=new PersonaPremio(prioridad,pais,secuencia,factura.getCliente());
+
+        return premio;
+
+    }
+
 }
