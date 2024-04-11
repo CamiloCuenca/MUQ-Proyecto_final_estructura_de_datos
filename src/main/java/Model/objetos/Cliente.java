@@ -1,19 +1,36 @@
 package Model.objetos;
 
+import Model.enums.Genero;
+
 public class Cliente {
-    //Atributos
+
     private String nombre;
-    private String ID;
-    private int puntos;
 
-    //Constructor
+    private int edad;
 
-    public Cliente(String nombre, String ID, int puntos) {
-        this.nombre = nombre;
-        this.ID = ID;
-        this.puntos = puntos;
+    private Genero sexo;
+
+    private int id;
+
+    private Direccion direccion;
+
+    @Override
+    public String toString() {
+        return
+                "nombre='" + nombre + '\'' +
+                        ", edad=" + edad +
+                        ", sexo=" + sexo +
+                        ", id=" + id +
+                        ", direccion=" + direccion;
     }
-    //Getters and Setters
+
+    public Cliente(String nombre, int edad, Genero sexo, int id, Direccion direccion) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.sexo = sexo;
+        this.id = id;
+        this.direccion = direccion;
+    }
 
     public String getNombre() {
         return nombre;
@@ -23,19 +40,35 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getID() {
-        return ID;
+    public int getEdad() {
+        return edad;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
-    public int getPuntos() {
-        return puntos;
+    public Genero getSexo() {
+        return sexo;
     }
 
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
+    public void setSexo(Genero sexo) {
+        this.sexo = sexo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
     }
 }
