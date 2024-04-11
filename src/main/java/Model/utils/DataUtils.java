@@ -2,8 +2,10 @@ package Model.utils;
 
 import Model.enums.Genero;
 import Model.enums.Paises;
+import Model.enums.TipoProducto;
 import Model.objetos.Factura;
 import Model.objetos.PersonaPremio;
+import Model.objetos.Producto;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -11,6 +13,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class DataUtils {
     public static String tipoAdmin;
@@ -140,39 +144,46 @@ public class DataUtils {
         }
     }
 
-    public static PersonaPremio creadorPersonaPremio (Factura factura, int secuencia){
-
-        int prioridad = 0;
-        int pais=0;
-
-
-        if(factura.getCliente().getEdad()>60){
-            prioridad=3;
-
-        }else if(factura.getCliente().getSexo()== Genero.HOMBRE){
-            prioridad=1;
-        }else if(factura.getCliente().getSexo()==Genero.MUJER) {
-            prioridad = 2;
+    public static ArrayList<Factura> leerCSVFactura(String ruta) {
+        ArrayList<Factura> listaFacturas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            String linea;
+            // Leer la primera línea que generalmente contiene encabezados
+            String encabezados = br.readLine();
+            // Leer cada línea del archivo CSV
+            while ((linea = br.readLine()) != null) {
+                // Dividir la línea en partes usando coma como delimitador
+                String[] partes = linea.split(";");
+                // Crear un objeto Factura con los datos de la línea
+                Factura factura = crearFacturaDesdeLinea(partes);
+                // Agregar la factura a la lista
+                listaFacturas.add(factura);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        if(factura.getCliente().getDireccion().getPais()== Paises.COLOMBIA){
-            pais=1;
-            //otro paises
-        }else if(factura.getCliente().getDireccion().getPais()==Paises.CONGO){
-            //pais en calamidad
-            pais=2;
-        }else if(factura.getCliente().getDireccion().getPais()==Paises.HAITI){
-            //pais en conflicto
-            pais=3;
-        }
-        else{
+        return listaFacturas;
+    }
 
-        }
+    private static Factura crearFacturaDesdeLinea(String[] partes) {
+        String nombre = partes[0];
+        String productos = partes[1];
+        double valor = Double.parseDouble(partes[2]);
+        TipoProducto tipo = TipoProducto.valueOf(partes[3]);
 
-        PersonaPremio premio=new PersonaPremio(prioridad,pais,secuencia,factura.getCliente());
+        String fecha = partes[4];
+        String numeroFactura = partes[5];
+        String cliente = partes[6];
+        String id = partes[7];
+        int puntos = Integer.parseInt(partes[8]);
 
-        return premio;
-
+        // Crear un objeto Factura con los datos de la línea
+       // return new Factura();
+        ArrayList<Producto> productoslist = new ArrayList<>();
+        productoslist.add(new Producto(productos,valor,tipo));
+        //return  new Factura(productoslist,fecha,numeroFactura,cliente);
+        return null;
     }
 
 }

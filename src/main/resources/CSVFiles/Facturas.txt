@@ -1,0 +1,1 @@
+ID Factura;ID Cliente;Nombre;Edad;Genero;Pais;Ciudad;Productos;ALIMENTOS||TECNOLOGÍA||ELECTRODOMÉSTICOS||COSMÉTICOS;Valor total;DIA;MES;AÑO
