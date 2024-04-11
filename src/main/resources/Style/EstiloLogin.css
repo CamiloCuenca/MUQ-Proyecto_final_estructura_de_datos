@@ -1,16 +1,26 @@
 
-
-#anchorPaneId{
-    -fx-background-image: url("fondoLogin.jpg");
-    -fx-background-size: cover; /* Opcional: ajusta el tamaño de la imagen para que cubra completamente el fondo */
+#anchorPaneD{
+    -fx-background-image: url("login.png");
+    -fx-background-size: cover;
+    -fx-background-radius: 10px; /* Define el radio del borde */
 }
 
-
-#anchorPaneLog{
-    -fx-background-color: transparent;
-    -fx-opacity: 1;
+.text-field {
+    -fx-background-color: transparent; /* Hace que el fondo del TextField sea transparente */
+    -fx-border-width: 0px; /* Elimina los bordes del TextField */
 }
 
-#btnIngresar{
- -fx-opacity: 1.0;
+/* Agrega una línea de guía debajo del TextField */
+.text-field {
+    -fx-background-insets: 0, 0, 1; /* Margen inferior de 1 píxel */
+    -fx-padding: 0.166667em 0.333em 0.333em 0.333em; /* Ajusta el padding para que la línea de guía sea visible */
+    -fx-border-style: solid; /* Define el estilo de línea como sólido */
+    -fx-border-width: 0 0 1 0; /* Aplica la línea de guía solo en la parte inferior */
+    -fx-border-color: #3194b7; /* Define el color de la línea de guía */
 }
+
+/* Cambia el color de la línea de guía cuando el mouse está sobre el TextField */
+.text-field:hover {
+    -fx-border-color: #3194b7; /* Cambia el color de la línea de guía al pasar el mouse sobre el TextField */
+}
+

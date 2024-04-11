@@ -1,63 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchorPaneId" fx:id="anchonPaneLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="719.0" stylesheets="@../Style/EstiloLogin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+<AnchorPane id="anchorPaneId" fx:id="anchonPaneLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="800.0" style="-fx-background-radius: 15; -fx-background-color: #ffffff;" stylesheets="@../Style/EstiloLogin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
-      <AnchorPane id="anchorPaneLog" layoutX="250.0" layoutY="34.0" opacity="0.5" prefHeight="397.0" prefWidth="220.0" style="-fx-background-radius: 20;" stylesheets="@../Style/EstiloLogin.css">
+      <AnchorPane id="anchorPaneD" fx:id="anchorPaneD" layoutY="-1.0" prefHeight="514.0" prefWidth="493.0">
          <children>
-            <VBox id="vbox" layoutX="7.0" layoutY="161.0" prefHeight="72.0" prefWidth="206.0" stylesheets="@../Style/EstiloLogin.css">
-               <children>
-                  <TextField fx:id="txtNombre" promptText="Nombre" style="-fx-background-color: #1c92ae; -fx-border-color: BLACK; -fx-border-radius: 10; -fx-background-radius: 10;">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtContrasena" promptText="Contraseña" style="-fx-background-color: #1c92ae; -fx-border-color: BLACK; -fx-background-radius: 10; -fx-border-radius: 10;">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </VBox>
-            <Button id="btnIngresar" fx:id="btnIngresar" layoutX="78.0" layoutY="272.0" mnemonicParsing="false" onAction="#ingresar" style="-fx-background-color: #1c92ae; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: BLACK;" stylesheets="@../Style/EstiloLogin.css" text="Ingresar" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="btnRegistrarse" layoutX="71.0" layoutY="321.0" mnemonicParsing="false" onAction="#registrarse" style="-fx-background-color: #361c67; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 10;" text="Registrarse" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView id="imgCandado" fitHeight="134.0" fitWidth="206.0" layoutX="42.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" styleClass="img">
+            <Text fill="WHITE" layoutX="173.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GiftLogic">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="472.0" layoutY="-2.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="514.0" prefWidth="328.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;">
+         <children>
+            <Text fill="#36375a" layoutX="81.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnIngresar" layoutX="47.0" layoutY="377.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #3194b7; -fx-background-radius: 15;" text="Ingresar" textFill="WHITE" />
+            <Text fill="#36375a" layoutX="48.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+            <Text fill="#36375a" layoutX="50.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password" />
+            <TextField fx:id="txtUsuario" layoutX="51.0" layoutY="245.0" prefHeight="18.0" prefWidth="228.0" />
+            <ImageView fx:id="imgLogo" fitHeight="115.0" fitWidth="179.0" layoutX="106.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/padlock_2889676.png" />
+                  <Image url="@../img/pngegg.png" />
                </image>
-               <effect>
-                  <DropShadow spread="0.21">
-                     <color>
-                        <Color red="0.5490196347236633" green="0.8549019694328308" blue="0.9254902005195618" />
-                     </color>
-                  </DropShadow>
-               </effect>
             </ImageView>
+            <PasswordField fx:id="pswContrasena" layoutX="51.0" layoutY="311.0" prefHeight="25.0" prefWidth="228.0" />
+            <Label fx:id="lblMensaje" alignment="CENTER" layoutX="53.0" layoutY="349.0" prefHeight="18.0" prefWidth="228.0" textFill="#36375a" />
          </children>
       </AnchorPane>
    </children>
