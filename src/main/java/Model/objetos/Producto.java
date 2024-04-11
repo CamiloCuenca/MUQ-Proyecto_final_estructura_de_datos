@@ -5,25 +5,12 @@ import Model.enums.TipoProducto;
 public class Producto {
     //Atributos
     private String nombre;
-    private double valor;
     private TipoProducto tipo ;
-    //Constructor
-    public Producto(String nombre, double valor, TipoProducto tipo) {
+
+    public Producto(String nombre, TipoProducto tipo) {
         this.nombre = nombre;
-        this.valor = valor;
         this.tipo = tipo;
     }
-
-    @Override
-    public String toString() {
-        return
-                nombre + '\'' +
-                        ", valor= " + valor +
-                        ", tipo= " + tipo;
-    }
-
-    //Getters and Setters
-
 
     public String getNombre() {
         return nombre;
@@ -33,14 +20,6 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
     public TipoProducto getTipo() {
         return tipo;
     }
@@ -48,4 +27,20 @@ public class Producto {
     public void setTipo(TipoProducto tipo) {
         this.tipo = tipo;
     }
+
+    //Constructor
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "nombre='" + nombre + '\'' +
+                ", tipo=" + tipo +
+                '}';
+    }
+
+
+    //Getters and Setters
+
+
+
 }

@@ -1,5 +1,6 @@
 package Model.utils;
 
+import Model.enums.Genero;
 import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
@@ -8,6 +9,8 @@ import Model.objetos.Producto;
 import java.util.*;
 
 public class GeneradorFacturas {
+
+    private static final Random random = new Random();
     private static final String[] nombres = {"Juan", "María", "Carlos", "Ana", "Luis", "Laura", "Pedro", "Sofía", "Diego", "Elena", "Branon"};
     private static final String[] alimentos = {
             "Leche", "Pan", "Huevos", "Arroz", "Frijoles", "Manzanas", "Pasta", "Carne", "Pollo", "Cereal"
@@ -26,77 +29,60 @@ public class GeneradorFacturas {
     };
 
 
-    private static final Random random = new Random();
+    /**
+     * Crear metodo para generar nombres a los clientes segun el tipo de sexo.
+     *
+     */
 
-    public static void main(String[] args) {
-        List<Factura> listaFacturas = generarFacturas();
-        imprimirFacturas(listaFacturas);
-    }
+    /**
+     * Generar metodo para crar cliente aletoreo por sus atributos.
+     */
 
+
+    /**
+     * Metodo principal para generar facturas aletoreas.
+     * @return
+     */
     private static List<Factura> generarFacturas() {
         List<Factura> listaFacturas = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            Date fecha = generarFechaAleatoria();
-            Cliente cliente = generarClienteAleatorio();
+            Cliente cliente = new Cliente("12","camilo",20, Genero.HOMBRE,"peruano","lima");
             List<Producto> productos = generarProductosAleatorios();
-            Factura factura = new Factura(productos, fecha, generarNumeroFacturaAleatorio(), cliente);
+            Factura factura = new Factura(generarNumeroFacturaAleatorio(),productos.getFirst().getNombre(), productos.getLast().getTipo(),1,"10","07","2024",cliente);
             listaFacturas.add(factura);
         }
         return listaFacturas;
     }
 
-    private static Date generarFechaAleatoria() {
-        // Obtener la fecha actual
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
 
-        // Restar un número aleatorio de días entre 1 y 30
-        int diasAtras = random.nextInt(30) + 1;
-        calendar.add(Calendar.DAY_OF_MONTH, -diasAtras);
-
-        // Obtener el año, mes y día
-        int anio = calendar.get(Calendar.YEAR);
-        int mes = calendar.get(Calendar.MONTH) + 1; // Los meses se indexan desde 0
-        int dia = calendar.get(Calendar.DAY_OF_MONTH);
-
-        // Generar la fecha aleatoria
-        int anioAleatorio = anio;
-        int mesAleatorio = random.nextInt(mes) + 1; // Mes aleatorio entre 1 y el mes actual
-        int diaAleatorio = random.nextInt(dia) + 1; // Día aleatorio entre 1 y el día actual
-
-        // Construir la fecha aleatoria
-        calendar.set(anioAleatorio, mesAleatorio - 1, diaAleatorio); // Restar 1 al mes para indexar correctamente
-        return calendar.getTime();
-    }
-
-    private static Cliente generarClienteAleatorio() {
-        String nombre = nombres[random.nextInt(nombres.length)];
-        String ID = "ID" + (random.nextInt(100) + 1);
-        int puntos = random.nextInt(101);
-        return new Cliente(nombre, ID, puntos);
-    }
-
+    /**
+     * Metodo que me genera producto segun el tipoDe producto con su nombre
+     * @return
+     */
     private static List<Producto> generarProductosAleatorios() {
         ArrayList<Producto> productos = new ArrayList<>();
         int numProductos = random.nextInt(1) + 1; // Entre 1 y 5 productos
         for (int i = 0; i < numProductos; i++) {
             TipoProducto tipo = TipoProducto.values()[random.nextInt(TipoProducto.values().length)];
             String nombre = generarNombreAleatorio(tipo); // Genera el nombre basado en el tipo de producto
-            double precio = random.nextDouble() * 100 + 1;
-            productos.add(new Producto(nombre, precio, tipo));
+            productos.add(new Producto(nombre, tipo));
         }
         return productos;
     }
+
+    /**
+     * Genera el ID factura.
+     * @return
+     */
     private static String generarNumeroFacturaAleatorio() {
         return String.valueOf(random.nextInt(9000) + 1000);
     }
 
-    private static void imprimirFacturas(List<Factura> listaFacturas) {
-        for (int i = 0; i < listaFacturas.size(); i++) {
-            System.out.println("Factura " + (i + 1) + ": " + listaFacturas.get(i));
-        }
-    }
-
+    /**
+     * Genera el nombre del producto segun el tipo de producto.
+     * @param tipo
+     * @return
+     */
     private static String generarNombreAleatorio(TipoProducto tipo) {
         String[] nombres;
         switch (tipo) {
@@ -117,6 +103,17 @@ public class GeneradorFacturas {
                 nombres = new String[]{};
         }
         return nombres[random.nextInt(nombres.length)];
+    }
+
+    private static void imprimirFacturas(List<Factura> listaFacturas) {
+        for (int i = 0; i < listaFacturas.size(); i++) {
+            System.out.println("Factura " + (i + 1) + ": " + listaFacturas.get(i));
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Factura> listaFacturas = generarFacturas();
+        imprimirFacturas(listaFacturas);
     }
 
 }

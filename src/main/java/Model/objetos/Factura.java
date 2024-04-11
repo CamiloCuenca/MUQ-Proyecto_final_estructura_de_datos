@@ -1,49 +1,89 @@
 package Model.objetos;
 
+import Model.enums.TipoProducto;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Factura {
     //Atributos
-    private ArrayList<Producto> productos = new ArrayList<>();
-    private Date fecha;
-    private String numFactura;
+    private String ID ;
+    private String productos;
+    private TipoProducto tipoProducto;
+    private double valorTotal;
+    private String DIA;
+    private String MES;
+    private String ANO;
     private Cliente cliente;
 
     //Constructor
 
-    public Factura(List<Producto> productos, Date fecha, String numFactura, Cliente cliente) {
-        this.productos = (ArrayList<Producto>) productos;
-        this.fecha = fecha;
-        this.numFactura = numFactura;
+
+    public Factura(String ID, String productos, TipoProducto tipoProducto, double valorTotal, String DIA, String MES, String ANO, Cliente cliente) {
+        this.ID = ID;
+        this.productos = productos;
+        this.tipoProducto = tipoProducto;
+        this.valorTotal = valorTotal;
+        this.DIA = DIA;
+        this.MES = MES;
+        this.ANO = ANO;
         this.cliente = cliente;
     }
 
-    //Getters and Setters
-
-    public ArrayList<Producto> getProductos() {
+    public String getProductos() {
         return productos;
     }
 
-    public void setProductos(ArrayList<Producto> productos) {
+    public void setProductos(String productos) {
         this.productos = productos;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getID() {
+        return ID;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public String getNumFactura() {
-        return numFactura;
+    public TipoProducto getTipoProducto() {
+        return tipoProducto;
     }
 
-    public void setNumFactura(String numFactura) {
-        this.numFactura = numFactura;
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public String getDIA() {
+        return DIA;
+    }
+
+    public void setDIA(String DIA) {
+        this.DIA = DIA;
+    }
+
+    public String getMES() {
+        return MES;
+    }
+
+    public void setMES(String MES) {
+        this.MES = MES;
+    }
+
+    public String getANO() {
+        return ANO;
+    }
+
+    public void setANO(String ANO) {
+        this.ANO = ANO;
     }
 
     public Cliente getCliente() {
@@ -56,10 +96,15 @@ public class Factura {
 
     @Override
     public String toString() {
-        return
-                productos +
-                        ", fecha= " + fecha +
-                        ", numFactura='" + numFactura + '\'' +
-                        ", cliente=" + cliente ;
+        return "Factura{" +
+                "ID='" + ID + '\'' +
+                ", productos='" + productos + '\'' +
+                ", tipoProducto=" + tipoProducto +
+                ", valorTotal=" + valorTotal +
+                ", DIA='" + DIA + '\'' +
+                ", MES='" + MES + '\'' +
+                ", ANO='" + ANO + '\'' +
+                ", cliente=" + cliente +
+                '}';
     }
 }

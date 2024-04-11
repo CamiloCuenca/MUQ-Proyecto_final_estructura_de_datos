@@ -1,15 +1,20 @@
 package Model.utils;
 
+import Model.enums.Genero;
+import Model.enums.Paises;
+import Model.enums.TipoProducto;
+import Model.objetos.Factura;
+import Model.objetos.PersonaPremio;
+import Model.objetos.Producto;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class DataUtils {
     public static String tipoAdmin;
@@ -98,4 +103,47 @@ public class DataUtils {
             return 0;
         }
     }
+
+
+    public static void CSVWriter(String ruta) throws IOException {
+        String[] encabezado = {"Nombre","Edad","Email"};
+        //Caso de prueba:
+        String[][] data = {{"Juan", "30", "juan@example.com"}, // Datos para escribir en el CSV
+                {"María", "25", "maria@example.com"},
+                {"Pedro", "35", "pedro@example.com"}};
+        try{
+            FileWriter fw = new FileWriter(ruta);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            // Escribir encabezados
+            for (int i = 0; i < encabezado.length; i++) {
+                bw.write(encabezado[i]);
+                if (i < encabezado.length - 1) {
+                    bw.write(";");
+                }
+            }
+            bw.newLine();
+
+            // Escribir datos
+            for (String[] row : data) {
+                for (int i = 0; i < row.length; i++) {
+                    bw.write(row[i]);
+                    if (i < row.length - 1) {
+                        bw.write(";");
+                    }
+                }
+                bw.newLine();
+            }
+
+            bw.close();
+            System.out.println("¡Archivo CSV creado con éxito!");
+
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
