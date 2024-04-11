@@ -22,7 +22,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
+        //pruebaPrioridad();
+
+
+    }
+
+    public static void pruebaPrioridad(){
         //ejemplo de factura
 
         // Creo la factura y el cliente
@@ -61,7 +67,6 @@ public class Main extends Application {
         System.out.println(ob3);
         PersonaPremio ob4=premioPriorityQueue.poll();
         System.out.println(ob4);
-
     }
 
 }
