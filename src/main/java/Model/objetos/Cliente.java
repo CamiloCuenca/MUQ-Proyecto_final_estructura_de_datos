@@ -4,32 +4,29 @@ import Model.enums.Genero;
 
 public class Cliente {
 
+    private String ID;
     private String nombre;
-
     private int edad;
-
     private Genero sexo;
+    private String pais;
+    private String ciudad;
 
-    private int id;
 
-    private Direccion direccion;
-
-    @Override
-    public String toString() {
-        return
-                "nombre='" + nombre + '\'' +
-                        ", edad=" + edad +
-                        ", sexo=" + sexo +
-                        ", id=" + id +
-                        ", direccion=" + direccion;
-    }
-
-    public Cliente(String nombre, int edad, Genero sexo, int id, Direccion direccion) {
+    public Cliente(String ID, String nombre, int edad, Genero sexo, String pais, String ciudad) {
+        this.ID = ID;
         this.nombre = nombre;
         this.edad = edad;
         this.sexo = sexo;
-        this.id = id;
-        this.direccion = direccion;
+        this.pais = pais;
+        this.ciudad = ciudad;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getNombre() {
@@ -56,19 +53,19 @@ public class Cliente {
         this.sexo = sexo;
     }
 
-    public int getId() {
-        return id;
+    public String getPais() {
+        return pais;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 }
