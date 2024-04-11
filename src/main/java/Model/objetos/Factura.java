@@ -2,6 +2,7 @@ package Model.objetos;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Factura {
     //Atributos
@@ -12,8 +13,8 @@ public class Factura {
 
     //Constructor
 
-    public Factura(ArrayList<Producto> productos, Date fecha, String numFactura, Cliente cliente) {
-        this.productos = productos;
+    public Factura(List<Producto> productos, Date fecha, String numFactura, Cliente cliente) {
+        this.productos = (ArrayList<Producto>) productos;
         this.fecha = fecha;
         this.numFactura = numFactura;
         this.cliente = cliente;
@@ -53,5 +54,12 @@ public class Factura {
         this.cliente = cliente;
     }
 
-
+    @Override
+    public String toString() {
+        return
+                productos +
+                        ", fecha= " + fecha +
+                        ", numFactura='" + numFactura + '\'' +
+                        ", cliente=" + cliente ;
+    }
 }

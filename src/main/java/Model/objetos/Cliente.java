@@ -38,4 +38,11 @@ public class Cliente {
     public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
+
+    @Override
+    public String toString() {
+        return   nombre + '\'' +
+                ", ID='" + ID + '\'' +
+                ", puntos=" + puntos;
+    }
 }

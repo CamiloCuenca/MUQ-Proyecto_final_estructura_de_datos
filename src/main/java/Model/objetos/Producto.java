@@ -13,6 +13,15 @@ public class Producto {
         this.valor = valor;
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return
+                nombre + '\'' +
+                        ", valor= " + valor +
+                        ", tipo= " + tipo;
+    }
+
     //Getters and Setters
 
 

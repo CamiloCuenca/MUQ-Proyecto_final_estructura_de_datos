@@ -1,5 +1,10 @@
 package Model.utils;
 
+import Model.enums.TipoProducto;
+import Model.objetos.Cliente;
+import Model.objetos.Factura;
+import Model.objetos.Producto;
+
 import java.util.*;
 
 public class GeneradorFacturas {
@@ -72,7 +77,7 @@ public class GeneradorFacturas {
     }
 
     private static List<Producto> generarProductosAleatorios() {
-        List<Producto> productos = new ArrayList<>();
+        ArrayList<Producto> productos = new ArrayList<>();
         int numProductos = random.nextInt(1) + 1; // Entre 1 y 5 productos
         for (int i = 0; i < numProductos; i++) {
             TipoProducto tipo = TipoProducto.values()[random.nextInt(TipoProducto.values().length)];
