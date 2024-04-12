@@ -8,10 +8,14 @@ import Model.objetos.Factura;
 import Model.objetos.Producto;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class GeneradorFacturas {
 
     private static final Random random = new Random();
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);//Hilo que se encarga de generar la factura.
 
     // Arreglos de nombres para hombres y mujeres
     private static final String[] hombres = {"Juan", "Carlos", "Luis", "Pedro", "Diego", "Manuel", "Javier", "Miguel", "José", "Antonio"};
@@ -36,7 +40,7 @@ public class GeneradorFacturas {
      */
     private static List<Factura> generarFacturas() {
         List<Factura> listaFacturas = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio
             List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorios
             Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), 1, generarDiaAleatorioString(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
@@ -222,7 +226,10 @@ public class GeneradorFacturas {
     }
 
     public static void main(String[] args) {
-        List<Factura> listaFacturas = generarFacturas();
-        imprimirFacturas(listaFacturas);
+        // Programar la generación de facturas cada 5 minutos
+        scheduler.scheduleAtFixedRate(() -> {//se hace uso del hilo dandole las instrucciones que debe realizar.
+            List<Factura> nuevasFacturas = generarFacturas();
+            imprimirFacturas(nuevasFacturas);
+        }, 0, 1, TimeUnit.MINUTES);//Para establecer el tiempo.
     }
 }
