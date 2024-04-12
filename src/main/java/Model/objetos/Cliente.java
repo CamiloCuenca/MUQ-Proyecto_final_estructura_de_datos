@@ -22,6 +22,10 @@ public class Cliente {
         this.ciudad = ciudad;
     }
 
+    public Cliente() {
+
+    }
+
     public String getID() {
         return ID;
     }

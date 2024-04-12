@@ -230,6 +230,11 @@ public class GeneradorFacturas {
         scheduler.scheduleAtFixedRate(() -> {//se hace uso del hilo dandole las instrucciones que debe realizar.
             List<Factura> nuevasFacturas = generarFacturas();
             imprimirFacturas(nuevasFacturas);
+            // Llamar al método para escribir las facturas en el archivo CSV
+            for (Factura factura : nuevasFacturas) {
+                DataUtils.escribirFacturaCSV(factura, "src/main/resources/CSVFiles/Facturas.txt");
+            }
+
         }, 0, 1, TimeUnit.MINUTES);//Para establecer el tiempo.
     }
 }
