@@ -1,6 +1,7 @@
 package Model.objetos;
 
 import Model.enums.Genero;
+import Model.enums.Paises;
 
 public class Cliente {
 
@@ -8,11 +9,11 @@ public class Cliente {
     private String nombre;
     private int edad;
     private Genero sexo;
-    private String pais;
+    private Paises pais;
     private String ciudad;
 
 
-    public Cliente(String ID, String nombre, int edad, Genero sexo, String pais, String ciudad) {
+    public Cliente(String ID, String nombre, int edad, Genero sexo, Paises pais, String ciudad) {
         this.ID = ID;
         this.nombre = nombre;
         this.edad = edad;
@@ -53,11 +54,11 @@ public class Cliente {
         this.sexo = sexo;
     }
 
-    public String getPais() {
+    public Paises getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
+    public void setPais(Paises pais) {
         this.pais = pais;
     }
 
@@ -77,7 +78,7 @@ public class Cliente {
                 ", edad=" + edad +
                 ", sexo=" + sexo +
                 ", pais='" + pais + '\'' +
-                ", ciudad='" + ciudad + '\'' +
+                ", ciudad='" + ciudad  + '\'' +
                 '}';
     }
 }

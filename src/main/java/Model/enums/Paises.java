@@ -2,5 +2,5 @@ package Model.enums;
 
 public enum Paises {
 
-    CONGO, HAITI, COLOMBIA
+    INDIA, CHILE, COLOMBIA,AUSTRALIA,ARGENTINA;
 }
