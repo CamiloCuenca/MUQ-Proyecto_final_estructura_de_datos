@@ -30,6 +30,10 @@ public class Factura {
         this.cliente = cliente;
     }
 
+    public Factura() {
+
+    }
+
     public String getProductos() {
         return productos;
     }
