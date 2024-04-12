@@ -229,6 +229,7 @@ public class GeneradorFacturas {
         // Programar la generación de facturas cada 5 minutos
         scheduler.scheduleAtFixedRate(() -> {//se hace uso del hilo dandole las instrucciones que debe realizar.
             List<Factura> nuevasFacturas = generarFacturas();
-        }, 0, 10, TimeUnit.SECONDS);//Para establecer el tiempo.
+            imprimirFacturas(nuevasFacturas);
+        }, 0, 1, TimeUnit.MINUTES);//Para establecer el tiempo.
     }
 }
