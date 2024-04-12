@@ -144,46 +144,6 @@ public class DataUtils {
         }
     }
 
-    public static ArrayList<Factura> leerCSVFactura(String ruta) {
-        ArrayList<Factura> listaFacturas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
-            String linea;
-            // Leer la primera línea que generalmente contiene encabezados
-            String encabezados = br.readLine();
-            // Leer cada línea del archivo CSV
-            while ((linea = br.readLine()) != null) {
-                // Dividir la línea en partes usando coma como delimitador
-                String[] partes = linea.split(";");
-                // Crear un objeto Factura con los datos de la línea
-                Factura factura = crearFacturaDesdeLinea(partes);
-                // Agregar la factura a la lista
-                listaFacturas.add(factura);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        return listaFacturas;
-    }
-
-    private static Factura crearFacturaDesdeLinea(String[] partes) {
-        String nombre = partes[0];
-        String productos = partes[1];
-        double valor = Double.parseDouble(partes[2]);
-        TipoProducto tipo = TipoProducto.valueOf(partes[3]);
-
-        String fecha = partes[4];
-        String numeroFactura = partes[5];
-        String cliente = partes[6];
-        String id = partes[7];
-        int puntos = Integer.parseInt(partes[8]);
-
-        // Crear un objeto Factura con los datos de la línea
-       // return new Factura();
-        ArrayList<Producto> productoslist = new ArrayList<>();
-        productoslist.add(new Producto(productos,valor,tipo));
-        //return  new Factura(productoslist,fecha,numeroFactura,cliente);
-        return null;
-    }
 
 }
