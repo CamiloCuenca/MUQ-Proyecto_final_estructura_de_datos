@@ -106,41 +106,38 @@ public class DataUtils {
         }
     }
 
-    /** Función para escribir una factura en un archivo CSV
-     *
-     * @param factura
-     * @param rutaArchivo
-     */
-    public static void escribirFacturaCSV(Factura factura, String rutaArchivo) {
+    public static void escribirFacturaCSV(ArrayList<Factura> facturas, String rutaArchivo) {
         try (FileWriter fw = new FileWriter(rutaArchivo, true);
              PrintWriter pw = new PrintWriter(fw)) {
 
-            // Construir la línea CSV a partir de la factura
-            StringBuilder lineaCSV = new StringBuilder();
-            lineaCSV.append("\n")
-                    .append(factura.getID()).append(";")
-                    .append(factura.getCliente().getID()).append(";")
-                    .append(factura.getCliente().getNombre()).append(";")
-                    .append(factura.getCliente().getEdad()).append(";")
-                    .append(factura.getCliente().getSexo()).append(";")
-                    .append(factura.getCliente().getPais()).append(";")
-                    .append(factura.getCliente().getCiudad()).append(";")
-                    .append(factura.getProductos()).append(";")
-                    .append(factura.getTipoProducto()).append(";")
-                    .append(factura.getValorTotal()).append(";")
-                    .append(factura.getDIA()).append(";")
-                    .append(factura.getMES()).append(";")
-                    .append(factura.getANO());
+            for (Factura factura : facturas) {
+                // Construir la línea CSV a partir de la factura
+                StringBuilder lineaCSV = new StringBuilder();
+                lineaCSV.append(factura.getID()).append(";")
+                        .append(factura.getCliente().getID()).append(";")
+                        .append(factura.getCliente().getNombre()).append(";")
+                        .append(factura.getCliente().getEdad()).append(";")
+                        .append(factura.getCliente().getSexo()).append(";")
+                        .append(factura.getCliente().getPais()).append(";")
+                        .append(factura.getCliente().getCiudad()).append(";")
+                        .append(factura.getProductos()).append(";")
+                        .append(factura.getTipoProducto()).append(";")
+                        .append(factura.getValorTotal()).append(";")
+                        .append(factura.getDIA()).append(";")
+                        .append(factura.getMES()).append(";")
+                        .append(factura.getANO());
 
-            // Escribir la línea en el archivo CSV
-            pw.write(lineaCSV.toString());
+                // Escribir la línea en el archivo CSV
+                pw.println(lineaCSV.toString());
+            }
 
-            System.out.println("Factura escrita en el archivo CSV correctamente.");
+            System.out.println("Facturas escritas en el archivo CSV correctamente.");
 
         } catch (IOException e) {
-            System.err.println("Error al escribir la factura en el archivo CSV: " + e.getMessage());
+            System.err.println("Error al escribir las facturas en el archivo CSV: " + e.getMessage());
         }
     }
+
 
     /** Función para escribir el encabezado del archivo CSV
      *
@@ -155,22 +152,28 @@ public class DataUtils {
      * @param rutaArchivo
      * @return lista de las facturas
      */
-    public static List<Factura> leerFacturasDesdeCSV(String rutaArchivo) {
-        List<Factura> facturas = new ArrayList<>();
-
+    public static void leerFacturasDesdeCSV(String rutaArchivo) {
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
-            // Saltar la primera línea que contiene el encabezado
-            br.readLine();
-            // Leer las líneas restantes del archivo
+            int numeroFactura = 1; // Contador para el número de factura
+
+            // Leer las líneas del archivo
             while ((linea = br.readLine()) != null) {
+                // Imprimir el número de factura actual
+                System.out.print("Factura " + numeroFactura + ": ");
+
                 // Dividir la línea en campos utilizando el separador ";"
                 String[] campos = linea.split(";");
-                // Crear un objeto Factura a partir de los campos y agregarlo a la lista
-                Factura factura = crearFacturaDesdeCampos(campos);
-                if (factura != null) {
-                    facturas.add(factura);
+                // Imprimir cada campo en una línea separada
+                for (String campo : campos) {
+                    System.out.print(campo + ", ");
                 }
+
+                // Aumentar el contador de factura para la siguiente factura
+                numeroFactura++;
+
+                // Imprimir una línea en blanco para separar las facturas
+                System.out.println();
             }
 
             System.out.println("Facturas leídas del archivo CSV correctamente.");
@@ -178,8 +181,6 @@ public class DataUtils {
         } catch (IOException e) {
             System.err.println("Error al leer el archivo CSV: " + e.getMessage());
         }
-
-        return facturas;
     }
 
     /** Función para crear un objeto Factura a partir de los campos de una línea CSV
@@ -219,7 +220,7 @@ public class DataUtils {
     }
     //Main provisional para hacer pruebas
     public static void main(String[] args) {
-        System.out.println(leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
+      leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
     }
 }
 

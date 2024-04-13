@@ -6,6 +6,7 @@ import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
 import Model.objetos.Producto;
+import javafx.scene.chart.PieChart;
 
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -40,7 +41,7 @@ public class GeneradorFacturas {
      */
     private static List<Factura> generarFacturas() {
         List<Factura> listaFacturas = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio
             List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorios
             Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), 1, generarDiaAleatorioString(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
@@ -229,7 +230,9 @@ public class GeneradorFacturas {
         // Programar la generación de facturas cada 5 minutos
         scheduler.scheduleAtFixedRate(() -> {//se hace uso del hilo dandole las instrucciones que debe realizar.
             List<Factura> nuevasFacturas = generarFacturas();
-            imprimirFacturas(nuevasFacturas);
-        }, 0, 1, TimeUnit.MINUTES);//Para establecer el tiempo.
+            DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas,"src/main/resources/CSVFiles/Facturas.txt");
+            DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
+
+        }, 0, 10, TimeUnit.SECONDS);//Para establecer el tiempo.
     }
 }
