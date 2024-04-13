@@ -39,7 +39,7 @@ public class GeneradorFacturas {
      * Genera las facturas con atributos aleatorios.
      * @return lista de facturas generadas.
      */
-    private static List<Factura> generarFacturas() {
+    public static List<Factura> generarFacturas() {
         List<Factura> listaFacturas = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +16,7 @@
    <children>
       <AnchorPane id="anchorPaneD" fx:id="anchorPaneD" layoutY="-1.0" prefHeight="514.0" prefWidth="493.0">
          <children>
-            <Text id="txtLogo" fx:id="txtLogo" fill="WHITE" layoutX="173.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GiftLogic">
+            <Text id="txtLogo" fx:id="txtLogo" fill="WHITE" layoutX="173.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0">
                <font>
                   <Font size="35.0" />
                </font>
@@ -24,18 +25,27 @@
                   <String fx:value="text-field" />
                </styleClass>
             </Text>
+            <Text fill="#3dcdbc" layoutX="168.0" layoutY="269.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="GiftLogic" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+               <effect>
+                  <Glow level="0.81" />
+               </effect>
+            </Text>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="472.0" layoutY="-2.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="514.0" prefWidth="328.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;">
          <children>
-            <Text fill="#36375a" layoutX="81.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido">
+            <Text fill="#3dcdbc" layoutX="81.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
+               <effect>
+                  <Glow />
+               </effect>
             </Text>
-            <Button fx:id="btnIngresar" layoutX="47.0" layoutY="377.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #3194b7; -fx-background-radius: 15;" text="Ingresar" textFill="WHITE" />
-            <Text fill="#36375a" layoutX="48.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-            <Text fill="#36375a" layoutX="50.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password" />
+            <Button fx:id="btnIngresar" layoutX="47.0" layoutY="377.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Ingresar" textFill="WHITE" />
             <TextField fx:id="txtUsuario" layoutX="51.0" layoutY="245.0" prefHeight="18.0" prefWidth="228.0" />
             <ImageView fx:id="imgLogo" fitHeight="115.0" fitWidth="179.0" layoutX="106.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -44,6 +54,22 @@
             </ImageView>
             <PasswordField fx:id="pswContrasena" layoutX="51.0" layoutY="311.0" prefHeight="25.0" prefWidth="228.0" />
             <Label fx:id="lblMensaje" alignment="CENTER" layoutX="53.0" layoutY="349.0" prefHeight="18.0" prefWidth="228.0" textFill="#36375a" />
+            <Text fill="#3dcdbc" layoutX="48.0" layoutY="241.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <effect>
+                  <Glow level="0.2" />
+               </effect>
+            </Text>
+            <Text fill="#3dcdbc" layoutX="48.0" layoutY="307.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="password" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <effect>
+                  <Glow level="0.2" />
+               </effect>
+            </Text>
          </children>
       </AnchorPane>
    </children>

@@ -3,6 +3,11 @@
     -fx-background-size: cover;
 }
 
+#btnRegresar{
+    --body-background-color: #ffffff
+;
+}
+
 #tblFacturas .column-header .label {
     -fx-text-fill: #ffffff;
 }
@@ -19,3 +24,6 @@
 #transparentButton:hover {
     -fx-text-fill: #ffffff; /* Cambia el color del texto al pasar el mouse sobre el botón */
 }
+
+
+

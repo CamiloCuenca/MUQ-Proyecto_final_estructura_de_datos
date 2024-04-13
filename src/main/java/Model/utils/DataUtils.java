@@ -5,18 +5,9 @@ import Model.enums.Paises;
 import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
-import Model.objetos.PersonaPremio;
-import Model.objetos.Producto;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class DataUtils {
     public static String tipoAdmin;
@@ -26,34 +17,7 @@ public class DataUtils {
      * Una vez seleccionado el archivo, lo copia al directorio "src/main/resources/CSVFiles" dentro del proyecto.
      * Si el directorio de destino no existe, se crea automáticamente.
      */
-    public static void cargarArchivoCSV() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de texto", "*.txt", "*.csv")); // Filtro para archivos de texto
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
 
-        if (selectedFile != null) {
-            try {
-                System.out.println("Ruta del archivo seleccionado: " + selectedFile.getAbsolutePath());
-
-                // Verificar si el directorio de destino existe, si no, crearlo
-                Path destinationDirectory = Path.of("src/main/resources/CSVFiles");
-                if (!Files.exists(destinationDirectory)) {
-                    Files.createDirectories(destinationDirectory);
-                }
-
-                // Copiar el archivo seleccionado al directorio de destino
-                Path destinationPath = destinationDirectory.resolve(selectedFile.getName());
-                Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-
-                System.out.println("Archivo guardado en: " + destinationPath);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("No se seleccionó ningún archivo.");
-        }
-    }
     /**
      * Esta función verifica si un usuario con el nombre y la contraseña proporcionados existe en un archivo CSV.
      *
@@ -113,8 +77,8 @@ public class DataUtils {
             for (Factura factura : facturas) {
                 // Construir la línea CSV a partir de la factura
                 StringBuilder lineaCSV = new StringBuilder();
-                lineaCSV.append(factura.getID()).append(";")
-                        .append(factura.getCliente().getID()).append(";")
+                lineaCSV.append(factura.getIdFactura()).append(";")
+                        .append(factura.getCliente().getIdCliente()).append(";")
                         .append(factura.getCliente().getNombre()).append(";")
                         .append(factura.getCliente().getEdad()).append(";")
                         .append(factura.getCliente().getSexo()).append(";")
@@ -125,7 +89,7 @@ public class DataUtils {
                         .append(factura.getValorTotal()).append(";")
                         .append(factura.getDIA()).append(";")
                         .append(factura.getMES()).append(";")
-                        .append(factura.getANO());
+                        .append(factura.getANIO());
 
                 // Escribir la línea en el archivo CSV
                 pw.println(lineaCSV.toString());
@@ -196,10 +160,10 @@ public class DataUtils {
         }
         //Crear un objeto Factura a partir de los campos
         Factura factura = new Factura();
-        factura.setID(campos[0]);
+        factura.setIdFactura(campos[0]);
         //Cliente
         Cliente cliente = new Cliente();
-        cliente.setID(campos[1]);
+        cliente.setIdCliente(campos[1]);
         cliente.setNombre(campos[2]);
         cliente.setEdad(Integer.parseInt(campos[3]));
         cliente.setSexo(Genero.valueOf(campos[4]));
@@ -211,7 +175,7 @@ public class DataUtils {
         factura.setValorTotal(Double.parseDouble(campos[9]));
         factura.setDIA(campos[10]);
         factura.setMES(campos[11]);
-        factura.setANO(campos[12]);
+        factura.setANIO(campos[12]);
         factura.setCliente(cliente);
 
 
