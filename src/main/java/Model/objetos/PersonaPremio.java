@@ -7,6 +7,8 @@ public class PersonaPremio implements Comparable<PersonaPremio>{
 
     private Cliente cliente;
 
+    private Producto premio;
+
 
     public PersonaPremio(int prioridad, int pais, int secuencia,Cliente cliente) {
         this.prioridad = prioridad;
@@ -51,29 +53,6 @@ public class PersonaPremio implements Comparable<PersonaPremio>{
     @Override
     public int compareTo(PersonaPremio o) {
 
-        /*
-        if(this.prioridad>o.getPrioridad()){
-            return 1;
-        }else if(this.prioridad<o.getPrioridad()){
-            return -1;
-        }else{
-            if(this.pais>o.getPais()){
-                return 1;
-            }else if(this.pais<o.getPais()){
-                return -1;
-            }else{
-                if (this.secuencia>o.getSecuencia()){
-                    return 1;
-                }else if(this.secuencia<o.getSecuencia()){
-                    return -1;
-                }else{
-                    return 0;
-                }
-            }
-        }
-
-*/
-
         //Primero comparamos si es mujer, hombre o adulto mayor
         //El atributo prioridad es el que comparamos aca
         if (this.prioridad<o.getPrioridad()){
@@ -89,21 +68,16 @@ public class PersonaPremio implements Comparable<PersonaPremio>{
             }else if(this.pais>o.getPais()){
                 return -1;
             }else{
-                //Si estan en el mismo pais
-                //Comparamos la secuencia
-
-                //
 
                 if (this.secuencia>o.getSecuencia()){
-                    return 1;
-                }else if(this.secuencia<o.getSecuencia()){
                     return -1;
+                }else if(this.secuencia<o.getSecuencia()){
+                    return 1;
                 }else{
                     return 0;
                 }
             }
         }
-
 
 
     }

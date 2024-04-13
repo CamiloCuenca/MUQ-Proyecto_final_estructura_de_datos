@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.objetos.Factura;
-import Model.objetos.Premio;
+import Model.objetos.Producto;
 import Model.utils.DataUtils;
 import Model.utils.SceneUtils;
 import javafx.collections.FXCollections;
@@ -35,7 +35,7 @@ public class VentanaAdministradores implements Initializable {
     private TableColumn<Factura, String> colNumeroFactura;
 
     @FXML
-    private TableColumn<Premio, String> colPremios;
+    private TableColumn<Producto, String> colPremios;
 
 
     @FXML

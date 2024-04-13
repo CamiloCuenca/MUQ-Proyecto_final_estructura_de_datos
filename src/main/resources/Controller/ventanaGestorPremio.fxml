@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="536.0" prefWidth="994.0" style="-fx-background-color: #211E1E;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaGestorPremio">
+   <children>
+      <ImageView fitHeight="536.0" fitWidth="998.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Style/fondoLogin.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="291.0" layoutY="25.0" prefHeight="75.0" prefWidth="463.0">
+         <children>
+            <Label layoutX="65.0" layoutY="17.0" text="GESTOR DE PREMIOS" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="28.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="69.0" fitWidth="99.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/OIP.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="69.0" fitWidth="73.0" layoutX="399.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/OIP.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <TableView layoutX="53.0" layoutY="252.0" prefHeight="243.0" prefWidth="584.0">
+        <columns>
+          <TableColumn prefWidth="155.0" text="No. Factura" />
+          <TableColumn prefWidth="115.0" text="ID Cliente" />
+            <TableColumn prefWidth="153.0" text="Nombre" />
+            <TableColumn prefWidth="147.0" text="Premio" />
+        </columns>
+      </TableView>
+      <Button layoutX="844.0" layoutY="47.0" mnemonicParsing="false" style="-fx-background-color: #0CEBB6;" text="Salir al Menu">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TextField layoutX="75.0" layoutY="113.0" prefHeight="30.0" prefWidth="216.0" promptText="ID Cliente">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Button layoutX="305.0" layoutY="113.0" mnemonicParsing="false" style="-fx-background-color: #0CEBB6;" text="Buscar">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="411.0" layoutY="113.0" mnemonicParsing="false" style="-fx-background-color: #0CEBB6;" text="Escoger Premio">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TableView layoutX="681.0" layoutY="211.0" prefHeight="275.0" prefWidth="269.0">
+        <columns>
+          <TableColumn prefWidth="100.0" text="TipoProducto" />
+          <TableColumn prefWidth="89.0" text="Producto" />
+            <TableColumn prefWidth="75.0" text="Cantidad" />
+        </columns>
+      </TableView>
+      <Label layoutX="75.0" layoutY="85.0" text="Por favor ingresar ID del cliente" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="53.0" layoutY="163.0" mnemonicParsing="false" style="-fx-background-color: #0CEBB6;" text="Actualizar Tabla">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="708.0" layoutY="171.0" text="Productos adquiridos por el cliente" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
