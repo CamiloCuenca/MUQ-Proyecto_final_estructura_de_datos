@@ -112,4 +112,5 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
 
 
 
+
 }
