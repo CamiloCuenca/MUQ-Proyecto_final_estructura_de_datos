@@ -186,11 +186,83 @@ public class DataUtils {
     }
 
     //Main provisional para hacer pruebas
-    public static void main(String[] args) {
+    /**public static void main(String[] args) {
         System.out.println(leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
+    }**/
+
+    public static void main(String[] args) {
+        registrarClientes("src/main/resources/CSVFiles/Facturas.txt", "src/main/resources/CSVFiles/Clientes.txt");
+    }
+
+    /**
+     * Esta función registra los clientes en el archivo clientes.txt
+     * @param Facturas
+     * @param Clientes
+     */
+    public static void registrarClientes(String Facturas, String Clientes) {
+        BufferedReader br = null;
+        BufferedWriter bw = null;
+
+        try {
+            // Abrir el archivo de facturas en modo lectura
+            br = new BufferedReader(new FileReader(Facturas));
+            bw = new BufferedWriter(new FileWriter(Clientes, true)); // Abrir el archivo de clientes en modo escritura, con la opción de añadir al final
+
+            String lineaFactura;
+            while ((lineaFactura = br.readLine()) != null) { // Leer cada línea de facturas
+                String[] datosFactura = lineaFactura.split(";");
+                String idCliente = datosFactura[1];
+                String nombreCliente = datosFactura[2];
+
+                if (!clienteRegistrado(idCliente, Clientes)) { // Verificar si el cliente ya está registrado
+                    bw.write(idCliente + ";" + nombreCliente); // Escribir el idCliente y el nombreCliente en el archivo de clientes
+                    bw.newLine();
+                }
+            }
+            System.out.println("Clientes registrados correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al leer/escribir en los archivos: " + e.getMessage());
+        } finally {
+            // Cerrar los buffers
+            try {
+                if (br != null) {
+                    br.close();
+                }
+                if (bw != null) {
+                    bw.close();
+                }
+            } catch (IOException e) {
+                System.err.println("Error al cerrar los archivos: " + e.getMessage());
+            }
+        }
+    }
+
+    public static boolean clienteRegistrado(String idCliente, String nombreArchivoClientes) {
+        BufferedReader br = null;
+        try {
+            // Abrir el archivo de clientes en modo lectura
+            br = new BufferedReader(new FileReader(nombreArchivoClientes));
+            String linea;
+            while ((linea = br.readLine()) != null) { // Leer el archivo línea por línea para verificar si el cliente ya está registrado
+                String[] datosCliente = linea.split(";");
+                String id = datosCliente[0];
+                if (id.equals(idCliente)) {
+                    return true; // El cliente ya está registrado
+                }
+            }
+            return false; // El cliente no está registrado
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+            return false;
+        } finally {
+            // Cerrar el buffer de lectura
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException e) {
+                System.err.println("Error al cerrar el archivo: " + e.getMessage());
+            }
+        }
     }
 }
-
-
-
-
