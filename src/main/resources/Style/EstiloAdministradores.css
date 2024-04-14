@@ -1,4 +1,4 @@
-#borderPaneAdmin{
+#anchorPaneAdmi{
 -fx-background-image: url("fondoLogin.png");
     -fx-background-size: cover;
 }
@@ -9,6 +9,10 @@
 }
 
 #tblFacturas .column-header .label {
+    -fx-text-fill: #ffffff;
+}
+
+#tblFacturasProcesadas .column-header .label{
     -fx-text-fill: #ffffff;
 }
 
