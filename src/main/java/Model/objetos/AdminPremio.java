@@ -8,14 +8,33 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class AdminPremio extends Usuario{
 
     public static void main(String[] args) {
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
         AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
+        ArrayList<Factura>facturaArrayList1;
+        facturaArrayList1=adminPremio.lectorTXT();
 
-        System.out.println(adminPremio.lectorTXT());
+        PriorityQueue<PersonaPremio>personaPremios=new PriorityQueue<>();
+
+
+        for (int i = 0; i < facturaArrayList1.size(); i++) {
+            PersonaPremio premio=adminPremio.generarPersonPremio(facturaArrayList1.get(i),i);
+            personaPremios.add(premio);
+
+        }
+
+        System.out.println(personaPremios);
+
+        for (int j=0;j<personaPremios.size();j++) {
+            PersonaPremio aux=personaPremios.poll();
+            System.out.println(aux);
+        }
+
+        System.out.println();
     }
 
     private ArrayList<Factura>facturas;
@@ -27,22 +46,31 @@ public class AdminPremio extends Usuario{
     }
     //Fase beta
 
-    public PersonaPremio generarPersonPremio (Factura factura,int secuencia){
+    public PersonaPremio generarPersonPremio (Factura factura,int secuencia) {
 
         int prioridad = 0;
-        int pais=1;
+        int pais = 1;
 
-        if(factura.getCliente().getEdad()>60){
-            prioridad=3;
+        if (factura.getCliente().getEdad() > 60) {
+            prioridad = 3;
 
-        }else if(factura.getCliente().getSexo()== Genero.HOMBRE){
-            prioridad=1;
-        }else if(factura.getCliente().getSexo()==Genero.MUJER) {
+        } else if (factura.getCliente().getSexo() == Genero.HOMBRE) {
+            prioridad = 1;
+        } else if (factura.getCliente().getSexo() == Genero.MUJER) {
             prioridad = 2;
+        } else if (factura.getCliente().getPais() == Paises.INDIA) {
+            prioridad = 3;
+        } else if (factura.getCliente().getPais() == Paises.COLOMBIA) {
+            prioridad = 2;
+        } else if (factura.getCliente().getPais() == Paises.ARGENTINA) {
+            prioridad = 1;
         }
+
         PersonaPremio premio=new PersonaPremio(prioridad,pais,secuencia,factura.getCliente());
 
         return premio;
+
+
     }
 
     public ArrayList<Factura> lectorTXT (){
