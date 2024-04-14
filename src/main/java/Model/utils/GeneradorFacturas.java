@@ -6,7 +6,6 @@ import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
 import Model.objetos.Producto;
-import javafx.scene.chart.PieChart;
 
 import java.util.*;
 import java.util.concurrent.Executors;

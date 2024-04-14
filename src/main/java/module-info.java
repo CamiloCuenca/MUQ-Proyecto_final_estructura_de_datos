@@ -7,5 +7,7 @@ module project.muq {
     opens Controller to javafx.fxml;
 
     exports Controller;
+    exports Model.objetos;
+    opens Model.objetos to javafx.fxml;
     //opens Controller to javafx.fxml;
 }

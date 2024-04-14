@@ -116,7 +116,8 @@ public class DataUtils {
      * @param rutaArchivo
      * @return lista de las facturas
      */
-    public static void leerFacturasDesdeCSV(String rutaArchivo) {
+    public static ArrayList<Factura> leerFacturasDesdeCSV(String rutaArchivo) {
+        ArrayList<Factura> facturas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
             int numeroFactura = 1; // Contador para el número de factura
@@ -132,6 +133,11 @@ public class DataUtils {
                 for (String campo : campos) {
                     System.out.print(campo + ", ");
                 }
+                //CREar objeto factura;
+                Factura  f = crearFacturaDesdeCampos(campos);
+                facturas.add(f);
+
+
 
                 // Aumentar el contador de factura para la siguiente factura
                 numeroFactura++;
@@ -145,6 +151,8 @@ public class DataUtils {
         } catch (IOException e) {
             System.err.println("Error al leer el archivo CSV: " + e.getMessage());
         }
+
+        return facturas;
     }
 
     /** Función para crear un objeto Factura a partir de los campos de una línea CSV
@@ -184,7 +192,7 @@ public class DataUtils {
     }
     //Main provisional para hacer pruebas
     public static void main(String[] args) {
-      leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
+        System.out.println(leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
     }
 }
 

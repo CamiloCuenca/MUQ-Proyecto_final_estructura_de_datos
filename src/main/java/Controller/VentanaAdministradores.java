@@ -5,12 +5,12 @@ import Model.enums.Paises;
 import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
-import Model.objetos.Premio;
 import Model.objetos.Producto;
 import Model.utils.DataUtils;
 import Model.utils.GeneradorFacturas;
 import Model.utils.SceneUtils;
-import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,16 +26,9 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.print.DocFlavor;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -44,25 +37,22 @@ public class VentanaAdministradores implements Initializable {
     private TableColumn<Factura, String> colAnio;
 
     @FXML
-    private TableColumn<Cliente, String> colCiudad;
+    private TableColumn<Factura, String> colCiudad;
 
     @FXML
-    private TableColumn<Cliente, String> colCliente;
+    private TableColumn<Factura, String> colCliente;
 
     @FXML
     private TableColumn<Factura, String> colDia;
 
     @FXML
-    private TableColumn<Cliente, Integer> colEdad;
+    private TableColumn<Factura, String> colEdad;
 
     @FXML
-    private TableColumn<Factura, Integer> colFactura;
+    private TableColumn<Factura, String> colGenero;
 
     @FXML
-    private TableColumn<Cliente, Genero> colGenero;
-
-    @FXML
-    private TableColumn<Cliente, String> colIdCliente;
+    private TableColumn<Factura, String> colIdCliente;
 
     @FXML
     private TableColumn<Factura, String> colIdFactura;
@@ -71,7 +61,7 @@ public class VentanaAdministradores implements Initializable {
     private TableColumn<Factura, String> colMes;
 
     @FXML
-    private TableColumn<Cliente, Paises> colPais;
+    private TableColumn<Factura, String> colPais;
 
     @FXML
     private TableColumn<Producto, String> colProductos;
@@ -107,11 +97,12 @@ public class VentanaAdministradores implements Initializable {
     @FXML
     private ScrollPane scpTabla;
 
+
     @FXML
-    private static TableView<Factura> tblTabla;
+    private TableView<Factura> tblFacturas;
 
 
-    private static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
+    private static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
 
 
     @FXML
@@ -135,7 +126,7 @@ public class VentanaAdministradores implements Initializable {
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
-    public static void cargarArchivoCSV() {
+    public void cargarArchivoCSV() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de texto", "*.txt", "*.csv")); // Filtro para archivos de texto
         File selectedFile = fileChooser.showOpenDialog(new Stage());
@@ -147,7 +138,7 @@ public class VentanaAdministradores implements Initializable {
                 // Reemplazar la lectura de archivo con la generación de facturas
                 List<Factura> nuevasFacturas = GeneradorFacturas.generarFacturas();
                 listaFacturas.addAll(nuevasFacturas);
-                tblTabla.setItems(listaFacturas);
+                tblFacturas.setItems(listaFacturas);
 
             } catch (Exception e) { // Manejo de excepciones genérico
                 e.printStackTrace();
@@ -160,17 +151,20 @@ public class VentanaAdministradores implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        tblTabla.setItems(listaFacturas);
+        //ArrayList<Factura> listaFacturasCSV = DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
+
+        //listaFacturasCSV.add(DataUtils.escribirFacturaCSV());
+        tblFacturas.setItems(listaFacturas);
         colIdFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
-        colIdCliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
-        colCliente.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colEdad.setCellValueFactory(new PropertyValueFactory<>("edad"));
-        colGenero.setCellValueFactory(new PropertyValueFactory<>("Genero"));
-        colPais.setCellValueFactory(new PropertyValueFactory<>("Paises"));
-        colCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
+        colIdCliente.setCellValueFactory(cellData   -> new SimpleStringProperty(cellData.getValue().getCliente().getIdCliente()));
+        colCliente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getNombre()));
+        colEdad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCliente().getEdad())));
+        colGenero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getSexo().name()));
+        colPais.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getPais().name()));
+        colCiudad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getCiudad()));
         colProductos.setCellValueFactory(new PropertyValueFactory<>("productos"));
         colTipoProducto.setCellValueFactory(new PropertyValueFactory<>("TipoProducto"));
-        colValorTotal.setCellValueFactory(new PropertyValueFactory<>("e valorTotal"));
+        colValorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
         colDia.setCellValueFactory(new PropertyValueFactory<>("DIA"));
         colMes.setCellValueFactory(new PropertyValueFactory<>("MES"));
         colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
