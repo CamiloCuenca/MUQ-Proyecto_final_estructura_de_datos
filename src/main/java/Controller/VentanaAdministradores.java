@@ -101,31 +101,21 @@ public class VentanaAdministradores implements Initializable {
     @FXML
     private TableView<Factura> tblFacturas;
 
-
+    //  ObservableList de tipo factura que se usara para cargar las facturas de un arraylist en la tabla de factura
     private static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
 
-
+    /** Esta función es el evento del botón de cargar un archivo de texto (csv)
+     *
+     * @param event
+     */
     @FXML
     void cargarFactura(ActionEvent event) {
         cargarArchivoCSV();
     }
 
-    @FXML
-    void eliminarFactura(ActionEvent event) {
-
-    }
-
-    @FXML
-    void procesarFactura(ActionEvent event) {
-
-    }
-
-    public void Regresar(ActionEvent event) throws IOException {
-        SceneUtils.cargarVentana("/Controller/login.fxml");
-        // en esta linea, esconde la ventana actual
-        ((Node) (event.getSource())).getScene().getWindow().hide();
-    }
-
+    /** Esta función carga un archivo de texto al proyecto.
+     *
+     */
     public void cargarArchivoCSV() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos de texto", "*.txt", "*.csv")); // Filtro para archivos de texto
@@ -148,12 +138,36 @@ public class VentanaAdministradores implements Initializable {
         }
     }
 
+    @FXML
+    void eliminarFactura(ActionEvent event) {
+
+    }
+
+    @FXML
+    void procesarFactura(ActionEvent event) {
+
+    }
+
+    /** Esta función es el evento del botón de regresar, el cual en este caso me regresa a la ventana del login
+     *
+     * @param event
+     * @throws IOException
+     */
+    public void Regresar(ActionEvent event) throws IOException {
+        SceneUtils.cargarVentana("/Controller/login.fxml");
+        // en esta linea, esconde la ventana actual
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //ArrayList<Factura> listaFacturasCSV = DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
-
         //listaFacturasCSV.add(DataUtils.escribirFacturaCSV());
+
+        // PropertyValueFactory me vincula los valores de las celdas a las propiedades de los elementos de la tabla
+
+        //Carga de satos a la tabla
         tblFacturas.setItems(listaFacturas);
         colIdFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
         colIdCliente.setCellValueFactory(cellData   -> new SimpleStringProperty(cellData.getValue().getCliente().getIdCliente()));
@@ -171,10 +185,6 @@ public class VentanaAdministradores implements Initializable {
 
 
         // Configurar la altura de la tabla para que se ajuste automáticamente al contenido
-
-
-
-
         CoreMethod.girarImagen(viwLogo);
         CoreMethod.girarImagen(viwLogo1);
         CoreMethod.girarImagen(viwLogo2);
