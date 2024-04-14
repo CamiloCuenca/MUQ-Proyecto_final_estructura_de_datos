@@ -2,6 +2,7 @@ package Controller;
 
 import Model.enums.TipoProducto;
 import Model.objetos.*;
+import Model.utils.DataUtils;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -138,6 +139,8 @@ public class VentanaGestorPremio implements Initializable {
      colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
 
      System.out.println(facturas);
+
+      DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.txt");
 
 
     }

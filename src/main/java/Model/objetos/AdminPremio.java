@@ -124,9 +124,6 @@ public class AdminPremio extends Usuario{
         ArrayList<Factura>facturaArrayList1;
         facturaArrayList1=adminPremio.lectorTXT();
 
-
-
-
         for (int i=0;i<personaPremios.size();i++){
 
             Cliente aux=personaPremios.get(i).getCliente();
@@ -142,6 +139,8 @@ public class AdminPremio extends Usuario{
 
         return facturaArrayList;
     }
+
+    
 
     public static ArrayList<PersonaPremio> FacturaToPersonaPremio() {
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
@@ -178,7 +177,6 @@ public class AdminPremio extends Usuario{
         System.out.println(personaPremios1);
 
         return personaPremios1;
-
 
 
     }
