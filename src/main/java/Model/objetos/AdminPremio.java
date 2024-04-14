@@ -123,7 +123,7 @@ public class AdminPremio extends Usuario{
             Cliente aux=personaPremios.get(i).getCliente();
 
             for (int j=0;j<facturaArrayList1.size();j++){
-                if(facturaArrayList1.get(j).getCliente().getID().equals(aux.getID())){
+                if(facturaArrayList1.get(j).getCliente().getIdCliente().equals(aux.getIdCliente())){
                     facturaArrayList.add(facturaArrayList1.get(j));
 
                 }

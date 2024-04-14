@@ -1,11 +1,37 @@
-#borderPaneAdmin{
+#anchorPaneAdmi{
 -fx-background-image: url("fondoLogin.png");
     -fx-background-size: cover;
+}
+
+#btnRegresar{
+    --body-background-color: #ffffff
+;
 }
 
 #tblFacturas .column-header .label {
     -fx-text-fill: #ffffff;
 }
+
+#tblFacturasProcesadas .column-header .label{
+    -fx-text-fill: #ffffff;
+}
+
+.table-row-cell:selected {
+    /* Cambia el color del texto en las celdas seleccionadas de la tabla */
+    -fx-text-fill:  #3dcdbc; /* Color verde */
+}
+
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #3dcdbc; /* Cambia el color del texto cuando se selecciona una fila */
+}
+
+
+.table-cell {
+    /* Cambia el color del texto en todas las celdas de la tabla */
+    -fx-text-fill: #ffffff; /* Color rojo */
+}
+
 
 #btnRegresar{
     -fx-background-color: transparent; /* Establece el color de fondo como transparente */
@@ -19,3 +45,6 @@
 #transparentButton:hover {
     -fx-text-fill: #ffffff; /* Cambia el color del texto al pasar el mouse sobre el botón */
 }
+
+
+

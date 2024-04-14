@@ -5,7 +5,7 @@ import Model.enums.Paises;
 
 public class Cliente {
 
-    private String ID;
+    private String idCliente;
     private String nombre;
     private int edad;
     private Genero sexo;
@@ -13,8 +13,8 @@ public class Cliente {
     private String ciudad;
 
 
-    public Cliente(String ID, String nombre, int edad, Genero sexo, Paises pais, String ciudad) {
-        this.ID = ID;
+    public Cliente(String idCliente, String nombre, int edad, Genero sexo, Paises pais, String ciudad) {
+        this.idCliente = idCliente;
         this.nombre = nombre;
         this.edad = edad;
         this.sexo = sexo;
@@ -26,12 +26,12 @@ public class Cliente {
 
     }
 
-    public String getID() {
-        return ID;
+    public String getIdCliente() {
+        return idCliente;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNombre() {
@@ -77,7 +77,7 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "ID='" + ID + '\'' +
+                "ID='" + idCliente + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", edad=" + edad +
                 ", sexo=" + sexo +

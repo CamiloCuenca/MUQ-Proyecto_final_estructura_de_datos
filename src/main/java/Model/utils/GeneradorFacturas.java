@@ -38,9 +38,9 @@ public class GeneradorFacturas {
      * Genera las facturas con atributos aleatorios.
      * @return lista de facturas generadas.
      */
-    private static List<Factura> generarFacturas() {
+    public static List<Factura> generarFacturas() {
         List<Factura> listaFacturas = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio
             List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorios
             Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), 1, generarDiaAleatorioString(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
@@ -225,16 +225,14 @@ public class GeneradorFacturas {
         }
     }
 
+    //  Main provisional para hacer pruebas
     public static void main(String[] args) {
         // Programar la generación de facturas cada 5 minutos
         scheduler.scheduleAtFixedRate(() -> {//se hace uso del hilo dandole las instrucciones que debe realizar.
             List<Factura> nuevasFacturas = generarFacturas();
-            imprimirFacturas(nuevasFacturas);
-            // Llamar al método para escribir las facturas en el archivo CSV
-            for (Factura factura : nuevasFacturas) {
-                DataUtils.escribirFacturaCSV(factura, "src/main/resources/CSVFiles/Facturas.txt");
-            }
+            DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas,"src/main/resources/CSVFiles/Facturas.txt");
+            DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
 
-        }, 0, 1, TimeUnit.MINUTES);//Para establecer el tiempo.
+        }, 0, 10, TimeUnit.SECONDS);//Para establecer el tiempo.
     }
 }

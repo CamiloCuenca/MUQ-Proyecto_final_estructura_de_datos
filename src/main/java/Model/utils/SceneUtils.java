@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class SceneUtils {
 
-    /** Esta funnción carga una nueva ventana
+    /** Esta función carga una nueva ventana
      *
      * @param rutaVentana es la ruta de la ventana que se desa abrir
      * @throws IOException

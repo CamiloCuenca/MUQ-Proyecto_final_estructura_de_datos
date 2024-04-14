@@ -1,32 +1,30 @@
 package Model.objetos;
 
 import Model.enums.TipoProducto;
-
-import java.util.ArrayList;
-import java.util.Date;
+import Model.objetos.Cliente;
 
 public class Factura {
     //Atributos
-    private String ID ;
+    private String idFactura;
     private String productos;
     private TipoProducto tipoProducto;
     private double valorTotal;
     private String DIA;
     private String MES;
-    private String ANO;
+    private String ANIO;
     private Cliente cliente;
 
     //Constructor
 
 
-    public Factura(String ID, String productos, TipoProducto tipoProducto, double valorTotal, String DIA, String MES, String ANO, Cliente cliente) {
-        this.ID = ID;
+    public Factura(String IdFactura, String productos, TipoProducto tipoProducto, double valorTotal, String DIA, String MES, String ANIO, Cliente cliente) {
+        this.idFactura = IdFactura;
         this.productos = productos;
         this.tipoProducto = tipoProducto;
         this.valorTotal = valorTotal;
         this.DIA = DIA;
         this.MES = MES;
-        this.ANO = ANO;
+        this.ANIO = ANIO;
         this.cliente = cliente;
     }
 
@@ -42,12 +40,12 @@ public class Factura {
         this.productos = productos;
     }
 
-    public String getID() {
-        return ID;
+    public String getIdFactura() {
+        return idFactura;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setIdFactura(String idFactura) {
+        this.idFactura = idFactura;
     }
 
     public TipoProducto getTipoProducto() {
@@ -82,12 +80,12 @@ public class Factura {
         this.MES = MES;
     }
 
-    public String getANO() {
-        return ANO;
+    public String getANIO() {
+        return ANIO;
     }
 
-    public void setANO(String ANO) {
-        this.ANO = ANO;
+    public void setANIO(String ANIO) {
+        this.ANIO = ANIO;
     }
 
     public Cliente getCliente() {
@@ -101,13 +99,13 @@ public class Factura {
     @Override
     public String toString() {
         return "Factura{" +
-                "ID='" + ID + '\'' +
+                "ID='" + idFactura + '\'' +
                 ", productos='" + productos + '\'' +
                 ", tipoProducto=" + tipoProducto +
                 ", valorTotal=" + valorTotal +
                 ", DIA='" + DIA + '\'' +
                 ", MES='" + MES + '\'' +
-                ", ANO='" + ANO + '\'' +
+                ", ANO='" + ANIO + '\'' +
                 ", cliente=" + cliente +
                 '}';
     }

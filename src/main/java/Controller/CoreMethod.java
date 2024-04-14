@@ -84,7 +84,7 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
     public static void girarImagen(ImageView imageView) {
         RotateTransition rotate = new RotateTransition();
         rotate.setNode(imageView);
-        rotate.setDuration(Duration.millis(1700));
+        rotate.setDuration(Duration.millis(2200));
         rotate.setCycleCount(TranslateTransition.INDEFINITE);
         rotate.setInterpolator(Interpolator.LINEAR);
         rotate.setByAngle(360);
