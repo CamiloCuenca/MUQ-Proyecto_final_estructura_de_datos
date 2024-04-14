@@ -7,11 +7,14 @@ import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
 import Model.objetos.Producto;
+import javafx.application.Platform;
 
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import static Controller.VentanaAdministradores.listaFacturas;
 
 public class GeneradorFacturas {
 
@@ -44,10 +47,24 @@ public class GeneradorFacturas {
         for (int i = 0; i < 2; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio
             List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorios
-            Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), generarValorTotal(), generarDias(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
+
+            Factura factura = new Factura(generarIdFactura(), convertirProductosAString(productos),convertirTipoProductoAString(productos), generarValorTotal(), generarDias(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
             listaFacturas.add(factura);
         }
         return listaFacturas;
+    }
+
+    public static String convertirTipoProductoAString(List<Producto> productos){
+        StringBuilder productosString = new StringBuilder();
+        for (Producto p:productos){
+            productosString.append(p.getTipo());
+            productosString.append("||");
+        }
+        // Eliminar el último "||" si es necesario
+        if (!productosString.isEmpty()) {
+            productosString.delete(productosString.length() - 2, productosString.length());
+        }
+        return productosString.toString();
     }
 
     /**
@@ -63,6 +80,24 @@ public class GeneradorFacturas {
             productos.add(new Producto(nombre, tipo));
         }
         return productos;
+    }
+
+    /** Esta función convierte una lista de productos en un String separado por ||
+     *
+     * @param productos
+     * @return
+     */
+    private static String convertirProductosAString(List<Producto> productos) {
+        StringBuilder productosString = new StringBuilder();
+        for (Producto producto : productos) {
+            productosString.append(producto.getNombre());
+            productosString.append("||");
+        }
+        // Eliminar el último "||" si es necesario
+        if (!productosString.isEmpty()) {
+            productosString.delete(productosString.length() - 2, productosString.length());
+        }
+        return productosString.toString();
     }
 
     /**
@@ -259,7 +294,10 @@ public class GeneradorFacturas {
         scheduler.scheduleAtFixedRate(() -> {
             List<Factura> nuevasFacturas = generarFacturas();
             DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.txt");
-            VentanaAdministradores.actualizarTabla(nuevasFacturas);
+            //VentanaAdministradores.actualizarTabla(nuevasFacturas);
+            Platform.runLater(() -> {
+                VentanaAdministradores.listaFacturas.addAll(nuevasFacturas);
+            });
         }, 0, 20, TimeUnit.SECONDS);
     }
 }

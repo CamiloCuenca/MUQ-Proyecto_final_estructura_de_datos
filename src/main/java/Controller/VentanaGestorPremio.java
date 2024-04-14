@@ -1,9 +1,9 @@
 package Controller;
 
-import Model.objetos.Factura;
-import Model.objetos.FacturaAux;
-import Model.objetos.PersonaPremio;
-import Model.objetos.Producto;
+import Model.enums.TipoProducto;
+import Model.objetos.*;
+import Model.utils.DataUtils;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ import java.util.ResourceBundle;
 
 public class VentanaGestorPremio implements Initializable {
 
-   private ArrayList<Factura>facturas;
+   private ArrayList<PersonaPremio> personaPremios = AdminPremio.FacturaToPersonaPremio();
+   private ArrayList<Factura>facturas = AdminPremio.convertirFactura(personaPremios);
 
 
 
@@ -48,24 +50,33 @@ public class VentanaGestorPremio implements Initializable {
 
     //Columna tabla 1- IDCliente
     @FXML
-    private TableColumn<FacturaAux, String> colCliente;
-
-
-
-    @FXML
-    private TableColumn<FacturaAux, String> colFactura;
-
-    //Columna nombre cliente
-
-    @FXML
-    private TableColumn<FacturaAux, String> colNombre;
-    //Columna premio que es producto en String
-    @FXML
-    private TableColumn<FacturaAux, String> colPremio;
-    //Tipo producto
-
-    @FXML
-    private TableColumn<FacturaAux, String> colTipo;
+    private TableColumn<Factura, String> colAnio;
+ @FXML
+ private TableColumn<Factura, String> colCiudad;
+ @FXML
+ private TableColumn<Factura, String> colCliente;
+ @FXML
+ private TableColumn<Factura, String> colDia;
+ @FXML
+ private TableColumn<Factura, String> colEdad;
+ @FXML
+ private TableColumn<Factura, String> colGenero;
+ @FXML
+ private TableColumn<Factura, String> colIdCliente;
+ @FXML
+ private TableColumn<Factura, String> colIdFactura;
+ @FXML
+ private TableColumn<Factura, String> colMes;
+ @FXML
+ private TableColumn<Factura, String> colPais;
+ @FXML
+ private TableColumn<Producto, String> colProductos;
+ @FXML
+ private TableColumn<Producto, TipoProducto> colTipoProducto;
+ @FXML
+ private TableColumn<Factura, Double> colValorTotal;
+ @FXML
+ private TableView<Factura> tblFacturas;
 
 
     @FXML
@@ -73,9 +84,6 @@ public class VentanaGestorPremio implements Initializable {
 
     @FXML
     private TableColumn<Producto, String> columTipo;
-
-    @FXML
-    private TableView<FacturaAux> tblPremiosPersonas;
 
     @FXML
     private TableView<Producto> tblProductos;
@@ -115,7 +123,24 @@ public class VentanaGestorPremio implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+     tblFacturas.setItems(convertirToObservable(facturas));
+     colIdFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
+     colIdCliente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getIdCliente()));
+     colCliente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getNombre()));
+     colEdad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCliente().getEdad())));
+     colGenero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getSexo().name()));
+     colPais.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getPais().name()));
+     colCiudad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getCiudad()));
+     colProductos.setCellValueFactory(new PropertyValueFactory<>("productos"));
+     colTipoProducto.setCellValueFactory(new PropertyValueFactory<>("TipoProducto"));
+     colValorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+     colDia.setCellValueFactory(new PropertyValueFactory<>("DIA"));
+     colMes.setCellValueFactory(new PropertyValueFactory<>("MES"));
+     colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
 
+     System.out.println(facturas);
+
+      DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.txt");
 
 
     }

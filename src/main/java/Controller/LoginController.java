@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Exception.ExceptionVerificar;
 import Model.utils.DataUtils;
+import Model.utils.GeneradorFacturas;
 import Model.utils.SceneUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -101,6 +102,9 @@ public class LoginController implements Initializable {
             CoreMethod.mostrarErrorTemporalmente(lblMensaje);
 
         }
+
+        //Se inicia el hilo de generar facturas
+        GeneradorFacturas.iniciarHiloGeneradorFacturas();
     }
 
     /** Función de inicialización de la ventana

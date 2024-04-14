@@ -7,7 +7,7 @@ public class Factura {
     //Atributos
     private String idFactura;
     private String productos;
-    private TipoProducto tipoProducto;
+    private String tipoProducto;
     private double valorTotal;
     private String DIA;
     private String MES;
@@ -17,7 +17,7 @@ public class Factura {
     //Constructor
 
 
-    public Factura(String IdFactura, String productos, TipoProducto tipoProducto, double valorTotal, String DIA, String MES, String ANIO, Cliente cliente) {
+    public Factura(String IdFactura, String productos, String tipoProducto, double valorTotal, String DIA, String MES, String ANIO, Cliente cliente) {
         this.idFactura = IdFactura;
         this.productos = productos;
         this.tipoProducto = tipoProducto;
@@ -48,11 +48,11 @@ public class Factura {
         this.idFactura = idFactura;
     }
 
-    public TipoProducto getTipoProducto() {
+    public String getTipoProducto() {
         return tipoProducto;
     }
 
-    public void setTipoProducto(TipoProducto tipoProducto) {
+    public void setTipoProducto(String tipoProducto) {
         this.tipoProducto = tipoProducto;
     }
 

@@ -85,11 +85,11 @@ public class VentanaAdministradores implements Initializable {
     @FXML
     private AnchorPane anchorPaneAdmi;
     @FXML
-    private TableView<Factura> tblFacturas;
+    private  TableView<Factura> tblFacturas;
 
     // ObservableList para cargar las facturas desde un archivo CSV
-    //private static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
-    private static  ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
+    public static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
+    //public static  ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
 
     // Método para cargar un archivo CSV
     @FXML
@@ -149,21 +149,6 @@ public class VentanaAdministradores implements Initializable {
     }
 
 
-    /***
-     * Metodo que se encarga de actualizarme la lista.
-     * @param nuevasFacturas
-     */
-
-    public static void actualizarTabla(List<Factura> nuevasFacturas) {
-        // Actualizar la lista de facturas en la interfaz gráfica
-        Platform.runLater(() -> {
-            // Agregar las nuevas facturas a la lista existente
-            listaFacturas.addAll(nuevasFacturas);
-        });
-    }
-
-
-
 
 
 
@@ -187,5 +172,6 @@ public class VentanaAdministradores implements Initializable {
         colMes.setCellValueFactory(new PropertyValueFactory<>("MES"));
         colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
     }
+
 
 }

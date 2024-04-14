@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,9 +12,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="536.0" prefWidth="994.0" style="-fx-background-color: #211E1E;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaGestorPremio">
+<AnchorPane prefHeight="536.0" prefWidth="994.0" style="-fx-background-color: #211E1E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaGestorPremio">
    <children>
-      <ImageView fitHeight="536.0" fitWidth="998.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="674.0" fitWidth="1201.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Style/fondoLogin.png" />
          </image>
@@ -37,15 +38,6 @@
             </ImageView>
          </children>
       </Pane>
-      <TableView fx:id="tblPremiosPersonas" layoutX="53.0" layoutY="230.0" prefHeight="265.0" prefWidth="571.0">
-        <columns>
-          <TableColumn fx:id="colFactura" prefWidth="89.0" text="No. Factura" />
-          <TableColumn fx:id="colCliente" prefWidth="105.0" text="ID Cliente" />
-            <TableColumn fx:id="colNombre" prefWidth="149.0" text="Nombre" />
-            <TableColumn fx:id="colPremio" prefWidth="127.0" text="Premio" />
-            <TableColumn fx:id="colTipo" prefWidth="100.0" text="TipoProducto" />
-        </columns>
-      </TableView>
       <Button fx:id="ButtonSalir" layoutX="844.0" layoutY="47.0" mnemonicParsing="false" style="-fx-background-color: #0CEBB6;" text="Salir al Menu">
          <font>
             <Font size="15.0" />
@@ -66,7 +58,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <TableView fx:id="tblProductos" layoutX="681.0" layoutY="211.0" prefHeight="275.0" prefWidth="269.0">
+      <TableView fx:id="tblProductos" layoutX="929.0" layoutY="211.0" prefHeight="275.0" prefWidth="269.0">
         <columns>
           <TableColumn fx:id="columTipo" prefWidth="133.0" text="TipoProducto" />
           <TableColumn fx:id="columProducto" prefWidth="129.0" text="Producto" />
@@ -77,15 +69,40 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="ButtonActualizar" layoutX="53.0" layoutY="179.0" mnemonicParsing="false" onAction="#OnActualizar" style="-fx-background-color: #0CEBB6;" text="Actualizar Tabla">
+      <Button fx:id="ButtonActualizar" layoutX="75.0" layoutY="155.0" mnemonicParsing="false" onAction="#OnActualizar" style="-fx-background-color: #0CEBB6;" text="Actualizar Tabla">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Label layoutX="708.0" layoutY="171.0" text="Productos adquiridos por el cliente" textFill="WHITE">
+      <Label layoutX="956.0" layoutY="171.0" text="Productos adquiridos por el cliente" textFill="WHITE">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
+      <AnchorPane layoutX="14.0" layoutY="208.0" prefHeight="379.0" prefWidth="745.0" style="-fx-background-color: #3b4474; -fx-background-radius: 15;">
+         <children>
+            <ScrollPane fx:id="scpTabla" layoutX="19.0" layoutY="14.0" prefHeight="374.0" prefWidth="883.0" style="-fx-border-color: #3dcdbc;">
+               <content>
+                  <TableView fx:id="tblFacturas" prefHeight="368.0" prefWidth="903.0" style="-fx-background-color: #ffffff;" stylesheets="@../Style/EstiloAdministradores.css">
+                     <columns>
+                        <TableColumn fx:id="colIdFactura" prefWidth="112.0" style="-fx-background-color: #36375a;" text="ID Factura" />
+                        <TableColumn fx:id="colIdCliente" prefWidth="140.0" style="-fx-background-color: #36375a;" text="ID cliente" />
+                        <TableColumn fx:id="colCliente" prefWidth="123.0" style="-fx-background-color: #36375a;" text="Cliente" />
+                        <TableColumn fx:id="colEdad" prefWidth="148.0" style="-fx-background-color: #36375a;" text="Edad" />
+                        <TableColumn fx:id="colGenero" prefWidth="118.0" style="-fx-background-color: #36375a;" text="Genero" />
+                        <TableColumn fx:id="colPais" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Pais" />
+                        <TableColumn fx:id="colCiudad" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Ciudad" />
+                        <TableColumn fx:id="colProductos" prefWidth="75.0" style="-fx-background-color: #36375a;" text="productos" />
+                        <TableColumn fx:id="colTipoProducto" prefWidth="75.0" style="-fx-background-color: #36375a;" text="TIpo producto" />
+                        <TableColumn fx:id="colValorTotal" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Valor total" />
+                        <TableColumn fx:id="colDia" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Dia" />
+                        <TableColumn fx:id="colMes" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Mes" />
+                        <TableColumn fx:id="colAnio" prefWidth="75.0" style="-fx-background-color: #36375a;" text="AÑo" />
+                     </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
