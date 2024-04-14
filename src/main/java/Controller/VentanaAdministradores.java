@@ -136,14 +136,14 @@ public class VentanaAdministradores implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Configurar las columnas de las tablas
-        configurarColumnas(tblFacturas, colIdFactura, colIdCliente, colCliente, colEdad, colGenero, colPais, colCiudad, colProductos, colTipoProducto, colValorTotal, colDia, colMes, colAnio);
+        configurarColumnas(tblFacturas, colIdFactura, colIdCliente, colCliente, colEdad, colGenero, colPais, colCiudad,
+                colProductos, colTipoProducto, colValorTotal, colDia, colMes, colAnio);
         CoreMethod.girarImagen(viwLogo);
-        //configurarActualizacionAutomatica();
-
+        // Cargar las facturas desde el archivo CSV al inicializar la ventana
+        // Configurar la tabla
+        tblFacturas.setItems(listaFacturas);
         // Ajustar la política de redimensionamiento de columnas de la tabla
         tblFacturas.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
         // Configurar el ancho preferido de la tabla
         tblFacturas.setPrefWidth(Region.USE_COMPUTED_SIZE);
     }
@@ -187,4 +187,5 @@ public class VentanaAdministradores implements Initializable {
         colMes.setCellValueFactory(new PropertyValueFactory<>("MES"));
         colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
     }
+
 }
