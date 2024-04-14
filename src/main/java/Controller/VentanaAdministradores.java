@@ -6,6 +6,7 @@ import Model.objetos.Producto;
 import Model.utils.DataUtils;
 import Model.utils.GeneradorFacturas;
 import Model.utils.SceneUtils;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,8 +28,12 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class VentanaAdministradores implements Initializable {
 
@@ -83,7 +88,8 @@ public class VentanaAdministradores implements Initializable {
     private TableView<Factura> tblFacturas;
 
     // ObservableList para cargar las facturas desde un archivo CSV
-    private static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
+    //private static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
+    private static  ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
 
     // Método para cargar un archivo CSV
     @FXML
@@ -133,6 +139,7 @@ public class VentanaAdministradores implements Initializable {
         // Configurar las columnas de las tablas
         configurarColumnas(tblFacturas, colIdFactura, colIdCliente, colCliente, colEdad, colGenero, colPais, colCiudad, colProductos, colTipoProducto, colValorTotal, colDia, colMes, colAnio);
         CoreMethod.girarImagen(viwLogo);
+        //configurarActualizacionAutomatica();
 
         // Ajustar la política de redimensionamiento de columnas de la tabla
         tblFacturas.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
@@ -140,6 +147,25 @@ public class VentanaAdministradores implements Initializable {
         // Configurar el ancho preferido de la tabla
         tblFacturas.setPrefWidth(Region.USE_COMPUTED_SIZE);
     }
+
+
+    /***
+     * Metodo que se encarga de actualizarme la lista.
+     * @param nuevasFacturas
+     */
+
+    public static void actualizarTabla(List<Factura> nuevasFacturas) {
+        // Actualizar la lista de facturas en la interfaz gráfica
+        Platform.runLater(() -> {
+            // Agregar las nuevas facturas a la lista existente
+            listaFacturas.addAll(nuevasFacturas);
+        });
+    }
+
+
+
+
+
 
     // Método para configurar las columnas de la tabla
     private void configurarColumnas(TableView<Factura> tabla, TableColumn<Factura, String> colIdFactura, TableColumn<Factura, String> colIdCliente, TableColumn<Factura, String> colCliente,

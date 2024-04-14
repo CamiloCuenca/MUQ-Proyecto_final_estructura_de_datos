@@ -1,5 +1,6 @@
 package Model.utils;
 
+import Controller.VentanaAdministradores;
 import Model.enums.Genero;
 import Model.enums.Paises;
 import Model.enums.TipoProducto;
@@ -40,7 +41,7 @@ public class GeneradorFacturas {
      */
     public static List<Factura> generarFacturas() {
         List<Factura> listaFacturas = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio
             List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorios
             Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), 1, generarDiaAleatorioString(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
@@ -229,12 +230,15 @@ public class GeneradorFacturas {
     public static void main(String[] args) {
     }
 
+    /**
+     * Hilo que se encarga de generarme las facturas,Escribirlas,y Actualizarlas.
+     */
     public static void iniciarHiloGeneradorFacturas() {
         // Programa la generación de facturas cada 5 minutos
         scheduler.scheduleAtFixedRate(() -> {
             List<Factura> nuevasFacturas = generarFacturas();
             DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.txt");
-            DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
-        }, 0, 10, TimeUnit.MINUTES);
+            VentanaAdministradores.actualizarTabla(nuevasFacturas);
+        }, 0, 20, TimeUnit.SECONDS);
     }
 }
