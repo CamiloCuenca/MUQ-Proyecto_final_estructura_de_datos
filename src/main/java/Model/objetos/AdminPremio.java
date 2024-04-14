@@ -12,8 +12,10 @@ import java.util.PriorityQueue;
 
 public class AdminPremio extends Usuario{
 
+    public static ArrayList<PersonaPremio>facturaArrayList=new ArrayList<>();
+
     public static void main(String[] args) {
-        ArrayList<PersonaPremio>facturaArrayList=new ArrayList<>();
+
         ArrayList<Factura>facturaArrayList3=new ArrayList<>();
         AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList3);
         /*
@@ -114,7 +116,7 @@ public class AdminPremio extends Usuario{
 
     }
 
-    public ArrayList<Factura> convertirFactura (ArrayList<PersonaPremio>personaPremios){
+    public static ArrayList<Factura> convertirFactura (ArrayList<PersonaPremio>personaPremios){
 
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
         AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
@@ -141,11 +143,11 @@ public class AdminPremio extends Usuario{
         return facturaArrayList;
     }
 
-    public ArrayList<PersonaPremio> FacturaToPersonaPremio() {
+    public static ArrayList<PersonaPremio> FacturaToPersonaPremio() {
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
         AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
         ArrayList<Factura>facturaArrayList2;
-        facturaArrayList2=adminPremio.lectorTXT();
+        facturaArrayList2= lectorTXT();
         ArrayList<Factura>facturaArrayList1=adminPremio.separarGanadores(facturaArrayList2);
 
         System.out.println(facturaArrayList1);
@@ -181,7 +183,7 @@ public class AdminPremio extends Usuario{
 
     }
 
-    public ArrayList<Factura> lectorTXT (){
+    public static ArrayList<Factura> lectorTXT (){
 
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
         String filePath = "src/main/resources/CSVFiles/Facturas.txt"; // Ruta al archivo de texto
@@ -282,7 +284,6 @@ public class AdminPremio extends Usuario{
         }
 
         return facturaArrayList;
-
 
 
     }
