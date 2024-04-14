@@ -225,6 +225,7 @@ public class GeneradorFacturas {
         }
     }
 
+    //  Main provisional para hacer pruebas
     public static void main(String[] args) {
         // Programar la generación de facturas cada 5 minutos
         scheduler.scheduleAtFixedRate(() -> {//se hace uso del hilo dandole las instrucciones que debe realizar.

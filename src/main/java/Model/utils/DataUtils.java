@@ -12,11 +12,6 @@ import java.util.ArrayList;
 public class DataUtils {
     public static String tipoAdmin;
 
-    /**
-     * Esta función abre un cuadro de diálogo para que el usuario seleccione un archivo CSV.
-     * Una vez seleccionado el archivo, lo copia al directorio "src/main/resources/CSVFiles" dentro del proyecto.
-     * Si el directorio de destino no existe, se crea automáticamente.
-     */
 
     /**
      * Esta función verifica si un usuario con el nombre y la contraseña proporcionados existe en un archivo CSV.
@@ -70,6 +65,11 @@ public class DataUtils {
         }
     }
 
+    /** Esta función escribe las facturas que están en un ArrayList de facturas en un archivo csv
+     *
+     * @param facturas
+     * @param rutaArchivo
+     */
     public static void escribirFacturaCSV(ArrayList<Factura> facturas, String rutaArchivo) {
         try (FileWriter fw = new FileWriter(rutaArchivo, true);
              PrintWriter pw = new PrintWriter(fw)) {
@@ -133,22 +133,18 @@ public class DataUtils {
                 for (String campo : campos) {
                     System.out.print(campo + ", ");
                 }
-                //CREar objeto factura;
+                //Crear objeto factura;
                 Factura  f = crearFacturaDesdeCampos(campos);
                 facturas.add(f);
 
-
-
                 // Aumentar el contador de factura para la siguiente factura
                 numeroFactura++;
-
-                // Imprimir una línea en blanco para separar las facturas
-                System.out.println();
             }
 
             System.out.println("Facturas leídas del archivo CSV correctamente.");
 
         } catch (IOException e) {
+            // **Se debe poner una alerta de error**
             System.err.println("Error al leer el archivo CSV: " + e.getMessage());
         }
 
@@ -186,10 +182,9 @@ public class DataUtils {
         factura.setANIO(campos[12]);
         factura.setCliente(cliente);
 
-
-
         return factura;
     }
+
     //Main provisional para hacer pruebas
     public static void main(String[] args) {
         System.out.println(leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));

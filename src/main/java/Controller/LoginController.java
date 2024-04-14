@@ -43,16 +43,24 @@ public class LoginController implements Initializable {
     @FXML
     private Label lblMensaje;
 
-
+    /** Esta función es el evento del boton Ingresar de la ventana de adminsitrador de factura.
+     *
+     * @param event
+     * @throws IOException
+     * @throws ExceptionVerificar
+     */
     @FXML
     void ingresar(ActionEvent event) throws IOException, ExceptionVerificar {
 
         try {
-
             String rutaAdministradores = "src/main/resources/CSVFiles/Administradores.txt";
-            boolean datos = DataUtils.verificarDatosUsuarios(txtUsuario.getText(), pswContrasena.getText(), rutaAdministradores);
+
+            //Verific asi el administrador esta registrado
             String nombre = txtUsuario.getText();
             String contrasena = pswContrasena.getText();
+
+            boolean datos = DataUtils.verificarDatosUsuarios(nombre,contrasena,rutaAdministradores);
+
             if (nombre.isEmpty() && contrasena.isEmpty()) {
                 throw new ExceptionVerificar("Llene los campos");
             } else if (nombre.isEmpty() || contrasena.isEmpty()) {
@@ -60,10 +68,26 @@ public class LoginController implements Initializable {
             } else {
                 if (datos) {
                     System.out.println(DataUtils.verificarTipoadmin());
-                    //Cargar ventana
-                    SceneUtils.cargarVentana("/Controller/ventanaAdministradorFactura.fxml");
-                    // en esta linea, esconde la ventana actual
-                    ((Node) (event.getSource())).getScene().getWindow().hide();
+
+                    /*Condicion que verifica que tipo de administrador
+                    * 1 = Administracion de facturas
+                    * 2 = Administracion de premios
+                    * 3 = Administrador de Rutas
+                    * */
+
+                    if(DataUtils.verificarTipoadmin()==1){
+                        //Cargar ventana de admistrador Facturas
+                        SceneUtils.cargarVentana("/Controller/ventanaAdministradorFactura.fxml");
+                        // en esta linea, esconde la ventana actual
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
+                    } else if (DataUtils.verificarTipoadmin()==2) {
+                        //Cargar ventana de Administrador Premios
+
+                    } else if (DataUtils.verificarTipoadmin()==3) {
+                        //Cargar ventana de Administrador de rutas
+
+                    }
+
                 } else {
                     throw new ExceptionVerificar("Usuario no encontrado");
                 }
@@ -76,12 +100,12 @@ public class LoginController implements Initializable {
         }
     }
 
-    @FXML
-    void registrarse(ActionEvent event) {
-
-    }
-
-
+    /** Función de inicialización de la ventana
+     *
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CoreMethod.animarComponente(btnIngresar);
