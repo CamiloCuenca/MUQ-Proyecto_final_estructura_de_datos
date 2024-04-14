@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="borderPaneAdmin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="952.0" stylesheets="@../Style/EstiloAdministradores.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaAdministradores">
+<BorderPane id="borderPaneAdmin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="1219.0" stylesheets="@../Style/EstiloAdministradores.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaAdministradores">
    <left>
-      <AnchorPane opacity="0.92" prefHeight="478.0" prefWidth="951.0" BorderPane.alignment="CENTER">
+      <AnchorPane opacity="0.92" prefHeight="478.0" prefWidth="693.0" BorderPane.alignment="CENTER">
          <children>
             <Button id="btnRegresar" fx:id="btnRegresar" layoutX="14.0" layoutY="432.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="22.0" prefWidth="100.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="WHITE">
                <font>
@@ -81,11 +81,11 @@
                   <Glow level="0.72" />
                </effect>
             </Text>
-            <AnchorPane layoutX="198.0" layoutY="52.0" prefHeight="404.0" prefWidth="738.0" style="-fx-background-color: #3b4474; -fx-background-radius: 15;">
+            <AnchorPane layoutX="198.0" layoutY="52.0" prefHeight="404.0" prefWidth="479.0" style="-fx-background-color: #3b4474; -fx-background-radius: 15;">
                <children>
-                  <ScrollPane fx:id="scpTabla" layoutX="19.0" layoutY="14.0" prefHeight="374.0" prefWidth="700.0" style="-fx-border-color: #3dcdbc;">
+                  <ScrollPane fx:id="scpTabla" layoutX="19.0" layoutY="14.0" prefHeight="374.0" prefWidth="449.0" style="-fx-border-color: #3dcdbc;">
                      <content>
-                        <TableView fx:id="tblFacturas" prefHeight="368.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" stylesheets="@../Style/EstiloAdministradores.css">
+                        <TableView fx:id="tblFacturas" prefHeight="368.0" prefWidth="1245.0" style="-fx-background-color: #ffffff;" stylesheets="@../Style/EstiloAdministradores.css">
                           <columns>
                              <TableColumn fx:id="colIdFactura" prefWidth="112.0" style="-fx-background-color: #36375a;" text="ID Factura" />
                              <TableColumn fx:id="colIdCliente" prefWidth="140.0" style="-fx-background-color: #36375a;" text="ID cliente" />
@@ -100,8 +100,8 @@
                              <TableColumn fx:id="colDia" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Dia" />
                              <TableColumn fx:id="colMes" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Mes" />
                              <TableColumn fx:id="colAnio" prefWidth="75.0" style="-fx-background-color: #36375a;" text="AÑo" />
-
-                          </columns>
+                  
+                                                                    </columns>
                         </TableView>
                      </content>
                   </ScrollPane>
