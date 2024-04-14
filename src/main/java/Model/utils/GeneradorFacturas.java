@@ -44,7 +44,7 @@ public class GeneradorFacturas {
         for (int i = 0; i < 2; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio
             List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorios
-            Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), 1, generarDiaAleatorioString(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
+            Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), generarValorTotal(), generarDias(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
             listaFacturas.add(factura);
         }
         return listaFacturas;
@@ -56,7 +56,7 @@ public class GeneradorFacturas {
      */
     private static List<Producto> generarProductosAleatorios() {
         ArrayList<Producto> productos = new ArrayList<>();
-        int numProductos = random.nextInt(1) + 1; // Entre 1 y 2 productos
+        int numProductos = random.nextInt(3) + 1; // Entre 1 y 2 productos
         for (int i = 0; i < numProductos; i++) {
             TipoProducto tipo = TipoProducto.values()[random.nextInt(TipoProducto.values().length)];
             String nombre = generarNombreAleatorio(tipo); // Genera el nombre basado en el tipo de producto
@@ -110,18 +110,38 @@ public class GeneradorFacturas {
     }
 
     /**
+     * Metodo para generar valores a las facturas.
+     */
+
+    private static double generarValorTotal() {
+        double valorMinimo = 100000.0;
+        double valorMaximo = 2000000.0;
+        double valorAleatorio = valorMinimo + (valorMaximo - valorMinimo) * random.nextDouble();
+        return valorAleatorio;
+    }
+
+
+
+
+    /**
      * Genera un día aleatorio como cadena de texto.
      * @return día aleatorio generado como cadena de texto.
      */
-    private static String generarDiaAleatorioString() {
-        int dia = random.nextInt(31) + 1; // Genera un número aleatorio entre 1 y 31
-        return String.format("%02d", dia); // Formatea el día como una cadena de dos dígitos
+
+    private static String generarDias() {
+        String dia = "";
+        String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
+        int indice = random.nextInt(dias.length);
+        dia = dias[indice];
+        return dia;
     }
+
 
     /**
      * Genera un mes aleatorio como cadena de texto.
      * @return mes aleatorio generado como cadena de texto.
      */
+
     private static String generarMesAleatorioString() {
         int mes = random.nextInt(12) + 1; // Genera un número aleatorio entre 1 y 12
         return String.format("%02d", mes); // Formatea el mes como una cadena de dos dígitos
@@ -131,6 +151,7 @@ public class GeneradorFacturas {
      * Genera un año aleatorio como cadena de texto.
      * @return año aleatorio generado como cadena de texto.
      */
+
     private static String generarAnioAleatorioString() {
         int anio = random.nextInt(5) + 2020; // Genera un número aleatorio entre 2020 y 2024
         return String.valueOf(anio); // Convierte el año a una cadena de texto
