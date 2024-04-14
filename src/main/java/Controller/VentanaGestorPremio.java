@@ -2,6 +2,7 @@ package Controller;
 
 import Model.objetos.Factura;
 import Model.objetos.FacturaAux;
+import Model.objetos.PersonaPremio;
 import Model.objetos.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,22 +21,17 @@ import java.util.ResourceBundle;
 
 public class VentanaGestorPremio implements Initializable {
 
-    public ArrayList<Producto> getProductoList() {
-        return productoList;
+   private ArrayList<Factura>facturas;
+
+
+
+
+    public VentanaGestorPremio (ArrayList<Factura> facturas){
+
+        this.facturas = facturas;
     }
 
-    public void setProductoList(ArrayList<Producto> productoList) {
-        this.productoList = productoList;
-    }
-
-    private ArrayList<Producto> productoList;
-
-    public VentanaGestorPremio (ArrayList<Producto> productoList){
-        this.productoList = productoList;
-    }
-
-
-    public VentanaGestorPremio (){
+    public VentanaGestorPremio(){
 
     }
     @FXML

@@ -13,10 +13,14 @@ import java.util.PriorityQueue;
 public class AdminPremio extends Usuario{
 
     public static void main(String[] args) {
-        ArrayList<Factura>facturaArrayList=new ArrayList<>();
-        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
+        ArrayList<PersonaPremio>facturaArrayList=new ArrayList<>();
+        ArrayList<Factura>facturaArrayList3=new ArrayList<>();
+        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList3);
+        /*
         ArrayList<Factura>facturaArrayList1;
         facturaArrayList1=adminPremio.lectorTXT();
+
+        System.out.println(facturaArrayList1);
 
         PriorityQueue<PersonaPremio>personaPremios=new PriorityQueue<>();
 
@@ -29,12 +33,24 @@ public class AdminPremio extends Usuario{
 
         System.out.println(personaPremios);
 
-        for (int j=0;j<personaPremios.size();j++) {
+        System.out.println(personaPremios.size());
+
+        while (!personaPremios.isEmpty()) {
             PersonaPremio aux=personaPremios.poll();
             System.out.println(aux);
+            System.out.println();
+
         }
 
+        System.out.println(adminPremio.convertirFactura(personaPremios));
+
+
         System.out.println();
+
+         */
+
+        facturaArrayList=adminPremio.FacturaToPersonaPremio();
+        System.out.println(adminPremio.convertirFactura(facturaArrayList));
     }
 
     private ArrayList<Factura>facturas;
@@ -45,6 +61,24 @@ public class AdminPremio extends Usuario{
         this.facturas = facturas;
     }
     //Fase beta
+
+
+    public ArrayList<Factura> separarGanadores (ArrayList<Factura>facturas){
+
+        ArrayList<Factura>facturaArrayList=new ArrayList<>();
+
+        for (int i=0;i<facturas.size();i++){
+            if(facturas.get(i).getValorTotal()>1000000){
+                facturaArrayList.add(facturas.get(i));
+            }
+
+        }
+
+        return facturaArrayList;
+
+    }
+
+
 
     public PersonaPremio generarPersonPremio (Factura factura,int secuencia) {
 
@@ -69,6 +103,73 @@ public class AdminPremio extends Usuario{
         PersonaPremio premio=new PersonaPremio(prioridad,pais,secuencia,factura.getCliente());
 
         return premio;
+
+
+    }
+
+    public ArrayList<Factura> convertirFactura (ArrayList<PersonaPremio>personaPremios){
+
+        ArrayList<Factura>facturaArrayList=new ArrayList<>();
+        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
+
+        ArrayList<Factura>facturaArrayList1;
+        facturaArrayList1=adminPremio.lectorTXT();
+
+
+
+
+        for (int i=0;i<personaPremios.size();i++){
+
+            Cliente aux=personaPremios.get(i).getCliente();
+
+            for (int j=0;j<facturaArrayList1.size();j++){
+                if(facturaArrayList1.get(j).getCliente().getID().equals(aux.getID())){
+                    facturaArrayList.add(facturaArrayList1.get(j));
+
+                }
+            }
+
+        }
+
+        return facturaArrayList;
+    }
+
+    public ArrayList<PersonaPremio> FacturaToPersonaPremio() {
+        ArrayList<Factura>facturaArrayList=new ArrayList<>();
+        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
+        ArrayList<Factura>facturaArrayList2;
+        facturaArrayList2=adminPremio.lectorTXT();
+        ArrayList<Factura>facturaArrayList1=adminPremio.separarGanadores(facturaArrayList2);
+
+        System.out.println(facturaArrayList1);
+
+        PriorityQueue<PersonaPremio>personaPremios=new PriorityQueue<>();
+
+
+        for (int i = 0; i < facturaArrayList1.size(); i++) {
+            PersonaPremio premio=adminPremio.generarPersonPremio(facturaArrayList1.get(i),i);
+            personaPremios.add(premio);
+
+        }
+
+        System.out.println(personaPremios);
+
+        System.out.println(personaPremios.size());
+
+        ArrayList<PersonaPremio>personaPremios1=new ArrayList<>();
+
+        while (!personaPremios.isEmpty()) {
+            PersonaPremio aux=personaPremios.poll();
+            personaPremios1.add(aux);
+            System.out.println(aux);
+            System.out.println();
+
+        }
+
+        System.out.println(personaPremios1);
+
+        return personaPremios1;
+
 
 
     }
