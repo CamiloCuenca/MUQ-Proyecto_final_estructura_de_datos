@@ -49,7 +49,11 @@ public class AdminPremio extends Usuario{
 
          */
 
+
+        //
+
         facturaArrayList=adminPremio.FacturaToPersonaPremio();
+        //aqui se obtienen las facturas en arrayList <Factura>
         System.out.println(adminPremio.convertirFactura(facturaArrayList));
     }
 
@@ -92,6 +96,9 @@ public class AdminPremio extends Usuario{
             prioridad = 1;
         } else if (factura.getCliente().getSexo() == Genero.MUJER) {
             prioridad = 2;
+
+        }else if (factura.getCliente().getSexo() == Genero.OTRO) {
+            prioridad = -1;
         } else if (factura.getCliente().getPais() == Paises.INDIA) {
             prioridad = 3;
         } else if (factura.getCliente().getPais() == Paises.COLOMBIA) {
@@ -204,7 +211,7 @@ public class AdminPremio extends Usuario{
                     //Datos cliente
                     String nombre = "";
                     int edad = 1;
-                    Genero sexo = Genero.OTRO;
+                    Genero sexo=Genero.HOMBRE;
                     Paises pais = Paises.COLOMBIA;
                     String ciudad = "";
 
@@ -222,11 +229,11 @@ public class AdminPremio extends Usuario{
                             edad = Integer.parseInt(parts[3]);
 
                         } else if (i == 4) {
-                            if (parts[3].equals("HOMBRE")) {
+                            if (parts[4].equals("HOMBRE")) {
                                 sexo = Genero.HOMBRE;
-                            } else if (parts[3].equals("MUJER")) {
+                            } else if (parts[4].equals("MUJER")) {
                                 sexo = Genero.MUJER;
-                            } else if (parts[3].equals("OTRO")) {
+                            } else if (parts[4].equals("OTRO")) {
                                 sexo = Genero.OTRO;
                             }
                         } else if (i == 5) {

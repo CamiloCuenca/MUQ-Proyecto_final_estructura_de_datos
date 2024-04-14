@@ -82,6 +82,9 @@ public class LoginController implements Initializable {
                         ((Node) (event.getSource())).getScene().getWindow().hide();
                     } else if (DataUtils.verificarTipoadmin()==2) {
                         //Cargar ventana de Administrador Premios
+                        SceneUtils.cargarVentana("/Controller/ventanaGestorPremio.fxml");
+                        // en esta linea, esconde la ventana actual
+                        ((Node) (event.getSource())).getScene().getWindow().hide();
 
                     } else if (DataUtils.verificarTipoadmin()==3) {
                         //Cargar ventana de Administrador de rutas
