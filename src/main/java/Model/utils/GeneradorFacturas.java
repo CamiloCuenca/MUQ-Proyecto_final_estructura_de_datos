@@ -235,6 +235,6 @@ public class GeneradorFacturas {
             List<Factura> nuevasFacturas = generarFacturas();
             DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.txt");
             DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
-        }, 0, 10, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.MINUTES);
     }
 }
