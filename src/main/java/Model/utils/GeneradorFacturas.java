@@ -7,11 +7,14 @@ import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
 import Model.objetos.Producto;
+import javafx.application.Platform;
 
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import static Controller.VentanaAdministradores.listaFacturas;
 
 public class GeneradorFacturas {
 
@@ -291,7 +294,10 @@ public class GeneradorFacturas {
         scheduler.scheduleAtFixedRate(() -> {
             List<Factura> nuevasFacturas = generarFacturas();
             DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.txt");
-            VentanaAdministradores.actualizarTabla(nuevasFacturas);
+            //VentanaAdministradores.actualizarTabla(nuevasFacturas);
+            Platform.runLater(() -> {
+                VentanaAdministradores.listaFacturas.addAll(nuevasFacturas);
+            });
         }, 0, 20, TimeUnit.SECONDS);
     }
 }

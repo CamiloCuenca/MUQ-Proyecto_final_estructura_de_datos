@@ -175,7 +175,7 @@ public class DataUtils {
         cliente.setCiudad(campos[6]);
         //
         factura.setProductos(campos[7]);
-        factura.setTipoProducto(String.valueOf(TipoProducto.valueOf(campos[8])));
+        factura.setTipoProducto((campos[8]));
         factura.setValorTotal(Double.parseDouble(campos[9]));
         factura.setDIA(campos[10]);
         factura.setMES(campos[11]);
