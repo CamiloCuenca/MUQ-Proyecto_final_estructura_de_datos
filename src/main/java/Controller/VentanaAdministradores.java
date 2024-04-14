@@ -1,16 +1,12 @@
 package Controller;
 
-import Model.enums.Genero;
-import Model.enums.Paises;
 import Model.enums.TipoProducto;
-import Model.objetos.Cliente;
 import Model.objetos.Factura;
 import Model.objetos.Producto;
 import Model.utils.DataUtils;
 import Model.utils.GeneradorFacturas;
 import Model.utils.SceneUtils;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,47 +33,54 @@ import java.util.ResourceBundle;
 public class VentanaAdministradores implements Initializable {
 
     // Tabla Cargada
-    @FXML private TableColumn<Factura, String> colAnio;
-    @FXML private TableColumn<Factura, String> colCiudad;
-    @FXML private TableColumn<Factura, String> colCliente;
-    @FXML private TableColumn<Factura, String> colDia;
-    @FXML private TableColumn<Factura, String> colEdad;
-    @FXML private TableColumn<Factura, String> colGenero;
-    @FXML private TableColumn<Factura, String> colIdCliente;
-    @FXML private TableColumn<Factura, String> colIdFactura;
-    @FXML private TableColumn<Factura, String> colMes;
-    @FXML private TableColumn<Factura, String> colPais;
-    @FXML private TableColumn<Producto, String> colProductos;
-    @FXML private TableColumn<Producto, TipoProducto> colTipoProducto;
-    @FXML private TableColumn<Factura, Double> colValorTotal;
-
-    // Tabla procesada
-    @FXML private TableColumn<Factura, String> colAnio1;
-    @FXML private TableColumn<Factura, String> colCiudad1;
-    @FXML private TableColumn<Factura, String> colCliente1;
-    @FXML private TableColumn<Factura, String> colDia1;
-    @FXML private TableColumn<Factura, String> colEdad1;
-    @FXML private TableColumn<Factura, String> colGenero1;
-    @FXML private TableColumn<Factura, String> colIdCliente1;
-    @FXML private TableColumn<Factura, String> colIdFactura1;
-    @FXML private TableColumn<Factura, String> colMes1;
-    @FXML private TableColumn<Factura, String> colPais1;
-    @FXML private TableColumn<Producto, String> colProductos1;
-    @FXML private TableColumn<Producto, TipoProducto> colTipoProducto1;
-    @FXML private TableColumn<Factura, Double> colValorTotal1;
+    @FXML
+    private TableColumn<Factura, String> colAnio;
+    @FXML
+    private TableColumn<Factura, String> colCiudad;
+    @FXML
+    private TableColumn<Factura, String> colCliente;
+    @FXML
+    private TableColumn<Factura, String> colDia;
+    @FXML
+    private TableColumn<Factura, String> colEdad;
+    @FXML
+    private TableColumn<Factura, String> colGenero;
+    @FXML
+    private TableColumn<Factura, String> colIdCliente;
+    @FXML
+    private TableColumn<Factura, String> colIdFactura;
+    @FXML
+    private TableColumn<Factura, String> colMes;
+    @FXML
+    private TableColumn<Factura, String> colPais;
+    @FXML
+    private TableColumn<Producto, String> colProductos;
+    @FXML
+    private TableColumn<Producto, TipoProducto> colTipoProducto;
+    @FXML
+    private TableColumn<Factura, Double> colValorTotal;
 
     // Otros elementos de la interfaz
-    @FXML private Button btnCargarfactura;
-    @FXML private Button btnEliminarFactura;
-    @FXML private Button btnProcesarFactura;
-    @FXML private Button btnRegresar;
-    @FXML private ImageView viwLogo;
-    @FXML private ImageView viwLogo1;
-    @FXML private ImageView viwLogo2;
-    @FXML private ScrollPane scpTabla;
-    @FXML private AnchorPane anchorPaneAdmi;
-    @FXML private TableView<Factura> tblFacturas;
-    @FXML private TableView<Factura> tblFacturasProcesadas;
+    @FXML
+    private Button btnCargarfactura;
+    @FXML
+    private Button btnEliminarFactura;
+    @FXML
+    private Button btnProcesarFactura;
+    @FXML
+    private Button btnRegresar;
+    @FXML
+    private ImageView viwLogo;
+    @FXML
+    private ImageView viwLogo1;
+    @FXML
+    private ImageView viwLogo2;
+    @FXML
+    private ScrollPane scpTabla;
+    @FXML
+    private AnchorPane anchorPaneAdmi;
+    @FXML
+    private TableView<Factura> tblFacturas;
 
     // ObservableList para cargar las facturas desde un archivo CSV
     private static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
@@ -101,7 +104,6 @@ public class VentanaAdministradores implements Initializable {
                 List<Factura> nuevasFacturas = GeneradorFacturas.generarFacturas();
                 listaFacturas.addAll(nuevasFacturas);
                 tblFacturas.setItems(listaFacturas);
-                tblFacturasProcesadas.setItems(listaFacturas);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -130,16 +132,13 @@ public class VentanaAdministradores implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Configurar las columnas de las tablas
         configurarColumnas(tblFacturas, colIdFactura, colIdCliente, colCliente, colEdad, colGenero, colPais, colCiudad, colProductos, colTipoProducto, colValorTotal, colDia, colMes, colAnio);
-        configurarColumnas(tblFacturasProcesadas, colIdFactura1, colIdCliente1, colCliente1, colEdad1, colGenero1, colPais1, colCiudad1, colProductos1, colTipoProducto1, colValorTotal1, colDia1, colMes1, colAnio1);
         CoreMethod.girarImagen(viwLogo);
 
         // Ajustar la política de redimensionamiento de columnas de la tabla
         tblFacturas.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        tblFacturasProcesadas.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         // Configurar el ancho preferido de la tabla
         tblFacturas.setPrefWidth(Region.USE_COMPUTED_SIZE);
-        tblFacturasProcesadas.setPrefWidth(Region.USE_COMPUTED_SIZE);
     }
 
     // Método para configurar las columnas de la tabla
