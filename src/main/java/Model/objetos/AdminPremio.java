@@ -11,6 +11,13 @@ import java.util.ArrayList;
 
 public class AdminPremio extends Usuario{
 
+    public static void main(String[] args) {
+        ArrayList<Factura>facturaArrayList=new ArrayList<>();
+        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
+
+        System.out.println(adminPremio.lectorTXT());
+    }
+
     private ArrayList<Factura>facturas;
 
     //Constructor
@@ -38,77 +45,107 @@ public class AdminPremio extends Usuario{
         return premio;
     }
 
-    public void lectorTXT (){
+    public ArrayList<Factura> lectorTXT (){
 
-        String filePath = "MUQ-Proyecto_final_estructura_de_datos\\src\\main\\resources\\CSVFiles\\Facturas"; // Ruta al archivo de texto
+        ArrayList<Factura>facturaArrayList=new ArrayList<>();
+        String filePath = "src/main/resources/CSVFiles/Facturas.txt"; // Ruta al archivo de texto
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
+            int lineNumero = 0;
 
 
             while ((line = bufferedReader.readLine()) != null) {
-                // Dividir la línea en partes usando el delimitador ";"
-                String[] parts = line.split(";");
+                lineNumero++;
 
-                // Imprimir cada parte
-                for (int i=0; i<parts.length; i++){
-                    String ID="";
-                    String IDFactura="";
-                    String productos="";
-                    TipoProducto tipoProducto=TipoProducto.ALIMENTO;
-                    double valorTotal=0;
-                    String DIA="0";
-                    String MES="0";
-                    String ANO="0";
+                if (lineNumero > 1) {
+
+                    // Dividir la línea en partes usando el delimitador ";"
+                    String[] parts = line.split(";");
+                    String ID = "";
+                    String IDFactura = "";
+                    String productos = "";
+                    TipoProducto tipoProducto = TipoProducto.ALIMENTO;
+                    double valorTotal = 0;
+                    String DIA = "0";
+                    String MES = "0";
+                    String ANO = "0";
                     Cliente cliente;
 
                     //Datos cliente
-                    String nombre="";
-                    int edad=0;
-                    Genero sexo=Genero.OTRO;
-                    Paises pais=Paises.COLOMBIA;
-                    String ciudad="";
-                    if(i==0){
-                        IDFactura=parts[0];
-                        //51055;718674528;Patricia;78;MUJER;COLOMBIA;Pereira;Refrigerador;ELECTRODOMESTICO;1100000;17;06;2023
-                    }else if(i==1){
-                        ID=parts[1];
-                    }else if(i==2){
-                        nombre=parts[2];
-                    }else if(i==3){
-                        edad=Integer.parseInt(parts[3]);
-                    }else if(i==4){
-                        if(parts[4].equals("COLOMBIA")){
-                            pais=Paises.COLOMBIA;
-                        }else if(parts[4].equals("INDIA")){
-                            pais=Paises.INDIA;
+                    String nombre = "";
+                    int edad = 1;
+                    Genero sexo = Genero.OTRO;
+                    Paises pais = Paises.COLOMBIA;
+                    String ciudad = "";
 
-                        }else if(parts[4].equals("ARGENTINA")) {
-                            pais = Paises.ARGENTINA;
+                    // Imprimir cada parte
+                    for (int i = 0; i < parts.length; i++) {
+
+                        if (i == 0) {
+                            IDFactura = parts[0];
+                            //51055;718674528;Patricia;78;MUJER;COLOMBIA;Pereira;Refrigerador;ELECTRODOMESTICO;1100000;17;06;2023
+                        } else if (i == 1) {
+                            ID = parts[1];
+                        } else if (i == 2) {
+                            nombre = parts[2];
+                        } else if (i == 3) {
+                            edad = Integer.parseInt(parts[3]);
+
+                        } else if (i == 4) {
+                            if (parts[3].equals("HOMBRE")) {
+                                sexo = Genero.HOMBRE;
+                            } else if (parts[3].equals("MUJER")) {
+                                sexo = Genero.MUJER;
+                            } else if (parts[3].equals("OTRO")) {
+                                sexo = Genero.OTRO;
+                            }
+                        } else if (i == 5) {
+                            if (parts[5].equals("COLOMBIA")) {
+                                pais = Paises.COLOMBIA;
+                            } else if (parts[5].equals("INDIA")) {
+                                pais = Paises.INDIA;
+
+                            } else if (parts[5].equals("ARGENTINA")) {
+                                pais = Paises.ARGENTINA;
+                            }
+                        } else if (i == 6) {
+                            ciudad = parts[6];
+                        } else if (i == 7) {
+                            productos = parts[7];
+
+
+                        } else if (i == 8) {
+                            if (parts[8].equals("ALIMENTO")) {
+                                tipoProducto = TipoProducto.ALIMENTO;
+                            } else if (parts[8].equals("COSMETICO")) {
+                                tipoProducto = TipoProducto.COSMETICO;
+                            } else if (parts[8].equals("ELECTRODOMESTICO")) {
+                                tipoProducto = TipoProducto.ELECTRODOMESTICO;
+                            } else if (parts[8].equals("TECNOLOGIA")) {
+                                tipoProducto = TipoProducto.TECNOLOGIA;
+                            }
+                        } else if (i == 9) {
+                            valorTotal = Double.parseDouble(parts[9]);
+                        } else if (i == 10) {
+                            DIA = parts[10];
+
+                        } else if (i == 11) {
+                            MES = parts[11];
+                        } else if (i == 12) {
+                            ANO = parts[12];
                         }
-                    }else if(i==5){
-                        ciudad=parts[5];
-                    }else if(i==7){
-
-
-                    }else if(i==8){
-                        if(parts[7].equals("ALIMENTO")){
-                            tipoProducto=TipoProducto.ALIMENTO;
-                        }else if(parts[7].equals("COSMETICO")){
-                            tipoProducto=TipoProducto.COSMETICO;
-                        }else if(parts[7].equals("ELECTRODOMESTICO")){
-                            tipoProducto=TipoProducto.ELECTRODOMESTICO;
-                        }else if(parts[7].equals("TECNOLOGIA")){
-                            tipoProducto=TipoProducto.TECNOLOGIA;
-                        }
-
-
                     }
+                    Cliente cliente1 = new Cliente(ID, nombre, edad, sexo, pais, ciudad);
+                    Factura factura = new Factura(IDFactura, productos, tipoProducto, valorTotal, DIA, MES, ANO, cliente1);
+                    facturaArrayList.add(factura);
                 }
             }
-        } catch (IOException e) {
+        }catch(IOException e){
             System.err.println("Error al leer el archivo: " + e.getMessage());
         }
+
+        return facturaArrayList;
 
 
 
