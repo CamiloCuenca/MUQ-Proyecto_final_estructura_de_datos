@@ -273,7 +273,7 @@ public class AdminPremio extends Usuario{
                         }
                     }
                     Cliente cliente1 = new Cliente(ID, nombre, edad, sexo, pais, ciudad);
-                    Factura factura = new Factura(IDFactura, productos, tipoProducto, valorTotal, DIA, MES, ANO, cliente1);
+                    Factura factura = new Factura(IDFactura, productos, tipoProducto.toString(), valorTotal, DIA, MES, ANO, cliente1);
                     facturaArrayList.add(factura);
                 }
             }

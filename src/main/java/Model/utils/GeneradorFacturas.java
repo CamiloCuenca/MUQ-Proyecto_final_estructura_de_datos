@@ -44,10 +44,24 @@ public class GeneradorFacturas {
         for (int i = 0; i < 2; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio
             List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorios
-            Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), generarValorTotal(), generarDias(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
+
+            Factura factura = new Factura(generarIdFactura(), convertirProductosAString(productos),convertirTipoProductoAString(productos), generarValorTotal(), generarDias(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
             listaFacturas.add(factura);
         }
         return listaFacturas;
+    }
+
+    public static String convertirTipoProductoAString(List<Producto> productos){
+        StringBuilder productosString = new StringBuilder();
+        for (Producto p:productos){
+            productosString.append(p.getTipo());
+            productosString.append("||");
+        }
+        // Eliminar el último "||" si es necesario
+        if (!productosString.isEmpty()) {
+            productosString.delete(productosString.length() - 2, productosString.length());
+        }
+        return productosString.toString();
     }
 
     /**
@@ -63,6 +77,24 @@ public class GeneradorFacturas {
             productos.add(new Producto(nombre, tipo));
         }
         return productos;
+    }
+
+    /** Esta función convierte una lista de productos en un String separado por ||
+     *
+     * @param productos
+     * @return
+     */
+    private static String convertirProductosAString(List<Producto> productos) {
+        StringBuilder productosString = new StringBuilder();
+        for (Producto producto : productos) {
+            productosString.append(producto.getNombre());
+            productosString.append("||");
+        }
+        // Eliminar el último "||" si es necesario
+        if (!productosString.isEmpty()) {
+            productosString.delete(productosString.length() - 2, productosString.length());
+        }
+        return productosString.toString();
     }
 
     /**
