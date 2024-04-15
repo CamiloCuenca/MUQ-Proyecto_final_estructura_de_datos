@@ -3,18 +3,21 @@ package Controller;
 import Model.enums.TipoProducto;
 import Model.objetos.*;
 import Model.utils.DataUtils;
+import Model.utils.SceneUtils;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +25,14 @@ import java.util.ResourceBundle;
 
 public class VentanaGestorPremio implements Initializable {
 
+
+
    private ArrayList<PersonaPremio> personaPremios = AdminPremio.FacturaToPersonaPremio();
    private ArrayList<Factura>facturas = AdminPremio.convertirFactura(personaPremios);
 
 
+    public static boolean  aux  = false;
 
-
-    public VentanaGestorPremio (ArrayList<Factura> facturas){
-
-        this.facturas = facturas;
-    }
-
-    public VentanaGestorPremio(){
-
-    }
     @FXML
     private Button ButtonActualizar;
 
@@ -117,13 +114,18 @@ public class VentanaGestorPremio implements Initializable {
     }
 
     @FXML
-    void OnEscoger(ActionEvent event) {
+    void OnEscoger(ActionEvent event) throws IOException {
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-     tblFacturas.setItems(convertirToObservable(facturas));
+        if(aux){
+            tblFacturas.setItems(convertirToObservable(facturas));
+        }else{
+            System.out.println("no se cargaron las facturas");
+        }
+     //tblFacturas.setItems(convertirToObservable(facturas));
      colIdFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
      colIdCliente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getIdCliente()));
      colCliente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getNombre()));
@@ -143,7 +145,12 @@ public class VentanaGestorPremio implements Initializable {
       DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.txt");
 
 
+
     }
 
-
+    @FXML
+     void OnSalir(ActionEvent event) throws IOException {
+        SceneUtils.cargarVentana("/Controller/login.fxml");
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+    }
 }
