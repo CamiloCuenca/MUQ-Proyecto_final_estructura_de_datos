@@ -38,7 +38,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Button fx:id="ButtonSalir" layoutX="844.0" layoutY="47.0" mnemonicParsing="false" style="-fx-background-color: #0CEBB6;" text="Salir al Menu">
+      <Button fx:id="ButtonSalir" layoutX="844.0" layoutY="47.0" mnemonicParsing="false" onAction="#OnSalir" style="-fx-background-color: #0CEBB6;" text="Salir al Menu">
          <font>
             <Font size="15.0" />
          </font>

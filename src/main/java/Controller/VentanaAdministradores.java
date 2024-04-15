@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.enums.TipoProducto;
+import Model.objetos.AdminPremio;
 import Model.objetos.Factura;
 import Model.objetos.Producto;
 import Model.utils.DataUtils;
@@ -127,6 +128,9 @@ public class VentanaAdministradores implements Initializable {
     @FXML
     void procesarFactura(ActionEvent event) {
         // Implementar lógica para procesar factura
+        AdminPremio.lectorTXT();
+        VentanaGestorPremio.aux=true;
+
     }
 
     public void Regresar(ActionEvent event) throws IOException {
