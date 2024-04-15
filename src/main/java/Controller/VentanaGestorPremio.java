@@ -33,17 +33,14 @@ public class VentanaGestorPremio implements Initializable {
 
     public static boolean  aux  = false;
 
-    @FXML
-    private Button ButtonActualizar;
+
 
     @FXML
     private Button ButtonBuscar;
 
     @FXML
-    private Button ButtonEscogerPremio;
+    private Button btnSalir;
 
-    @FXML
-    private Button ButtonSalir;
 
     //Columna tabla 1- IDCliente
     @FXML
@@ -104,19 +101,11 @@ public class VentanaGestorPremio implements Initializable {
 
 
     @FXML
-    void OnActualizar(ActionEvent event) {
-
-    }
-
-    @FXML
     void OnBuscar(ActionEvent event) {
 
     }
 
-    @FXML
-    void OnEscoger(ActionEvent event) throws IOException {
 
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

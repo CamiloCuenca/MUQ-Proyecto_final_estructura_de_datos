@@ -3,6 +3,11 @@
     -fx-background-size: cover;
 }
 
+#anchorPanePremios{
+    -fx-background-image: url("fondoLogin.png");
+    -fx-background-size: cover;
+}
+
 #btnRegresar{
     --body-background-color: #ffffff
 ;
@@ -32,6 +37,15 @@
     -fx-text-fill: #ffffff; /* Color rojo */
 }
 
+
+#btnSalir{
+    -fx-background-color: transparent; /* Establece el color de fondo como transparente */
+    -fx-border-width: 0px; /* Elimina los bordes */
+    -fx-text-fill: #ffffff; /* Color del texto */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+    -fx-padding: 10px 20px; /* Espaciado interno */
+    -fx-cursor: hand; /* Cambia el cursor al pasar por encima */
+}
 
 #btnRegresar{
     -fx-background-color: transparent; /* Establece el color de fondo como transparente */
