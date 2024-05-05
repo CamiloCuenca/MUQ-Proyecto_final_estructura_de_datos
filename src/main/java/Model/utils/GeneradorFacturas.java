@@ -42,7 +42,7 @@ public class GeneradorFacturas {
         List<Factura> listaFacturas = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Cliente cliente = generarClientesAletoreos().getFirst(); // Obtener un cliente aleatorio
-            List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorios
+            List<Producto> productos = generarProductosAleatorios(); // Generar productos aleatorio
             Factura factura = new Factura(generarIdFactura(), productos.get(0).getNombre(), productos.get(productos.size() - 1).getTipo(), 1, generarDiaAleatorioString(), generarMesAleatorioString(), generarAnioAleatorioString(), cliente);
             listaFacturas.add(factura);
         }
@@ -164,7 +164,7 @@ public class GeneradorFacturas {
      * @param tipo tipo de producto para el cual se genera el nombre.
      * @return nombre aleatorio generado.
      */
-    private static String generarNombreAleatorio(TipoProducto tipo) {
+    public static String generarNombreAleatorio(TipoProducto tipo) {
         String[] nombres;
         switch (tipo) {
             case ALIMENTO:

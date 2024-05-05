@@ -3,6 +3,7 @@ package Model.objetos;
 import Model.enums.Genero;
 import Model.enums.Paises;
 import Model.enums.TipoProducto;
+import Model.utils.GeneradorFacturas;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -55,6 +56,8 @@ public class AdminPremio extends Usuario{
         facturaArrayList=adminPremio.FacturaToPersonaPremio();
         //aqui se obtienen las facturas en arrayList <Factura>
         System.out.println(adminPremio.convertirFactura(facturaArrayList));
+
+
     }
 
     private ArrayList<Factura>facturas;
@@ -66,6 +69,31 @@ public class AdminPremio extends Usuario{
     }
     //Fase beta
 
+
+    //Funcion para sortear el premio de una persona
+
+    public String sortearPremioPersona (TipoProducto producto){
+
+        return GeneradorFacturas.generarNombreAleatorio(producto);
+    }
+
+    //Funcion para obtenerLista de cada persona, y ademas convertir cada factura y añadir el premio
+
+
+    public ArrayList<GanadorPremio> devolverGanadorConPremio (ArrayList<Factura>facturas){
+
+        ArrayList <GanadorPremio>ganadorPremios=new ArrayList<>();
+
+        for (int i = 0; i < facturas.size(); i++) {
+            String premio=sortearPremioPersona(facturas.get(i).getTipoProducto());
+            GanadorPremio ganadorPremio=new GanadorPremio(facturas.get(i).getIdFactura(),facturas.get(i).getCliente()
+            ,premio);
+
+            ganadorPremios.add(ganadorPremio);
+
+        }
+        return null;
+    }
 
     public ArrayList<Factura> separarGanadores (ArrayList<Factura>facturas){
 
