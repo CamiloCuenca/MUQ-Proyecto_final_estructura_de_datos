@@ -227,12 +227,14 @@ public class GeneradorFacturas {
 
     //  Main provisional para hacer pruebas
     public static void main(String[] args) {
-        // Programar la generación de facturas cada 5 minutos
-        scheduler.scheduleAtFixedRate(() -> {//se hace uso del hilo dandole las instrucciones que debe realizar.
-            List<Factura> nuevasFacturas = generarFacturas();
-            DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas,"src/main/resources/CSVFiles/Facturas.txt");
-            DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
+    }
 
-        }, 0, 10, TimeUnit.SECONDS);//Para establecer el tiempo.
+    public static void iniciarHiloGeneradorFacturas() {
+        // Programa la generación de facturas cada 5 minutos
+        scheduler.scheduleAtFixedRate(() -> {
+            List<Factura> nuevasFacturas = generarFacturas();
+            DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.txt");
+            DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
+        }, 0, 10, TimeUnit.SECONDS);
     }
 }
