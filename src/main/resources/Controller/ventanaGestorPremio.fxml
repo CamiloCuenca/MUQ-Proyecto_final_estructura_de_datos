@@ -106,6 +106,14 @@
             </TableView>
          </children>
       </AnchorPane>
+      <Button fx:id="btnGenerarPremios" layoutX="769.0" layoutY="56.0" mnemonicParsing="false" onAction="#OnGenerar" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 15; -fx-background-color: #3dcdbc;" text="Generar Premios" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Button>
 
    </children>
 </AnchorPane>
