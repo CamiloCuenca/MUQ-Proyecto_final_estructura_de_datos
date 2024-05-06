@@ -221,7 +221,7 @@ public class GeneradorFacturas {
      * @param tipo tipo de producto para el cual se genera el nombre.
      * @return nombre aleatorio generado.
      */
-    public static String generarNombreAleatorio(TipoProducto tipo) {
+    private static String generarNombreAleatorio(TipoProducto tipo) {
         String[] nombres;
         switch (tipo) {
             case ALIMENTO:
