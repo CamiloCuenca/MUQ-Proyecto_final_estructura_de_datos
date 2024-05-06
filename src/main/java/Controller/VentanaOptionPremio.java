@@ -74,6 +74,8 @@ public class VentanaOptionPremio implements Initializable {
 
     }
 
+    // se hizo algo;
+
     public static void ActualizarDatosTabla (ArrayList<GanadorPremio>ganadorPremioArrayList){
 
         ganadorPremioObservableList2=FXCollections.observableArrayList(ganadorPremioArrayList);
