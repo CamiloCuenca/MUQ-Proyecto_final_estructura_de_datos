@@ -104,5 +104,10 @@
             </ScrollPane>
          </children>
       </AnchorPane>
+      <Button fx:id="btnGenerarPremios" layoutX="999.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnGenerar" style="-fx-background-color: #0CEBB6;" text="Generar Premios">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

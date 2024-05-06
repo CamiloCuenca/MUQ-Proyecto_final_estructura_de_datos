@@ -1,8 +1,5 @@
 package Model.objetos;
 
-import Model.enums.TipoProducto;
-import Model.objetos.Cliente;
-
 public class Factura {
     //Atributos
     private String idFactura;

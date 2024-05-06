@@ -1,8 +1,10 @@
 package Model.objetos;
 
+import Controller.VentanaOptionPremio;
 import Model.enums.Genero;
 import Model.enums.Paises;
 import Model.enums.TipoProducto;
+import Model.utils.GeneradorFacturas;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -284,6 +286,48 @@ public class AdminPremio extends Usuario{
         return facturaArrayList;
 
 
+    }
+
+    public String sortearPremioPersona (TipoProducto producto){
+
+
+        return GeneradorFacturas.generarNombreAleatorio(producto);
+    }
+
+
+    //Funcion para obtenerLista de cada persona, y ademas convertir cada factura y añadir el premio
+
+
+    public ArrayList<GanadorPremio> devolverGanadorConPremio (ArrayList<Factura>facturas){
+
+        ArrayList <GanadorPremio>ganadorPremios=new ArrayList<>();
+
+        for (int i = 0; i < facturas.size(); i++) {
+            String premio=sortearPremioPersona(convertirTipoEnum(facturas.get(i).getTipoProducto()));
+            GanadorPremio ganadorPremio=new GanadorPremio(facturas.get(i).getIdFactura(),
+                    facturas.get(i).getCliente().getIdCliente(),facturas.get(i).getCliente().getNombre(),
+                    facturas.get(i).getCliente().getEdad(),facturas.get(i).getCliente().getSexo(),
+                    facturas.get(i).getCliente().getPais(),facturas.get(i).getCliente().getCiudad(),premio,convertirTipoEnum(facturas.get(i).getTipoProducto()));
+            ganadorPremios.add(ganadorPremio);
+
+        }
+
+
+        VentanaOptionPremio.ActualizarDatosTabla(ganadorPremios);
+        return ganadorPremios;
+    }
+
+    public static TipoProducto convertirTipoEnum(String tipoProducto){
+        TipoProducto aux = TipoProducto.ALIMENTO;
+        if (tipoProducto.equals("ALIMENTO")){
+        } else if (tipoProducto.equals("ELECTRODOMESTICO")) {
+            aux = TipoProducto.ELECTRODOMESTICO;
+        } else if (tipoProducto.equals("COSMETICO")) {
+            aux = TipoProducto.COSMETICO;
+        } else if (tipoProducto.equals("TECNOLOGIA")) {
+            aux = TipoProducto.TECNOLOGIA;
+        }
+        return aux;
     }
 
     public void generarAtributosPremio (){
