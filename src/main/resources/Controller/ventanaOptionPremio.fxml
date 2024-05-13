@@ -5,30 +5,17 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Glow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="507.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaOptionPremio">
+<AnchorPane prefHeight="507.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaOptionPremio">
    <children>
       <AnchorPane fx:id="anchorPanePremios" prefHeight="507.0" prefWidth="1055.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
          <children>
-            <Pane layoutX="236.0" layoutY="27.0" prefHeight="59.0" prefWidth="463.0">
+            <Pane layoutX="295.0" layoutY="18.0" prefHeight="59.0" prefWidth="463.0">
                <children>
-                  <ImageView fitHeight="60.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/OIP.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="63.0" layoutX="407.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/OIP.png" />
-                     </image>
-                  </ImageView>
                   <Text fill="#3dcdbc" layoutX="94.0" layoutY="41.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="Personas con Premio" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="28.0" />
@@ -39,7 +26,7 @@
                   </Text>
                </children>
             </Pane>
-            <Button fx:id="btnSalir" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#OnSalir" prefHeight="37.0" prefWidth="121.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="WHITE">
+            <Button fx:id="btnSalir" layoutX="4.0" layoutY="57.0" mnemonicParsing="false" onAction="#OnSalir" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -47,28 +34,28 @@
                   <Glow />
                </effect>
             </Button>
-            <AnchorPane layoutX="16.0" layoutY="91.0" prefHeight="397.0" prefWidth="908.0" style="-fx-background-color: #3b4474; -fx-background-radius: 15;">
+            <AnchorPane layoutX="16.0" layoutY="91.0" prefHeight="397.0" prefWidth="1020.0" style="-fx-background-color: #26b9a5; -fx-background-radius: 15;">
                <children>
-                  <ScrollPane fx:id="scpTabla" layoutX="48.0" layoutY="12.0" prefHeight="374.0" prefWidth="951.0" style="-fx-border-color: #3dcdbc;">
+                  <ScrollPane fx:id="scpTabla" layoutX="10.0" layoutY="12.0" prefHeight="374.0" prefWidth="999.0" style="-fx-border-color: #3dcdbc;">
                      <content>
-                        <TableView fx:id="tblFacturas" prefHeight="368.0" prefWidth="955.0" style="-fx-background-color: #ffffff;" stylesheets="@../Style/EstiloAdministradores.css">
+                        <TableView fx:id="tblFacturas" prefHeight="368.0" prefWidth="997.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
                            <columns>
-                              <TableColumn fx:id="colIdFactura" prefWidth="112.0" style="-fx-background-color: #36375a;" text="ID Factura" />
-                              <TableColumn fx:id="colIdCliente" prefWidth="140.0" style="-fx-background-color: #36375a;" text="ID cliente" />
-                              <TableColumn fx:id="colCliente" prefWidth="123.0" style="-fx-background-color: #36375a;" text="Cliente" />
-                              <TableColumn fx:id="colEdad" prefWidth="148.0" style="-fx-background-color: #36375a;" text="Edad" />
-                              <TableColumn fx:id="colGenero" prefWidth="118.0" style="-fx-background-color: #36375a;" text="Genero" />
-                              <TableColumn fx:id="colPais" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Pais" />
-                              <TableColumn fx:id="colCiudad" prefWidth="75.0" style="-fx-background-color: #36375a;" text="Ciudad" />
-                              <TableColumn fx:id="colPremio" prefWidth="142.0" style="-fx-background-color: #36375a;" text="Premio" />
-                              <TableColumn fx:id="colTipoProducto" prefWidth="142.0" style="-fx-background-color: #36375a;" text="TipoProducto" />
+                              <TableColumn fx:id="colIdFactura" prefWidth="112.0" style="-fx-background-color: #211E1E;" text="ID Factura" />
+                              <TableColumn fx:id="colIdCliente" prefWidth="140.0" style="-fx-background-color: #211E1E;" text="ID cliente" />
+                              <TableColumn fx:id="colCliente" prefWidth="123.0" style="-fx-background-color: #211E1E;" text="Cliente" />
+                              <TableColumn fx:id="colEdad" prefWidth="148.0" style="-fx-background-color: #211E1E;" text="Edad" />
+                              <TableColumn fx:id="colGenero" prefWidth="118.0" style="-fx-background-color: #211E1E;" text="Genero" />
+                              <TableColumn fx:id="colPais" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Pais" />
+                              <TableColumn fx:id="colCiudad" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Ciudad" />
+                              <TableColumn fx:id="colPremio" prefWidth="128.0" style="-fx-background-color: #211E1E;" text="Premio" />
+                              <TableColumn fx:id="colTipoProducto" prefWidth="156.0" style="-fx-background-color: #211E1E;" text="TipoProducto" />
                            </columns>
                         </TableView>
                      </content>
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <Button fx:id="btnSalir1" layoutX="712.0" layoutY="41.0" mnemonicParsing="false" onAction="#OnActualizar" prefHeight="37.0" prefWidth="121.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Actualizar" textFill="WHITE">
+            <Button fx:id="btnActualizar" layoutX="922.0" layoutY="54.0" mnemonicParsing="false" onAction="#OnActualizar" prefHeight="24.0" prefWidth="121.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Actualizar" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>

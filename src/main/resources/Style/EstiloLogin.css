@@ -1,10 +1,4 @@
 
-#anchorPaneD{
-    -fx-background-image: url("login.png");
-    -fx-background-size: cover;
-    -fx-background-radius: 10px; /* Define el radio del borde */
-}
-
 .text-field {
     -fx-background-color: transparent; /* Hace que el fondo del TextField sea transparente */
     -fx-border-width: 0px; /* Elimina los bordes del TextField */
@@ -21,8 +15,9 @@
 
 /* Cambia el color de la línea de guía cuando el mouse está sobre el TextField */
 .text-field:hover {
-    -fx-border-color:  #36375a; /* Cambia el color de la línea de guía al pasar el mouse sobre el TextField */
+    -fx-border-color: #36375a; /* Cambia el color de la línea de guía al pasar el mouse sobre el TextField */
 }
+
 
 
 

@@ -14,7 +14,7 @@
 
 <AnchorPane id="anchorPaneId" fx:id="anchonPaneLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="800.0" style="-fx-background-radius: 15; -fx-background-color: #ffffff;" stylesheets="@../Style/EstiloLogin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
-      <AnchorPane id="anchorPaneD" fx:id="anchorPaneD" layoutY="-1.0" prefHeight="514.0" prefWidth="493.0">
+      <AnchorPane id="anchorPaneD" fx:id="anchorPaneD" layoutY="-1.0" prefHeight="514.0" prefWidth="493.0" style="-fx-background-color: #211E1E;">
          <children>
             <Text id="txtLogo" fx:id="txtLogo" fill="WHITE" layoutX="173.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0">
                <font>
@@ -45,7 +45,7 @@
                   <Glow />
                </effect>
             </Text>
-            <Button fx:id="btnIngresar" layoutX="47.0" layoutY="377.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Ingresar" textFill="WHITE" />
+            <Button fx:id="btnIngresar" layoutX="48.0" layoutY="386.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="26.0" prefWidth="239.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Ingresar" textFill="WHITE" />
             <TextField fx:id="txtUsuario" layoutX="51.0" layoutY="245.0" prefHeight="18.0" prefWidth="228.0" />
             <ImageView fx:id="imgLogo" fitHeight="115.0" fitWidth="179.0" layoutX="106.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -53,7 +53,10 @@
                </image>
             </ImageView>
             <PasswordField fx:id="pswContrasena" layoutX="51.0" layoutY="311.0" prefHeight="25.0" prefWidth="228.0" />
-            <Label fx:id="lblMensaje" alignment="CENTER" layoutX="53.0" layoutY="349.0" prefHeight="18.0" prefWidth="228.0" textFill="#36375a" />
+            <Label fx:id="lblMensaje" alignment="CENTER" contentDisplay="CENTER" layoutX="53.0" layoutY="349.0" prefHeight="18.0" prefWidth="228.0" textAlignment="CENTER" textFill="#3dcdbc" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
             <Text fill="#3dcdbc" layoutX="48.0" layoutY="241.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="13.0" />

@@ -7,6 +7,8 @@ import Model.objetos.Producto;
 import Model.utils.DataUtils;
 import Model.utils.GeneradorFacturas;
 import Model.utils.SceneUtils;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -15,21 +17,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -78,15 +80,20 @@ public class VentanaAdministradores implements Initializable {
     @FXML
     private ImageView viwLogo;
     @FXML
+    private Label lblTexto;
+    @FXML
     private ImageView viwLogo1;
     @FXML
     private ImageView viwLogo2;
     @FXML
-    private ScrollPane scpTabla;
+    private ScrollPane scpTablaFactura;
     @FXML
     private AnchorPane anchorPaneAdmi;
     @FXML
-    private  TableView<Factura> tblFacturas;
+    private TableView<Factura> tblFacturas;
+
+    @FXML
+    private Label lblReloj;
 
     // ObservableList para cargar las facturas desde un archivo CSV
     public static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
@@ -129,8 +136,21 @@ public class VentanaAdministradores implements Initializable {
     void procesarFactura(ActionEvent event) {
         // Implementar lógica para procesar factura
         AdminPremio.lectorTXT();
-        VentanaGestorPremio.aux=true;
+        VentanaGestorPremio.aux = true;
+        lblTexto.setText("Proceso Completado");
+        CoreMethod.mostrarErrorTemporalmente(lblTexto);
 
+    }
+
+    private void inicializarReloj() {
+        // Crear un objeto Timeline para actualizar el reloj cada segundo
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String horaActual = sdf.format(new Date());
+            lblReloj.setText(horaActual);
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     public void Regresar(ActionEvent event) throws IOException {
@@ -143,6 +163,10 @@ public class VentanaAdministradores implements Initializable {
         configurarColumnas(tblFacturas, colIdFactura, colIdCliente, colCliente, colEdad, colGenero, colPais, colCiudad,
                 colProductos, colTipoProducto, colValorTotal, colDia, colMes, colAnio);
         CoreMethod.girarImagen(viwLogo);
+        CoreMethod.animarComponente(btnCargarfactura);
+        CoreMethod.animarComponente(btnEliminarFactura);
+        CoreMethod.animarComponente(btnRegresar);
+        CoreMethod.animarComponente(btnProcesarFactura);
         // Cargar las facturas desde el archivo CSV al inicializar la ventana
         // Configurar la tabla
         tblFacturas.setItems(listaFacturas);
@@ -150,10 +174,10 @@ public class VentanaAdministradores implements Initializable {
         tblFacturas.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         // Configurar el ancho preferido de la tabla
         tblFacturas.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        inicializarReloj();
+
+
     }
-
-
-
 
 
     // Método para configurar las columnas de la tabla

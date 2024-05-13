@@ -28,6 +28,9 @@ public class VentanaOptionPremio implements Initializable {
     private Button btnSalir;
 
     @FXML
+    private Button btnActualizar;
+
+    @FXML
     private TableColumn<GanadorPremio, String> colCiudad;
 
     @FXML
@@ -61,10 +64,9 @@ public class VentanaOptionPremio implements Initializable {
     @FXML
     private TableView<GanadorPremio> tblFacturas;
 
-    public static boolean aux=false;
+    public static boolean aux = false;
 
     public static ObservableList<GanadorPremio> ganadorPremioObservableList2;
-
 
 
     ObservableList<GanadorPremio> ganadorPremioObservableList;
@@ -76,16 +78,16 @@ public class VentanaOptionPremio implements Initializable {
 
     // se hizo algo;
 
-    public static void ActualizarDatosTabla (ArrayList<GanadorPremio>ganadorPremioArrayList){
+    public static void ActualizarDatosTabla(ArrayList<GanadorPremio> ganadorPremioArrayList) {
 
-        ganadorPremioObservableList2=FXCollections.observableArrayList(ganadorPremioArrayList);
+        ganadorPremioObservableList2 = FXCollections.observableArrayList(ganadorPremioArrayList);
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ganadorPremioObservableList= FXCollections.observableArrayList();
+        ganadorPremioObservableList = FXCollections.observableArrayList();
 
         colIdFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
         colIdCliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
@@ -98,8 +100,7 @@ public class VentanaOptionPremio implements Initializable {
         colTipoProducto.setCellValueFactory(new PropertyValueFactory<>("tipoProducto"));
 
 
-
-        if(aux==true){
+        if (aux == true) {
 
             ganadorPremioObservableList.addAll(ganadorPremioObservableList2);
 
@@ -114,27 +115,27 @@ public class VentanaOptionPremio implements Initializable {
     @FXML
     void OnActualizar(ActionEvent event) {
 
-        ArrayList<PersonaPremio>facturaArrayList=new ArrayList<>();
-        ArrayList<Factura>facturaArrayList3=new ArrayList<>();
-        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList3);
+        ArrayList<PersonaPremio> facturaArrayList = new ArrayList<>();
+        ArrayList<Factura> facturaArrayList3 = new ArrayList<>();
+        AdminPremio adminPremio = new AdminPremio("Santiago", "123", "1234", facturaArrayList3);
 
-        facturaArrayList=adminPremio.FacturaToPersonaPremio();
+        facturaArrayList = adminPremio.FacturaToPersonaPremio();
         //aqui se obtienen las facturas en arrayList <Factura>
 
-        ArrayList<Factura>facturaArrayList1=adminPremio.convertirFactura(facturaArrayList);
+        ArrayList<Factura> facturaArrayList1 = adminPremio.convertirFactura(facturaArrayList);
 
         System.out.println("GANADORES");
         System.out.println(facturaArrayList1);
 
         System.out.println("Con Premio");
 
-        ArrayList<GanadorPremio>ganadorPremios=adminPremio.devolverGanadorConPremio(facturaArrayList1);
+        ArrayList<GanadorPremio> ganadorPremios = adminPremio.devolverGanadorConPremio(facturaArrayList1);
 
-        VentanaOptionPremio.aux=true;
+        VentanaOptionPremio.aux = true;
 
         System.out.println(ganadorPremios);
 
-        ganadorPremioObservableList=ganadorPremioObservableList2;
+        ganadorPremioObservableList = ganadorPremioObservableList2;
 
         tblFacturas.setItems(ganadorPremioObservableList);
 
