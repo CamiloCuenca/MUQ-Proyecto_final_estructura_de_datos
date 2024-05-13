@@ -90,12 +90,6 @@
          </children>
       </AnchorPane>
 
-      <Button fx:id="btnGenerarPremios" layoutX="999.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnGenerar" style="-fx-background-color: #0CEBB6;" text="Generar Premios">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-
       <AnchorPane layoutX="926.0" layoutY="91.0" prefHeight="397.0" prefWidth="290.0" style="-fx-background-color: #3b4474; -fx-background-radius: 20;">
          <children>
             <TableView fx:id="tblProductos" layoutX="10.0" layoutY="14.0" prefHeight="364.0" prefWidth="273.0">
@@ -106,7 +100,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <Button fx:id="btnGenerarPremios" layoutX="769.0" layoutY="56.0" mnemonicParsing="false" onAction="#OnGenerar" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 15; -fx-background-color: #3dcdbc;" text="Generar Premios" textFill="WHITE">
+      <Button fx:id="btnGenerarPremio" layoutX="769.0" layoutY="56.0" mnemonicParsing="false" onAction="#OnGenerar" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 15; -fx-background-color: #3dcdbc;" text="Generar Premios" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
