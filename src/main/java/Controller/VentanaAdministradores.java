@@ -26,6 +26,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.text.Utilities;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -72,7 +73,7 @@ public class VentanaAdministradores implements Initializable {
     @FXML
     private Button btnCargarfactura;
     @FXML
-    private Button btnEliminarFactura;
+    private Button btnHilo;
     @FXML
     private Button btnProcesarFactura;
     @FXML
@@ -91,6 +92,9 @@ public class VentanaAdministradores implements Initializable {
     private AnchorPane anchorPaneAdmi;
     @FXML
     private TableView<Factura> tblFacturas;
+
+    @FXML
+    private TableView<?> tblProductos;
 
     @FXML
     private Label lblReloj;
@@ -142,6 +146,13 @@ public class VentanaAdministradores implements Initializable {
 
     }
 
+    @FXML
+    void controlHilo(ActionEvent event) {
+
+    }
+
+
+
     private void inicializarReloj() {
         // Crear un objeto Timeline para actualizar el reloj cada segundo
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -164,7 +175,7 @@ public class VentanaAdministradores implements Initializable {
                 colProductos, colTipoProducto, colValorTotal, colDia, colMes, colAnio);
         CoreMethod.girarImagen(viwLogo);
         CoreMethod.animarComponente(btnCargarfactura);
-        CoreMethod.animarComponente(btnEliminarFactura);
+        CoreMethod.animarComponente(btnHilo);
         CoreMethod.animarComponente(btnRegresar);
         CoreMethod.animarComponente(btnProcesarFactura);
         // Cargar las facturas desde el archivo CSV al inicializar la ventana

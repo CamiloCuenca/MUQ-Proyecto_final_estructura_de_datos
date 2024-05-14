@@ -14,110 +14,101 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchorPaneAdmi" fx:id="anchorPaneAdmi" prefHeight="483.0" prefWidth="1087.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaAdministradores">
+<AnchorPane prefHeight="458.0" prefWidth="1160.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaAdministradores">
    <children>
-      <AnchorPane prefHeight="483.0" prefWidth="1092.0" style="-fx-background-color: #211E1E;">
+      <Button id="btnRegresar" fx:id="btnRegresar" layoutX="8.0" layoutY="410.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="8.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="viwLogo" fitHeight="127.0" fitWidth="158.0" layoutX="37.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/pngegg.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutX="17.0" layoutY="213.0" opacity="0.89" prefHeight="155.0" prefWidth="167.0" style="-fx-spacing: 15;">
          <children>
-            <Button id="btnRegresar" fx:id="btnRegresar" layoutX="-7.0" layoutY="443.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="8.0" />
-               </font>
-            </Button>
-            <ImageView fx:id="viwLogo" fitHeight="127.0" fitWidth="158.0" layoutX="23.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/pngegg.png" />
-               </image>
-            </ImageView>
-            <VBox alignment="CENTER" layoutX="3.0" layoutY="209.0" opacity="0.89" prefHeight="155.0" prefWidth="167.0" style="-fx-spacing: 15;">
-               <children>
-                  <Button fx:id="btnEliminarFactura" mnemonicParsing="false" onAction="#eliminarFactura" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Eliminar Factura" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </Button>
-                  <Button fx:id="btnCargarfactura" mnemonicParsing="false" onAction="#cargarFactura" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Cargar Factura" textFill="WHITE">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </Button>
-                  <Button fx:id="btnProcesarFactura" alignment="CENTER" mnemonicParsing="false" onAction="#procesarFactura" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15};" text="Procesar factura" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </Button>
-               </children>
-            </VBox>
-            <Text fill="#3dcdbc" layoutX="39.0" layoutY="204.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="GiftLogic" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-               <effect>
-                  <Glow level="0.81" />
-               </effect>
-            </Text>
-            <Text fill="#3dcdbc" layoutX="552.0" layoutY="34.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="Facturación" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <effect>
-                  <Glow level="0.72" />
-               </effect>
-            </Text>
-            <AnchorPane layoutX="170.0" layoutY="53.0" prefHeight="400.0" prefWidth="910.0" style="-fx-background-color: #26b9a5; -fx-background-radius: 15;">
-               <children>
-                  <ScrollPane fx:id="scpTablaFactura" layoutX="14.0" layoutY="13.0" prefHeight="374.0" prefWidth="883.0" style="-fx-border-color: #3dcdbc;" stylesheets="@../Style/EstiloAdministradores.css">
-                     <content>
-                        <TableView fx:id="tblFacturas" prefHeight="368.0" prefWidth="903.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
-                          <columns>
-                             <TableColumn fx:id="colIdFactura" prefWidth="104.0" style="-fx-background-color: #211E1E;" text="ID Factura" />
-                             <TableColumn fx:id="colIdCliente" prefWidth="134.0" style="-fx-background-color: #211E1E;" text="ID cliente" />
-                             <TableColumn fx:id="colCliente" prefWidth="117.0" style="-fx-background-color: #211E1E;" text="Cliente" />
-                             <TableColumn fx:id="colEdad" prefWidth="106.0" style="-fx-background-color: #211E1E;" text="Edad" />
-                             <TableColumn fx:id="colGenero" prefWidth="103.0" style="-fx-background-color: #211E1E;" text="Genero" />
-                             <TableColumn fx:id="colPais" prefWidth="109.0" style="-fx-background-color: #211E1E;" text="Pais" />
-                             <TableColumn fx:id="colCiudad" prefWidth="118.0" style="-fx-background-color: #211E1E;" text="Ciudad" />
-                             <TableColumn fx:id="colProductos" prefWidth="88.0" style="-fx-background-color: #211E1E;" text="productos" />
-                             <TableColumn fx:id="colTipoProducto" prefWidth="62.0" style="-fx-background-color: #211E1E;" text="TIpo producto" />
-                             <TableColumn fx:id="colValorTotal" prefWidth="109.0" style="-fx-background-color: #211E1E;" text="Valor total" />
-                             <TableColumn fx:id="colDia" prefWidth="70.0" style="-fx-background-color: #211E1E;" text="Dia" />
-                             <TableColumn fx:id="colMes" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Mes" />
-                             <TableColumn fx:id="colAnio" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="AÑo" />
-                  
-                                                                                      </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-            <Label fx:id="lblReloj" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="403.0" prefHeight="40.0" prefWidth="140.0" textFill="#3dcdbc" textOverrun="CENTER_ELLIPSIS">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblTexto" alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="364.0" textAlignment="CENTER" textFill="#3dcdbc" textOverrun="CENTER_ELLIPSIS">
+            <Button fx:id="btnHilo" mnemonicParsing="false" onAction="#controlHilo" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Control" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-            </Label>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <Button fx:id="btnCargarfactura" mnemonicParsing="false" onAction="#cargarFactura" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Cargar Factura" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <Button fx:id="btnProcesarFactura" alignment="CENTER" mnemonicParsing="false" onAction="#procesarFactura" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Procesar factura" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
          </children>
-      </AnchorPane>
+      </VBox>
+      <Text fill="#3dcdbc" layoutX="589.0" layoutY="47.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="Facturación" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+         <effect>
+            <Glow level="0.72" />
+         </effect>
+      </Text>
+      <Label fx:id="lblReloj" alignment="CENTER" contentDisplay="CENTER" layoutX="184.0" layoutY="17.0" prefHeight="40.0" prefWidth="140.0" textFill="#3dcdbc" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTexto" alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="368.0" textAlignment="CENTER" textFill="#3dcdbc" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Text fill="#3dcdbc" layoutX="48.0" layoutY="207.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="gitfLogic" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+         <effect>
+            <Glow level="0.72" />
+         </effect>
+      </Text>
+      <ScrollPane fx:id="scpTabla" layoutX="197.0" layoutY="53.0" prefHeight="364.0" prefWidth="948.0" style="-fx-border-color: #3dcdbc;">
+         <content>
+            <TableView fx:id="tblFacturas" prefHeight="370.0" prefWidth="1253.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
+               <columns>
+                  <TableColumn fx:id="colIdFactura" prefWidth="84.0" style="-fx-background-color: #211E1E;" text="ID Factura" />
+                  <TableColumn fx:id="colIdCliente" prefWidth="101.0" style="-fx-background-color: #211E1E;" text="ID cliente" />
+                  <TableColumn fx:id="colCliente" prefWidth="102.0" style="-fx-background-color: #211E1E;" text="Cliente" />
+                  <TableColumn fx:id="colEdad" prefWidth="115.0" style="-fx-background-color: #211E1E;" text="Edad" />
+                  <TableColumn fx:id="colGenero" prefWidth="105.0" style="-fx-background-color: #211E1E;" text="Genero" />
+                  <TableColumn fx:id="colPais" prefWidth="114.0" style="-fx-background-color: #211E1E;" text="Pais" />
+                  <TableColumn fx:id="colCiudad" prefWidth="89.0" style="-fx-background-color: #211E1E;" text="Ciudad" />
+                  <TableColumn fx:id="colProductos" prefWidth="103.0" style="-fx-background-color: #211E1E;" text="productos" />
+                  <TableColumn fx:id="colTipoProducto" prefWidth="109.0" style="-fx-background-color: #211E1E;" text="TIpo producto" />
+                  <TableColumn fx:id="colValorTotal" prefWidth="94.0" style="-fx-background-color: #211E1E;" text="Valor total" />
+                  <TableColumn fx:id="colDia" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Dia" />
+                  <TableColumn fx:id="colMes" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Mes" />
+                  <TableColumn fx:id="colAnio" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="AÑo" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

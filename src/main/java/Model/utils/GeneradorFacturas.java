@@ -8,8 +8,12 @@ import Model.objetos.Cliente;
 import Model.objetos.Factura;
 import Model.objetos.Producto;
 import javafx.application.Platform;
+import javafx.scene.control.Label;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +23,7 @@ import static Controller.VentanaAdministradores.listaFacturas;
 public class GeneradorFacturas {
 
     private static final Random random = new Random();
-    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);//Hilo que se encarga de generar la factura.
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     // Arreglos de nombres para hombres y mujeres
     private static final String[] hombres = {"Juan", "Carlos", "Luis", "Pedro", "Diego", "Manuel", "Javier", "Miguel", "José", "Antonio"};
@@ -53,6 +57,8 @@ public class GeneradorFacturas {
         }
         return listaFacturas;
     }
+
+
 
     public static String convertirTipoProductoAString(List<Producto> productos){
         StringBuilder productosString = new StringBuilder();
@@ -243,6 +249,8 @@ public class GeneradorFacturas {
         return nombres[random.nextInt(nombres.length)];
     }
 
+
+
     /**
      * Genera una ciudad aleatoria según el país especificado.
      * @param pais país para el cual se genera la ciudad.
@@ -300,4 +308,10 @@ public class GeneradorFacturas {
             });
         }, 0, 5, TimeUnit.MINUTES);
     }
+
+
+
+
+
+
 }

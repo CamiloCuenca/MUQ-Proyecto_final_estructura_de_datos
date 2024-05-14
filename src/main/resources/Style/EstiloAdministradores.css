@@ -65,15 +65,38 @@
 }
 
 
-#btnActualizar {
-    -fx-background-color: transparent; /* Establece el color de fondo como transparente */
-    -fx-border-width: 0px; /* Elimina los bordes */
-    -fx-text-fill: #3dcdbc; /* Color del texto */
-    -fx-font-size: 14px; /* Tamaño de la fuente */
-    -fx-padding: 10px 20px; /* Espaciado interno */
-    -fx-cursor: hand; /* Cambia el cursor al pasar por encima */
+.scroll-pane {
+    -fx-background-color: transparent; /* Fondo transparente para que el borde sea visible */
+    -fx-border-color: #3aecec; /* Color del borde */
+    -fx-border-width: 4px; /* Ancho del borde */
+    -fx-border-style: solid; /* Estilo del borde */
+    -fx-border-radius: 5px; /* Radio del borde */
+    -fx-padding: 10px; /* Espaciado interior */
 }
 
 
+#scpTabla .scroll-bar {
+    -fx-background-color: rgb(33, 30, 30); /* Cambia el color de fondo de las barras de desplazamiento */
+
+}
+
+#scpTabla .scroll-bar {
+    -fx-background-color: rgb(33, 30, 30);
+}
 
 
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #ffffff; /* Color de la barra de desplazamiento vertical */
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #ffffff; /* Color de la barra de desplazamiento horizontal */
+}
+
+#tblProductos {
+    -fx-border-color: #3aecec; /* Color del borde */
+    -fx-border-width: 4px; /* Ancho del borde */
+    -fx-border-style: solid; /* Estilo del borde */
+    -fx-border-radius: 5px; /* Radio del borde */
+    -fx-padding: 10px; /* Espaciado interior */
+}

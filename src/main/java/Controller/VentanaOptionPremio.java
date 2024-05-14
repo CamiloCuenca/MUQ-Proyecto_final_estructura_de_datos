@@ -86,7 +86,8 @@ public class VentanaOptionPremio implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        CoreMethod.animarComponente(btnActualizar);
+        CoreMethod.animarComponente(btnSalir);
         ganadorPremioObservableList = FXCollections.observableArrayList();
 
         colIdFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));

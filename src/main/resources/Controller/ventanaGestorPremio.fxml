@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="anchorPanePremios" prefHeight="497.0" prefWidth="1222.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaGestorPremio">
    <children>
-      <Pane layoutX="239.0" layoutY="13.0" prefHeight="59.0" prefWidth="463.0">
+      <Pane layoutX="239.0" layoutY="24.0" prefHeight="59.0" prefWidth="463.0">
          <children>
             <Text fill="#3dcdbc" layoutX="111.0" layoutY="40.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="Gestor de Premios" textAlignment="CENTER">
                <font>
@@ -26,7 +26,7 @@
             </Text>
          </children>
       </Pane>
-      <Button id="btnSalir" fx:id="btnSalir" layoutX="17.0" layoutY="32.0" mnemonicParsing="false" onAction="#OnSalir" prefHeight="40.0" prefWidth="99.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="#3dcdbc">
+      <Button id="btnSalir" fx:id="btnSalir" layoutX="29.0" layoutY="63.0" mnemonicParsing="false" onAction="#OnSalir" prefHeight="40.0" prefWidth="99.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="#3dcdbc">
          <font>
             <Font size="15.0" />
          </font>
@@ -34,12 +34,12 @@
             <Glow />
          </effect>
       </Button>
-      <TextField fx:id="txtBuscarCliente" layoutX="993.0" layoutY="37.0" prefHeight="24.0" prefWidth="216.0" promptText="ID Cliente" style="-fx-background-radius: 15;">
+      <TextField fx:id="txtBuscarCliente" layoutX="993.0" layoutY="53.0" prefHeight="24.0" prefWidth="216.0" promptText="ID Cliente" style="-fx-background-radius: 15;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="btnBuscar" layoutX="926.0" layoutY="37.0" mnemonicParsing="false" onAction="#OnBuscar" prefHeight="30.0" prefWidth="64.0" style="-fx-background-radius: 15; -fx-background-color: #3dcdbc;" text="Buscar" textFill="WHITE">
+      <Button fx:id="btnBuscar" layoutX="926.0" layoutY="57.0" mnemonicParsing="false" onAction="#OnBuscar" prefHeight="30.0" prefWidth="64.0" style="-fx-background-radius: 15; -fx-background-color: #3dcdbc;" text="Buscar" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -47,48 +47,12 @@
             <Glow />
          </effect>
       </Button>
-      <Label layoutX="993.0" layoutY="12.0" prefHeight="21.0" prefWidth="216.0" text="Por favor ingresar ID del cliente" textFill="WHITE">
+      <Label layoutX="993.0" layoutY="27.0" prefHeight="21.0" prefWidth="216.0" text="Por favor ingresar ID del cliente" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="17.0" layoutY="72.0" prefHeight="397.0" prefWidth="908.0" style="-fx-background-color: #26b9a5; -fx-background-radius: 15;">
-         <children>
-            <ScrollPane fx:id="scpTabla" layoutX="19.0" layoutY="14.0" prefHeight="374.0" prefWidth="883.0" style="-fx-border-color: #3dcdbc;">
-               <content>
-                  <TableView fx:id="tblFacturas" prefHeight="368.0" prefWidth="903.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
-                     <columns>
-                        <TableColumn fx:id="colIdFactura" prefWidth="112.0" style="-fx-background-color: #211E1E;" text="ID Factura" />
-                        <TableColumn fx:id="colIdCliente" prefWidth="140.0" style="-fx-background-color: #211E1E;" text="ID cliente" />
-                        <TableColumn fx:id="colCliente" prefWidth="123.0" style="-fx-background-color: #211E1E;" text="Cliente" />
-                        <TableColumn fx:id="colEdad" prefWidth="148.0" style="-fx-background-color: #211E1E;" text="Edad" />
-                        <TableColumn fx:id="colGenero" prefWidth="118.0" style="-fx-background-color: #211E1E;" text="Genero" />
-                        <TableColumn fx:id="colPais" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Pais" />
-                        <TableColumn fx:id="colCiudad" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Ciudad" />
-                        <TableColumn fx:id="colProductos" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="productos" />
-                        <TableColumn fx:id="colTipoProducto" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="TIpo producto" />
-                        <TableColumn fx:id="colValorTotal" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Valor total" />
-                        <TableColumn fx:id="colDia" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Dia" />
-                        <TableColumn fx:id="colMes" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Mes" />
-                        <TableColumn fx:id="colAnio" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="AÑo" />
-                     </columns>
-                  </TableView>
-               </content>
-            </ScrollPane>
-         </children>
-      </AnchorPane>
-
-      <AnchorPane layoutX="926.0" layoutY="72.0" prefHeight="397.0" prefWidth="290.0" style="-fx-background-color: #26b9a5; -fx-background-radius: 20;">
-         <children>
-            <TableView fx:id="tblProductos" layoutX="9.0" layoutY="14.0" prefHeight="364.0" prefWidth="273.0" style="-fx-background-color: #211E1E;">
-              <columns>
-                <TableColumn fx:id="columTipo" prefWidth="151.0" style="-fx-background-color: #211E1E;" text="TipoProducto" />
-                <TableColumn fx:id="columProducto" prefWidth="121.0" style="-fx-background-color: #211E1E;" text="Producto" />
-              </columns>
-            </TableView>
-         </children>
-      </AnchorPane>
-      <Button fx:id="btnGenerarPremio" layoutX="775.0" layoutY="37.0" mnemonicParsing="false" onAction="#OnGenerar" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 15; -fx-background-color: #3dcdbc;" text="Generar Premios" textFill="WHITE">
+      <Button fx:id="btnGenerarPremio" layoutX="763.0" layoutY="57.0" mnemonicParsing="false" onAction="#OnGenerar" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 15; -fx-background-color: #3dcdbc;" text="Generar Premios" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -96,6 +60,33 @@
             <Glow />
          </effect>
       </Button>
+      <ScrollPane fx:id="scpTabla" hbarPolicy="NEVER" layoutX="29.0" layoutY="96.0" prefHeight="374.0" prefWidth="883.0" style="-fx-border-color: #3dcdbc;">
+         <content>
+            <TableView fx:id="tblFacturas" prefHeight="367.0" prefWidth="903.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
+               <columns>
+                  <TableColumn fx:id="colIdFactura" prefWidth="112.0" style="-fx-background-color: #211E1E;" text="ID Factura" />
+                  <TableColumn fx:id="colIdCliente" prefWidth="140.0" style="-fx-background-color: #211E1E;" text="ID cliente" />
+                  <TableColumn fx:id="colCliente" prefWidth="123.0" style="-fx-background-color: #211E1E;" text="Cliente" />
+                  <TableColumn fx:id="colEdad" prefWidth="148.0" style="-fx-background-color: #211E1E;" text="Edad" />
+                  <TableColumn fx:id="colGenero" prefWidth="118.0" style="-fx-background-color: #211E1E;" text="Genero" />
+                  <TableColumn fx:id="colPais" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Pais" />
+                  <TableColumn fx:id="colCiudad" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Ciudad" />
+                  <TableColumn fx:id="colProductos" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="productos" />
+                  <TableColumn fx:id="colTipoProducto" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="TIpo producto" />
+                  <TableColumn fx:id="colValorTotal" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Valor total" />
+                  <TableColumn fx:id="colDia" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Dia" />
+                  <TableColumn fx:id="colMes" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Mes" />
+                  <TableColumn fx:id="colAnio" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="AÑo" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <TableView fx:id="tblProductos" layoutX="926.0" layoutY="96.0" prefHeight="374.0" prefWidth="273.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
+         <columns>
+            <TableColumn fx:id="columTipo" prefWidth="130.0" style="-fx-background-color: #211E1E;" text="TipoProducto" />
+            <TableColumn fx:id="columProducto" prefWidth="142.0" style="-fx-background-color: #211E1E;" text="Producto" />
+         </columns>
+      </TableView>
 
    </children>
 </AnchorPane>
