@@ -26,22 +26,24 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
 
     /**
      * Metodo que se encarga de abrir la ventana login en el main
+     *
      * @param stage
      */
-    public static void mostrarLogin (Stage stage){
-        try{
+    public static void mostrarLogin(Stage stage) {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 800, 509 );
+            Scene scene = new Scene(fxmlLoader.load(), 800, 509);
             stage.setTitle("MUQ");
             stage.setScene(scene);
             stage.show();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Funcion para dar animacion a botón
+     *
      * @param nodo
      */
 
@@ -59,6 +61,7 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
 
     /**
      * Esta funcion se encarga de que cuando el usuario precione Enter pueda ingresar directamente.
+     *
      * @param node1
      * @param node2
      * @param button
@@ -78,13 +81,14 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
 
     /**
      * Metodo que le da animacion a las imagenes de giro.
+     *
      * @param imageView
      */
 
     public static void girarImagen(ImageView imageView) {
         RotateTransition rotate = new RotateTransition();
         rotate.setNode(imageView);
-        rotate.setDuration(Duration.millis(2200));
+        rotate.setDuration(Duration.millis(1500));
         rotate.setCycleCount(TranslateTransition.INDEFINITE);
         rotate.setInterpolator(Interpolator.LINEAR);
         rotate.setByAngle(360);
@@ -94,6 +98,7 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
 
     /**
      * Metodo que establece mostrar mensaje en lbl durante un tiempo (2sg).
+     *
      * @param lblMensaje
      */
     public static void mostrarErrorTemporalmente(Label lblMensaje) {
@@ -108,9 +113,6 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
         Timeline timeline = new Timeline(keyFrame);
         timeline.play();
     }
-
-
-
 
 
 }

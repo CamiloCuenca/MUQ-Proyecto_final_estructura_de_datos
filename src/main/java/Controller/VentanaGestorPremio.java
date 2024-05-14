@@ -30,17 +30,18 @@ import java.util.ResourceBundle;
 public class VentanaGestorPremio implements Initializable {
 
 
-
     private ArrayList<PersonaPremio> personaPremios = AdminPremio.FacturaToPersonaPremio();
-    private ArrayList<Factura>facturas = AdminPremio.convertirFactura(personaPremios);
+    private ArrayList<Factura> facturas = AdminPremio.convertirFactura(personaPremios);
 
 
-    public static boolean  aux  = false;
-
+    public static boolean aux = false;
 
 
     @FXML
-    private Button ButtonBuscar;
+    private Button btnBuscar;
+
+    @FXML
+    private Button btnGenerarPremio;
 
     @FXML
     private Button btnSalir;
@@ -93,10 +94,10 @@ public class VentanaGestorPremio implements Initializable {
 
     //Convertir a observable list
 
-    public static ObservableList<Factura> convertirToObservable(ArrayList<Factura>facturas){
-        ObservableList<Factura>aux= FXCollections.observableArrayList();
+    public static ObservableList<Factura> convertirToObservable(ArrayList<Factura> facturas) {
+        ObservableList<Factura> aux = FXCollections.observableArrayList();
 
-        for(int i=0; i<facturas.size(); i++){
+        for (int i = 0; i < facturas.size(); i++) {
             aux.add(facturas.get(i));
         }
 
@@ -110,12 +111,11 @@ public class VentanaGestorPremio implements Initializable {
     }
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(aux){
+        if (aux) {
             tblFacturas.setItems(convertirToObservable(facturas));
-        }else{
+        } else {
             System.out.println("no se cargaron las facturas");
         }
         //tblFacturas.setItems(convertirToObservable(facturas));
@@ -135,8 +135,11 @@ public class VentanaGestorPremio implements Initializable {
 
         System.out.println(facturas);
 
-        DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.txt");
+        CoreMethod.animarComponente(btnSalir);
+        CoreMethod.animarComponente(btnBuscar);
+        CoreMethod.animarComponente(btnGenerarPremio);
 
+        DataUtils.escribirFacturaCSV(facturas, "src/main/resources/CSVFiles/FacturasProcesadas.txt");
 
 
     }
@@ -150,9 +153,9 @@ public class VentanaGestorPremio implements Initializable {
     @FXML
     void OnGenerar(ActionEvent event) throws IOException {
 
-        Stage stage=new Stage();
-        Parent root= FXMLLoader.load(getClass().getResource("ventanaOptionPremio.fxml"));
-        Scene escena=new Scene(root);
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("ventanaOptionPremio.fxml"));
+        Scene escena = new Scene(root);
         stage.setScene(escena);
         stage.show();
 
