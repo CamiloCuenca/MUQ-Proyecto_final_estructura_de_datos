@@ -298,6 +298,6 @@ public class GeneradorFacturas {
             Platform.runLater(() -> {
                 VentanaAdministradores.listaFacturas.addAll(nuevasFacturas);
             });
-        }, 0, 5, TimeUnit.MINUTES);
+        }, 0, 20, TimeUnit.SECONDS);
     }
 }
