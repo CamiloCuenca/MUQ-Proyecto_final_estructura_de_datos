@@ -81,12 +81,23 @@
             </TableView>
          </content>
       </ScrollPane>
-      <TableView fx:id="tblProductos" layoutX="926.0" layoutY="96.0" prefHeight="374.0" prefWidth="273.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
-         <columns>
-            <TableColumn fx:id="columTipo" prefWidth="130.0" style="-fx-background-color: #211E1E;" text="TipoProducto" />
-            <TableColumn fx:id="columProducto" prefWidth="142.0" style="-fx-background-color: #211E1E;" text="Producto" />
-         </columns>
-      </TableView>
+      <ScrollPane fx:id="scpPremios" layoutX="917.0" layoutY="95.0" prefHeight="374.0" prefWidth="297.0">
+         <content>
+            <TableView fx:id="tblPremios" prefHeight="374.0" prefWidth="680.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css">
+              <columns>
+                <TableColumn fx:id="colPremioFacturaid" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="ID Factura" />
+                <TableColumn fx:id="colPremioClienteid" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="ID Cliente" />
+                  <TableColumn fx:id="colPremioCliente" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Cliente" />
+                  <TableColumn fx:id="colPremioEdad" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Edad" />
+                  <TableColumn fx:id="colPremioGenero" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Genero" />
+                  <TableColumn fx:id="colPremioPais" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Pais" />
+                  <TableColumn fx:id="colPremioCiudad" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Ciudad" />
+                  <TableColumn fx:id="colPremio" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Premio" />
+                  <TableColumn fx:id="colPremioTipoPremio" prefWidth="75.0" style="-fx-background-color: #211E1E;" text="Tipo Premio" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
 
    </children>
 </AnchorPane>

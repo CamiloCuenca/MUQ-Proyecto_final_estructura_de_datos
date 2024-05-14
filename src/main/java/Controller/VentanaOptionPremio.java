@@ -115,30 +115,5 @@ public class VentanaOptionPremio implements Initializable {
 
     @FXML
     void OnActualizar(ActionEvent event) {
-
-        ArrayList<PersonaPremio> facturaArrayList = new ArrayList<>();
-        ArrayList<Factura> facturaArrayList3 = new ArrayList<>();
-        AdminPremio adminPremio = new AdminPremio("Santiago", "123", "1234", facturaArrayList3);
-
-        facturaArrayList = adminPremio.FacturaToPersonaPremio();
-        //aqui se obtienen las facturas en arrayList <Factura>
-
-        ArrayList<Factura> facturaArrayList1 = adminPremio.convertirFactura(facturaArrayList);
-
-        System.out.println("GANADORES");
-        System.out.println(facturaArrayList1);
-
-        System.out.println("Con Premio");
-
-        ArrayList<GanadorPremio> ganadorPremios = adminPremio.devolverGanadorConPremio(facturaArrayList1);
-
-        VentanaOptionPremio.aux = true;
-
-        System.out.println(ganadorPremios);
-
-        ganadorPremioObservableList = ganadorPremioObservableList2;
-
-        tblFacturas.setItems(ganadorPremioObservableList);
-
     }
 }
