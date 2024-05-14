@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="496.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaAdministradorRuta">
+   <children>
+      <Button fx:id="btnGenerarRuta" layoutX="41.0" layoutY="414.0" mnemonicParsing="false" onAction="#generaRuta" text="Generar Ruta" />
+      <AnchorPane fx:id="ApGrafo" layoutX="14.0" layoutY="14.0" prefHeight="383.0" prefWidth="641.0" style="-fx-background-color: GREY;" />
+      <Label fx:id="lblRuta" layoutX="157.0" layoutY="439.0" prefHeight="33.0" prefWidth="372.0" text="Ruta:" />
+      <TextField fx:id="txtIncio" layoutX="157.0" layoutY="398.0" prefHeight="25.0" prefWidth="235.0" promptText="Inicio" />
+   </children>
+</AnchorPane>

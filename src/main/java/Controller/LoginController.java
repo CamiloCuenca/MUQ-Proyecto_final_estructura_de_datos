@@ -76,8 +76,7 @@ public class LoginController implements Initializable {
                         cargarVentana("/Controller/ventanaGestorPremio.fxml", event);
                         break;
                     case 3:
-                        // Cargar ventana de Administrador de rutas
-                        // No se especifica qué hacer en este caso
+                        cargarVentana("/Controller/ventanaAdministradorRuta.fxml", event);
                         break;
                     default:
                         throw new ExceptionVerificar("Tipo de administrador desconocido");
