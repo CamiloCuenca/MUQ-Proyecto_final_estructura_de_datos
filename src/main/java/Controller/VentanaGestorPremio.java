@@ -21,21 +21,23 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class VentanaGestorPremio implements Initializable {
 
-
+    // Lista de personaPremios y facturas obtenidas al inicio
     private ArrayList<PersonaPremio> personaPremios = AdminPremio.FacturaToPersonaPremio();
     private ArrayList<Factura> facturas = AdminPremio.convertirFactura(personaPremios);
 
-
+    // Indicador de si se han cargado las facturas
     public static boolean aux = false;
 
+    @FXML
+    private TextField txtBuscarCliente;
 
     @FXML
     private Button btnBuscar;
@@ -46,8 +48,7 @@ public class VentanaGestorPremio implements Initializable {
     @FXML
     private Button btnSalir;
 
-
-    //Columna tabla 1- IDCliente
+    // Columnas de la tabla de facturas
     @FXML
     private TableColumn<Factura, String> colAnio;
     @FXML
@@ -78,47 +79,67 @@ public class VentanaGestorPremio implements Initializable {
     private TableView<Factura> tblFacturas;
 
 
-    @FXML
-    private TableColumn<Producto, String> columProducto;
+    //Tabla Premios:
 
     @FXML
-    private TableColumn<Producto, String> columTipo;
+    private TableView<GanadorPremio> tblPremios;
 
     @FXML
-    private TableView<Producto> tblProductos;
+    private TableColumn<GanadorPremio, String> colPremioFacturaid;
 
     @FXML
-    private TextField txtBuscarCliente;
+    private TableColumn<GanadorPremio,  String> colPremio;
 
+    @FXML
+    private TableColumn<GanadorPremio,  String> colPremioCiudad;
+
+    @FXML
+    private TableColumn<GanadorPremio,  String> colPremioCliente;
+
+    @FXML
+    private TableColumn<GanadorPremio,  String> colPremioClienteid;
+
+    @FXML
+    private TableColumn<GanadorPremio,  String> colPremioEdad;
+
+    @FXML
+    private TableColumn<GanadorPremio,  String> colPremioGenero;
+
+    @FXML
+    private TableColumn<GanadorPremio,  String> colPremioPais;
+
+    @FXML
+    private TableColumn<GanadorPremio,  String> colPremioTipoPremio;
+
+
+
+    // Lista observable para almacenar las facturas
     public ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
 
-    //Convertir a observable list
-
+    // Método para convertir una lista de facturas en una lista observable
     public static ObservableList<Factura> convertirToObservable(ArrayList<Factura> facturas) {
         ObservableList<Factura> aux = FXCollections.observableArrayList();
-
         for (int i = 0; i < facturas.size(); i++) {
             aux.add(facturas.get(i));
         }
-
         return aux;
     }
 
-
     @FXML
     void OnBuscar(ActionEvent event) {
-
+        // Lógica para realizar la búsqueda de facturas
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Si las facturas se han cargado previamente, se muestran en la tabla
         if (aux) {
             tblFacturas.setItems(convertirToObservable(facturas));
         } else {
-            System.out.println("no se cargaron las facturas");
+            System.out.println("No se cargaron las facturas");
         }
-        //tblFacturas.setItems(convertirToObservable(facturas));
+
+        // Se configuran las propiedades de las columnas de la tabla de facturas
         colIdFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
         colIdCliente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getIdCliente()));
         colCliente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getNombre()));
@@ -133,32 +154,63 @@ public class VentanaGestorPremio implements Initializable {
         colMes.setCellValueFactory(new PropertyValueFactory<>("MES"));
         colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
 
-        System.out.println(facturas);
-
+        // Se inicializan los efectos visuales de los botones
         CoreMethod.animarComponente(btnSalir);
         CoreMethod.animarComponente(btnBuscar);
         CoreMethod.animarComponente(btnGenerarPremio);
 
+        // Se escribe la lista de facturas en un archivo CSV
         DataUtils.escribirFacturaCSV(facturas, "src/main/resources/CSVFiles/FacturasProcesadas.txt");
 
-
+        colPremioFacturaid.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
+        colPremio.setCellValueFactory(new PropertyValueFactory<>("premio"));
+        colPremioCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
+        colPremioCliente.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colPremioClienteid.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+        colPremioEdad.setCellValueFactory(new PropertyValueFactory<>("edad"));
+        colPremioGenero.setCellValueFactory(new PropertyValueFactory<>("sexo"));
+        colPremioPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
+        colPremioTipoPremio.setCellValueFactory(new PropertyValueFactory<>("tipoProducto"));
     }
 
     @FXML
     void OnSalir(ActionEvent event) throws IOException {
+        // Método para cargar la ventana de inicio de sesión y cerrar la ventana actual
         SceneUtils.cargarVentana("/Controller/login.fxml");
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     @FXML
     void OnGenerar(ActionEvent event) throws IOException {
-
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("ventanaOptionPremio.fxml"));
-        Scene escena = new Scene(root);
-        stage.setScene(escena);
-        stage.show();
-
+        generarPremio();
     }
 
+    private void generarPremio() {
+        ArrayList<PersonaPremio> facturaArrayList = new ArrayList<>();
+        ArrayList<Factura> facturaArrayList3 = new ArrayList<>();
+        AdminPremio adminPremio = new AdminPremio("Santiago", "123", "1234", facturaArrayList3);
+
+        facturaArrayList = adminPremio.FacturaToPersonaPremio();
+        // aquí se obtienen las facturas en ArrayList <Factura>
+
+        ArrayList<Factura> facturaArrayList1 = adminPremio.convertirFactura(facturaArrayList);
+
+        System.out.println("GANADORES");
+        System.out.println(facturaArrayList1);
+
+        System.out.println("Con Premio");
+
+        ArrayList<GanadorPremio> ganadorPremios = adminPremio.devolverGanadorConPremio(facturaArrayList1);
+
+        VentanaOptionPremio.aux = true;
+
+        System.out.println(ganadorPremios);
+
+        // Actualizar la tabla de premios
+        VentanaOptionPremio.ActualizarDatosTabla(ganadorPremios);
+
+        // Mostrar los ganadores en la tabla de premios
+        ObservableList<GanadorPremio> listaGanadores = FXCollections.observableArrayList(ganadorPremios);
+        tblPremios.setItems(listaGanadores);
+    }
 }

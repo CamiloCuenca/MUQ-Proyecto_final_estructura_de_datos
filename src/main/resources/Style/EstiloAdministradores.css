@@ -17,7 +17,9 @@
     -fx-text-fill: #ffffff;
 }
 
-#tblProductos .column-header .label {
+
+
+#tblPremios .column-header .label {
     -fx-text-fill: #ffffff;
 }
 
