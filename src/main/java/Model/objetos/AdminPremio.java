@@ -1,10 +1,9 @@
 package Model.objetos;
 
-import Controller.VentanaOptionPremio;
 import Model.enums.Genero;
 import Model.enums.Paises;
 import Model.enums.TipoProducto;
-import Model.utils.GeneradorFacturas;
+import Model.utils.GeneradorFacturas; // Importación de la clase GeneradorFacturas
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,95 +11,60 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+import static Controller.VentanaGestorPremio.ActualizarDatosTabla; // Importación de método ActualizarDatosTabla de Controller
+
+// Clase AdminPremio que extiende de Usuario
 public class AdminPremio extends Usuario{
 
+    // Lista estática para almacenar las facturas
     public static ArrayList<PersonaPremio>facturaArrayList=new ArrayList<>();
 
+    // Método principal (main)
     public static void main(String[] args) {
 
-        ArrayList<Factura>facturaArrayList3=new ArrayList<>();
-        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList3);
-        /*
-        ArrayList<Factura>facturaArrayList1;
-        facturaArrayList1=adminPremio.lectorTXT();
+        ArrayList<Factura>facturaArrayList3=new ArrayList<>(); // Creación de lista de facturas
+        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList3); // Creación de instancia AdminPremio
 
-        System.out.println(facturaArrayList1);
-
-        PriorityQueue<PersonaPremio>personaPremios=new PriorityQueue<>();
-
-
-        for (int i = 0; i < facturaArrayList1.size(); i++) {
-            PersonaPremio premio=adminPremio.generarPersonPremio(facturaArrayList1.get(i),i);
-            personaPremios.add(premio);
-
-        }
-
-        System.out.println(personaPremios);
-
-        System.out.println(personaPremios.size());
-
-        while (!personaPremios.isEmpty()) {
-            PersonaPremio aux=personaPremios.poll();
-            System.out.println(aux);
-            System.out.println();
-
-        }
-
-        System.out.println(adminPremio.convertirFactura(personaPremios));
-
-
-        System.out.println();
-
-         */
-
-
-        //
-
-        facturaArrayList=adminPremio.FacturaToPersonaPremio();
-        //aqui se obtienen las facturas en arrayList <Factura>
-        System.out.println(adminPremio.convertirFactura(facturaArrayList));
+        // Llamada a métodos para procesar facturas y mostrar resultados
+        facturaArrayList=adminPremio.FacturaToPersonaPremio(); // Convierte facturas a personas premio
+        System.out.println(adminPremio.convertirFactura(facturaArrayList)); // Convierte facturas a premios y los muestra
     }
 
-    private ArrayList<Factura>facturas;
+    private ArrayList<Factura>facturas; // Lista de facturas
 
-    //Constructor
+    // Constructor
     public AdminPremio(String nombre, String contrasena, String ID,ArrayList<Factura>facturas) {
-        super(nombre, contrasena, ID);
-        this.facturas = facturas;
+        super(nombre, contrasena, ID); // Llama al constructor de la superclase Usuario
+        this.facturas = facturas; // Inicializa la lista de facturas
     }
-    //Fase beta
 
-
+    // Método para separar las facturas de ganadores
     public ArrayList<Factura> separarGanadores (ArrayList<Factura>facturas){
 
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
 
         for (int i=0;i<facturas.size();i++){
-            if(facturas.get(i).getValorTotal()>1000000){
-                facturaArrayList.add(facturas.get(i));
+            if(facturas.get(i).getValorTotal()>1000000){ // Verifica si el valor total es mayor a 1000000
+                facturaArrayList.add(facturas.get(i)); // Agrega la factura a la lista de facturas de ganadores
             }
-
         }
 
-        return facturaArrayList;
-
+        return facturaArrayList; // Retorna la lista de facturas de ganadores
     }
 
-
-
+    // Método para generar una PersonaPremio a partir de una factura
     public PersonaPremio generarPersonPremio (Factura factura,int secuencia) {
 
         int prioridad = 0;
         int pais = 1;
 
+        // Lógica para determinar la prioridad de la PersonaPremio
         if (factura.getCliente().getEdad() > 60) {
             prioridad = 3;
-
         } else if (factura.getCliente().getSexo() == Genero.HOMBRE) {
             prioridad = 1;
         } else if (factura.getCliente().getSexo() == Genero.MUJER) {
             prioridad = 2;
-
         }else if (factura.getCliente().getSexo() == Genero.OTRO) {
             prioridad = -1;
         } else if (factura.getCliente().getPais() == Paises.INDIA) {
@@ -111,78 +75,65 @@ public class AdminPremio extends Usuario{
             prioridad = 1;
         }
 
+        // Creación de una nueva PersonaPremio con los datos calculados
         PersonaPremio premio=new PersonaPremio(prioridad,pais,secuencia,factura.getCliente());
 
-        return premio;
-
-
+        return premio; // Retorna la PersonaPremio generada
     }
 
+    // Método para convertir las facturas en premios
     public static ArrayList<Factura> convertirFactura (ArrayList<PersonaPremio>personaPremios){
 
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
-        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
+        AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList); // Creación de instancia de AdminPremio
 
         ArrayList<Factura>facturaArrayList1;
-        facturaArrayList1=adminPremio.lectorTXT();
+        facturaArrayList1=adminPremio.lectorTXT(); // Lectura de facturas desde archivo
 
         for (int i=0;i<personaPremios.size();i++){
 
             Cliente aux=personaPremios.get(i).getCliente();
 
+            // Busca la factura correspondiente a cada PersonaPremio y la agrega a la lista de facturas
             for (int j=0;j<facturaArrayList1.size();j++){
                 if(facturaArrayList1.get(j).getCliente().getIdCliente().equals(aux.getIdCliente())){
                     facturaArrayList.add(facturaArrayList1.get(j));
-
                 }
             }
 
         }
 
-        return facturaArrayList;
+        return facturaArrayList; // Retorna la lista de facturas convertidas en premios
     }
 
-
-
+    // Método para convertir las facturas en personas premio
     public static ArrayList<PersonaPremio> FacturaToPersonaPremio() {
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
         AdminPremio adminPremio=new AdminPremio("Santiago","123","1234",facturaArrayList);
         ArrayList<Factura>facturaArrayList2;
-        facturaArrayList2= lectorTXT();
-        ArrayList<Factura>facturaArrayList1=adminPremio.separarGanadores(facturaArrayList2);
-
-        System.out.println(facturaArrayList1);
+        facturaArrayList2= lectorTXT(); // Lee las facturas desde un archivo
+        ArrayList<Factura>facturaArrayList1=adminPremio.separarGanadores(facturaArrayList2); // Separa las facturas de ganadores
 
         PriorityQueue<PersonaPremio>personaPremios=new PriorityQueue<>();
 
-
+        // Genera una lista de personas premio y la agrega a una cola de prioridad
         for (int i = 0; i < facturaArrayList1.size(); i++) {
             PersonaPremio premio=adminPremio.generarPersonPremio(facturaArrayList1.get(i),i);
             personaPremios.add(premio);
-
         }
-
-        System.out.println(personaPremios);
-
-        System.out.println(personaPremios.size());
 
         ArrayList<PersonaPremio>personaPremios1=new ArrayList<>();
 
+        // Extrae las personas premio de la cola y las agrega a una lista
         while (!personaPremios.isEmpty()) {
             PersonaPremio aux=personaPremios.poll();
             personaPremios1.add(aux);
-            System.out.println(aux);
-            System.out.println();
-
         }
 
-        System.out.println(personaPremios1);
-
-        return personaPremios1;
-
-
+        return personaPremios1; // Retorna la lista de personas premio
     }
 
+    // Método para leer las facturas desde un archivo de texto
     public static ArrayList<Factura> lectorTXT (){
 
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
@@ -191,7 +142,6 @@ public class AdminPremio extends Usuario{
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
             int lineNumero = 0;
-
 
             while ((line = bufferedReader.readLine()) != null) {
                 lineNumero++;
@@ -222,7 +172,6 @@ public class AdminPremio extends Usuario{
 
                         if (i == 0) {
                             IDFactura = parts[0];
-                            //51055;718674528;Patricia;78;MUJER;COLOMBIA;Pereira;Refrigerador;ELECTRODOMESTICO;1100000;17;06;2023
                         } else if (i == 1) {
                             ID = parts[1];
                         } else if (i == 2) {
@@ -252,7 +201,6 @@ public class AdminPremio extends Usuario{
                         } else if (i == 7) {
                             productos = parts[7];
 
-
                         } else if (i == 8) {
                             if (parts[8].equals("ALIMENTO")) {
                                 tipoProducto = TipoProducto.ALIMENTO;
@@ -274,6 +222,7 @@ public class AdminPremio extends Usuario{
                             ANO = parts[12];
                         }
                     }
+                    // Creación de un objeto Cliente y un objeto Factura
                     Cliente cliente1 = new Cliente(ID, nombre, edad, sexo, pais, ciudad);
                     Factura factura = new Factura(IDFactura, productos, tipoProducto.toString(), valorTotal, DIA, MES, ANO, cliente1);
                     facturaArrayList.add(factura);
@@ -283,40 +232,36 @@ public class AdminPremio extends Usuario{
             System.err.println("Error al leer el archivo: " + e.getMessage());
         }
 
-        return facturaArrayList;
-
-
+        return facturaArrayList; // Retorna la lista de facturas leídas desde el archivo
     }
 
+    // Método para sortear un premio para una persona según el tipo de producto comprado
     public String sortearPremioPersona (TipoProducto producto){
-
-
         return GeneradorFacturas.generarNombreAleatorio(producto);
     }
 
-
-    //Funcion para obtenerLista de cada persona, y ademas convertir cada factura y añadir el premio
-
-
+    // Método para devolver una lista de ganadores con premios
     public ArrayList<GanadorPremio> devolverGanadorConPremio (ArrayList<Factura>facturas){
 
         ArrayList <GanadorPremio>ganadorPremios=new ArrayList<>();
 
+        // Itera sobre las facturas para asignar un premio a cada una
         for (int i = 0; i < facturas.size(); i++) {
             String premio=sortearPremioPersona(convertirTipoEnum(facturas.get(i).getTipoProducto()));
             GanadorPremio ganadorPremio=new GanadorPremio(facturas.get(i).getIdFactura(),
                     facturas.get(i).getCliente().getIdCliente(),facturas.get(i).getCliente().getNombre(),
                     facturas.get(i).getCliente().getEdad(),facturas.get(i).getCliente().getSexo(),
                     facturas.get(i).getCliente().getPais(),facturas.get(i).getCliente().getCiudad(),premio,convertirTipoEnum(facturas.get(i).getTipoProducto()));
-            ganadorPremios.add(ganadorPremio);
-
+            ganadorPremios.add(ganadorPremio); // Agrega el ganador a la lista de ganadores con premios
         }
 
+        // Actualiza la tabla de premios
+        ActualizarDatosTabla(ganadorPremios);
 
-        VentanaOptionPremio.ActualizarDatosTabla(ganadorPremios);
-        return ganadorPremios;
+        return ganadorPremios; // Retorna la lista de ganadores con premios
     }
 
+    // Método para convertir un tipo de producto de String a TipoProducto enum
     public static TipoProducto convertirTipoEnum(String tipoProducto){
         TipoProducto aux = TipoProducto.ALIMENTO;
         if (tipoProducto.equals("ALIMENTO")){
@@ -330,16 +275,14 @@ public class AdminPremio extends Usuario{
         return aux;
     }
 
-    public void generarAtributosPremio (){
+    // Método para generar atributos de premio
+    public void generarAtributosPremio (){}
 
-    }
-
-    //Métodos
+    // Métodos para generar carga y CSV
     public void generarCarga(ArrayList<Factura> facturas){}
+    public void generarCSVCarga(){}
 
-    public  void generarCSVCarga(){}
-
-
+    // Getters y setters
     public ArrayList<Factura> getFacturas() {
         return facturas;
     }
