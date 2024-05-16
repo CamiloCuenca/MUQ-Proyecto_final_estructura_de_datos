@@ -17,6 +17,7 @@ public class VentanaAdministradorRuta implements Initializable {
     public Label lblRuta;
 
     public TextField txtIncio;
+    public AnchorPane ApGra;
     @FXML
     private AnchorPane ApGrafo;
 
@@ -48,22 +49,33 @@ public class VentanaAdministradorRuta implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        grafo = new Grafo(5, 10);
+        grafo = new Grafo(8,20);
 
-        // Insertar aristas
+        // Insertar aristas con distancias aleatorias
         try {
-            grafo.insertaArista(String.valueOf(Paises.COLOMBIA), String.valueOf(Paises.INDIA), 7);
-            grafo.insertaArista(String.valueOf(Paises.INDIA), String.valueOf(Paises.ARGENTINA), 3);
-            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.AUSTRALIA), 7);
-            grafo.insertaArista(String.valueOf(Paises.AUSTRALIA), String.valueOf(Paises.ARGENTINA), 2);
-            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.COLOMBIA), 7); // Modificado el vértice de destino para probar
+
+            grafo.insertaArista(String.valueOf(Paises.COLOMBIA), String.valueOf(Paises.INDIA), generarDistanciaAleatoria());
+            grafo.insertaArista(String.valueOf(Paises.INDIA), String.valueOf(Paises.ARGENTINA), generarDistanciaAleatoria());
+            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.AUSTRALIA), generarDistanciaAleatoria());
+            grafo.insertaArista(String.valueOf(Paises.AUSTRALIA), String.valueOf(Paises.ARGENTINA), generarDistanciaAleatoria());
+            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.PERU), generarDistanciaAleatoria());
+            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.USA), generarDistanciaAleatoria());
+            grafo.insertaArista(String.valueOf(Paises.USA), String.valueOf(Paises.CANADA), generarDistanciaAleatoria());
+            grafo.insertaArista(String.valueOf(Paises.CANADA), String.valueOf(Paises.PERU), generarDistanciaAleatoria());
+
         } catch (ArrayIndexOutOfBoundsException | UnsupportedOperationException e) {
             System.err.println("Error al insertar arista: " + e.getMessage());
         }
 
 
-
         // Visualizar el grafo utilizando JavaFX
         grafo.displayGraph(ApGrafo,grafo);
+        grafo.impMatrix();
+    }
+
+
+    // Método para generar distancias aleatorias entre 1 y 10 (para fines de demostración)
+    private static int generarDistanciaAleatoria() {
+        return (int) (Math.random() * 10) + 1;
     }
 }

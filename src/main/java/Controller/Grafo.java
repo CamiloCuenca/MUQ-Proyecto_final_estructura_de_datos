@@ -21,15 +21,7 @@ public class Grafo {
     private int aristas; // Número actual de aristas en el grafo
     private int matrix[][]; // Matriz de adyacencia que representa las aristas entre vértices
 
-    public Grafo() {
-
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-
+    public Grafo() {}
 
     public Grafo(int nroVertices, int nroAristas) {
         MAXIMO_VERTICES = nroVertices;
@@ -90,7 +82,7 @@ public class Grafo {
         }
     }
 
-    // Método para obtener el índice de un país en la matriz
+   /* // Método para obtener el índice de un país en la matriz
     private int getIndexFromVertex(String country) {
         // Puedes agregar más países según sea necesario
         String[] countries = {String.valueOf(Paises.COLOMBIA), String.valueOf(Paises.INDIA), String.valueOf(Paises.ARGENTINA), String.valueOf(Paises.AUSTRALIA), String.valueOf(Paises.CHILE)};
@@ -100,9 +92,22 @@ public class Grafo {
             }
         }
         return -1; // Si el país no se encuentra en la lista
-    }
+    }*/
+   // Método para obtener el índice de un país en la matriz
+   private int getIndexFromVertex(String country) {
+       // Recorrer todos los valores del enum Paises
+       for (Paises pais : Paises.values()) {
+           // Comparar el nombre del país en minúsculas
+           if (pais.name().equalsIgnoreCase(country)) {
+               // Devolver el índice del país
+               return pais.ordinal();
+           }
+       }
+       return -1; // Si el país no se encuentra en el enum
+   }
 
-    // Método para obtener el nombre de un país a partir de su índice
+
+    /*// Método para obtener el nombre de un país a partir de su índice
     String getCountryFromIndex(int index) {
 
         String[] countries = {String.valueOf(Paises.COLOMBIA), String.valueOf(Paises.INDIA), String.valueOf(Paises.ARGENTINA), String.valueOf(Paises.AUSTRALIA), String.valueOf(Paises.CHILE)};
@@ -111,7 +116,17 @@ public class Grafo {
         } else {
             return "Desconocido";
         }
+    }*/
+    // Método para obtener el nombre de un país a partir de su índice
+    String getCountryFromIndex(int index) {
+        Paises[] countries = Paises.values();
+        if (index >= 0 && index < countries.length) {
+            return countries[index].name();
+        } else {
+            return "Desconocido";
+        }
     }
+
 
     // Método para aplicar el algoritmo de Dijkstra desde un vértice de origen
     public ResultadosDijkstra dijkstra(String origen) {
@@ -160,11 +175,26 @@ public class Grafo {
 
     // Método para visualizar el grafo utilizando JavaFX
     void displayGraph(AnchorPane pane, Grafo grafo) {
+        int numVertices = grafo.getMAX_VERTICES();
+
+// Posiciones de los nodos
+        double[] posX = new double[numVertices];
+        double[] posY = new double[numVertices];
+
+// Parámetros del círculo
+        double centerX = 300; // Posición x del centro del círculo
+        double centerY = 200; // Posición y del centro del círculo
+        double radius = 100; // Radio del círculo
+        double angleIncrement = 2 * Math.PI / numVertices; // Incremento angular entre nodos
+
+// Calcular las posiciones de los nodos en el círculo
+        for (int i = 0; i < numVertices; i++) {
+            double angle = i * angleIncrement;
+            posX[i] = centerX + radius * Math.cos(angle);
+            posY[i] = centerY + radius * Math.sin(angle);
+        }
 
 
-        // Posiciones de los nodos
-        double[] posX = {150, 300, 450, 450, 150};
-        double[] posY = {100, 50, 100, 250, 250};
 
         // Crear círculos para representar los nodos
         Circle[] circles = new Circle[grafo.getMAX_VERTICES()];

@@ -35,12 +35,35 @@ public class GeneradorFacturas {
     private static final String[] cosmeticos = {"Crema facial", "Shampoo", "Acondicionador", "Maquillaje", "Perfume", "Desodorante", "Gel de ducha", "Cepillo de dientes", "Cremas corporales", "Protector solar"};
     private static final String[] tecnologia = {"Smartphone", "Laptop", "Tablet", "Cámara digital", "Altavoces inteligentes", "Auriculares inalámbricos", "Consola de videojuegos", "Impresora", "Router", "Smartwatch"};
 
-    // Arreglos de ciudades por país
+   /* // Arreglos de ciudades por país
     private static final String[] ciudadIndia = {"Nueva Delhi", "Bombay", "Bangalore", "Calcuta", "Chennai", "Pune", "Hyderabad"};
     private static final String[] ciudadChile = {"Santiago", "Valparaíso", "Concepción", "La Serena", "Antofagasta", "Viña del Mar", "Temuco"};
     private static final String[] ciudadColombia = {"Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena", "Bucaramanga", "Pereira"};
     private static final String[] ciudadAustralia = {"Sídney", "Melbourne", "Brisbane", "Perth", "Adelaida", "Gold Coast", "Canberra"};
     private static final String[] ciudadArgentina = {"Buenos Aires", "Córdoba", "Rosario", "Mendoza", "San Miguel de Tucumán", "La Plata", "Mar del Plata"};
+*/
+   // Mapa que asocia cada país con sus respectivas ciudades
+   private static final Map<Paises, String[]> ciudadesPorPais = new HashMap<>();
+    static {
+        ciudadesPorPais.put(Paises.INDIA, new String[]{"Nueva Delhi", "Bombay", "Bangalore", "Calcuta", "Chennai", "Pune", "Hyderabad"});
+        ciudadesPorPais.put(Paises.CHILE, new String[]{"Santiago", "Valparaíso", "Concepción", "La Serena", "Antofagasta", "Viña del Mar", "Temuco"});
+        ciudadesPorPais.put(Paises.COLOMBIA, new String[]{"Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena", "Bucaramanga", "Pereira"});
+        ciudadesPorPais.put(Paises.AUSTRALIA, new String[]{"Sídney", "Melbourne", "Brisbane", "Perth", "Adelaida", "Gold Coast", "Canberra"});
+        ciudadesPorPais.put(Paises.ARGENTINA, new String[]{"Buenos Aires", "Córdoba", "Rosario", "Mendoza", "San Miguel de Tucumán", "La Plata", "Mar del Plata"});
+        //ciudadesPorPais.put(Paises.VENEZUELA, new String[]{"Caracas", "Maracaibo", "Valencia", "Barquisimeto", "Maracay", "San Cristóbal", "Ciudad Guayana", "Maturín", "Barinas", "Cumana"});
+        ciudadesPorPais.put(Paises.PERU, new String[]{"Lima", "Arequipa", "Trujillo", "Chiclayo", "Iquitos", "Piura", "Cusco", "Tacna", "Chimbote", "Huancayo"});
+        ciudadesPorPais.put(Paises.USA, new String[]{"Nueva York", "Los Ángeles", "Chicago", "Houston", "Filadelfia", "Phoenix", "San Antonio", "San Diego", "Dallas", "San José"});
+        ciudadesPorPais.put(Paises.CANADA, new String[]{"Toronto", "Montreal", "Vancouver", "Calgary", "Edmonton", "Ottawa", "Quebec", "Winnipeg", "Hamilton", "Kitchener"});
+        //ciudadesPorPais.put(Paises.URUGUAY, new String[]{"Montevideo", "Salto", "Paysandú", "Las Piedras", "Rivera", "Maldonado", "Tacuarembó", "Melilla", "Mercedes", "Artigas"});
+        //ciudadesPorPais.put(Paises.ECUADOR, new String[]{"Quito", "Guayaquil", "Cuenca", "Santo Domingo", "Machala", "Portoviejo", "Manta", "Durán", "Esmeraldas", "Ambato"});
+        //ciudadesPorPais.put(Paises.BOLIVIA, new String[]{"Santa Cruz de la Sierra", "La Paz", "Cochabamba", "Sucre", "Oruro", "Tarija", "Potosí", "Sacaba", "Montero", "Quillacollo"});
+        //ciudadesPorPais.put(Paises.PARAGUAY, new String[]{"Asunción", "Ciudad del Este", "San Lorenzo", "Luque", "Capiatá", "Lambaré", "Fernando de la Mora", "Limpio", "Ñemby", "Encarnación"});
+        //ciudadesPorPais.put(Paises.JAPON, new String[]{"Tokio", "Yokohama", "Osaka", "Nagoya", "Sapporo", "Kioto", "Fukuoka", "Kawasaki", "Saitama", "Hiroshima"});
+        //ciudadesPorPais.put(Paises.CHINA, new String[]{"Shanghái", "Pekín", "Cantón", "Shenzhen", "Tianjin", "Wuhan", "Chongqing", "Chengdú", "Nanjing", "Hong Kong"});
+        //ciudadesPorPais.put(Paises.SURCOREA, new String[]{"Seúl", "Busan", "Incheon", "Daegu", "Daejeon", "Gwangju", "Suwon", "Ulsan", "Changwon", "Seongnam"});
+        //ciudadesPorPais.put(Paises.RUSIA, new String[]{"Moscú", "San Petersburgo", "Novosibirsk", "Ekaterimburgo", "Nizhni Nóvgorod", "Kazán", "Cheliábinsk", "Omsk", "Samara", "Rostov del Don"});
+        //ciudadesPorPais.put(Paises.ESPAÑA, new String[]{"Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza", "Málaga", "Murcia", "Palma de Mallorca", "Bilbao", "Alicante"});
+    }
 
     /**
      * Genera las facturas con atributos aleatorios.
@@ -256,7 +279,7 @@ public class GeneradorFacturas {
      * @param pais país para el cual se genera la ciudad.
      * @return ciudad aleatoria generada.
      */
-    public static String generarCiudadesPaises(Paises pais) {
+   /* public static String generarCiudadesPaises(Paises pais) {
         String[] ciudades;
         switch (pais) {
             case INDIA:
@@ -278,6 +301,15 @@ public class GeneradorFacturas {
                 ciudades = new String[]{};
         }
         return ciudades[random.nextInt(ciudades.length)];
+    }*/
+    // Genera una ciudad aleatoria según el país especificado
+    public static String generarCiudadesPaises(Paises pais) {
+        String[] ciudades = ciudadesPorPais.get(pais);
+        if (ciudades != null && ciudades.length > 0) {
+            Random random = new Random();
+            return ciudades[random.nextInt(ciudades.length)];
+        }
+        return "Desconocido";
     }
 
     /**
