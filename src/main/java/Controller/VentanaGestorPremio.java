@@ -160,7 +160,7 @@ public class VentanaGestorPremio implements Initializable {
         CoreMethod.animarComponente(btnGenerarPremio);
 
         // Se escribe la lista de facturas en un archivo CSV
-        DataUtils.escribirFacturaCSV(facturas, "src/main/resources/CSVFiles/FacturasProcesadas.txt");
+        //DataUtils.escribirFacturaCSV(facturas, "src/main/resources/CSVFiles/CargaAvion");
 
         colPremioFacturaid.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
         colPremio.setCellValueFactory(new PropertyValueFactory<>("premio"));
@@ -212,5 +212,6 @@ public class VentanaGestorPremio implements Initializable {
         // Mostrar los ganadores en la tabla de premios
         ObservableList<GanadorPremio> listaGanadores = FXCollections.observableArrayList(ganadorPremios);
         tblPremios.setItems(listaGanadores);
+        DataUtils.escribirCargaAvion(listaGanadores,"src/main/resources/CSVFiles/CargaAvion");
     }
 }

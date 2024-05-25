@@ -144,6 +144,14 @@ public class VentanaAdministradores implements Initializable {
         lblTexto.setText("Proceso Completado");
         CoreMethod.mostrarErrorTemporalmente(lblTexto);
 
+        ArrayList<Factura> facturas = DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
+        DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.txt");
+
+        //Registrar  los clientes
+        DataUtils.registrarClientes("src/main/resources/CSVFiles/Facturas.txt", "src/main/resources/CSVFiles/Clientes.txt");
+
+        DataUtils.eliminarDatosArchivo("src/main/resources/CSVFiles/Facturas.txt");
+
     }
 
     @FXML
@@ -210,6 +218,12 @@ public class VentanaAdministradores implements Initializable {
         colDia.setCellValueFactory(new PropertyValueFactory<>("DIA"));
         colMes.setCellValueFactory(new PropertyValueFactory<>("MES"));
         colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
+    }
+    @FXML
+    void generarFactura(ActionEvent event) {
+        // Inicia el hilo de generar facturas
+        GeneradorFacturas.iniciarHiloGeneradorFacturas();
+
     }
 
 

@@ -89,8 +89,7 @@ public class LoginController implements Initializable {
             CoreMethod.mostrarErrorTemporalmente(lblMensaje);
         }
 
-        // Inicia el hilo de generar facturas
-        GeneradorFacturas.iniciarHiloGeneradorFacturas();
+
     }
 
     private void cargarVentana(String fxmlPath, ActionEvent event) throws IOException {

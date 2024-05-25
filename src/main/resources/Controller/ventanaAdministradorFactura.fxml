@@ -26,7 +26,7 @@
             <Image url="@../img/pngegg.png" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutX="17.0" layoutY="213.0" opacity="0.89" prefHeight="155.0" prefWidth="167.0" style="-fx-spacing: 15;">
+      <VBox alignment="CENTER" layoutX="17.0" layoutY="235.0" opacity="0.89" prefHeight="155.0" prefWidth="167.0" style="-fx-spacing: 15;">
          <children>
             <Button fx:id="btnHilo" mnemonicParsing="false" onAction="#controlHilo" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Control" textFill="WHITE">
                <font>
@@ -46,6 +46,17 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <Button fx:id="btnGenerarFactura" mnemonicParsing="false" onAction="#generarFactura" prefHeight="41.0" prefWidth="134.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Generar Factura" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                <effect>
                   <Glow />
                </effect>

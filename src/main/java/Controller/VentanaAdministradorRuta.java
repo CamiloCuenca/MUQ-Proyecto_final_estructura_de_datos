@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.Locale;
@@ -25,35 +24,35 @@ public class VentanaAdministradorRuta implements Initializable {
 
     @FXML
     void generaRuta() {
-
-
         String origen = txtIncio.getText().toUpperCase(Locale.ROOT);
-        System.out.println(origen);
         ResultadosDijkstra resultados = grafo.dijkstra(origen);
         int[] distancias = resultados.getDistancias();
         String[] rutas = resultados.getRutas();
 
-        // Imprimir las distancias más cortas y las rutas
-        System.out.println("Distancias más cortas desde " + origen + ":");
-        for (int i = 0; i < distancias.length; i++) {
-            System.out.println(grafo.getCountryFromIndex(i) + ": " + distancias[i] + " km");
-            lblRuta.setText(grafo.getCountryFromIndex(i) + ": " + distancias[i] + " km\n");
+        if (distancias.length == 0) {
+            lblRuta.setText("País de origen no encontrado.");
+            return;
         }
 
-        System.out.println("\nRutas desde " + origen + ":");
-        for (int i = 0; i < rutas.length; i++) {
-            System.out.println(grafo.getCountryFromIndex(i) + ": " + origen + rutas[i]);
-            lblRuta.setText(grafo.getCountryFromIndex(i) + ": " + origen + rutas[i]+"\n");
+        StringBuilder result = new StringBuilder();
+        result.append("Distancias más cortas desde ").append(origen).append(":\n");
+        for (int i = 0; i < distancias.length; i++) {
+            result.append(grafo.getCountryFromIndex(i)).append(": ").append(distancias[i]).append(" km\n");
         }
+        lblRuta.setText(result.toString());
+
+        result.setLength(0);
+        result.append("\nRutas desde ").append(origen).append(":\n");
+        for (int i = 0; i < rutas.length; i++) {
+            result.append(grafo.getCountryFromIndex(i)).append(": ").append(origen).append(rutas[i]).append("\n");
+        }
+        lblRuta.setText(result.toString());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        grafo = new Grafo(8,20);
-
-        // Insertar aristas con distancias aleatorias
+        grafo = new Grafo(8, 20);
         try {
-
             grafo.insertaArista(String.valueOf(Paises.COLOMBIA), String.valueOf(Paises.INDIA), generarDistanciaAleatoria());
             grafo.insertaArista(String.valueOf(Paises.INDIA), String.valueOf(Paises.ARGENTINA), generarDistanciaAleatoria());
             grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.AUSTRALIA), generarDistanciaAleatoria());
@@ -62,19 +61,14 @@ public class VentanaAdministradorRuta implements Initializable {
             grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.USA), generarDistanciaAleatoria());
             grafo.insertaArista(String.valueOf(Paises.USA), String.valueOf(Paises.CANADA), generarDistanciaAleatoria());
             grafo.insertaArista(String.valueOf(Paises.CANADA), String.valueOf(Paises.PERU), generarDistanciaAleatoria());
-
         } catch (ArrayIndexOutOfBoundsException | UnsupportedOperationException e) {
             System.err.println("Error al insertar arista: " + e.getMessage());
         }
 
-
-        // Visualizar el grafo utilizando JavaFX
-        grafo.displayGraph(ApGrafo,grafo);
+        grafo.displayGraph(ApGrafo, grafo);
         grafo.impMatrix();
     }
 
-
-    // Método para generar distancias aleatorias entre 1 y 10 (para fines de demostración)
     private static int generarDistanciaAleatoria() {
         return (int) (Math.random() * 10) + 1;
     }

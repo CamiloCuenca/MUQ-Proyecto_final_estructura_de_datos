@@ -5,6 +5,8 @@ import Model.enums.Paises;
 import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
+import Model.objetos.GanadorPremio;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -185,11 +187,6 @@ public class DataUtils {
         return factura;
     }
 
-    //Main provisional para hacer pruebas
-    /**public static void main(String[] args) {
-        System.out.println(leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
-    }**/
-
     public static void main(String[] args) {
         registrarClientes("src/main/resources/CSVFiles/Facturas.txt", "src/main/resources/CSVFiles/Clientes.txt");
     }
@@ -265,4 +262,41 @@ public class DataUtils {
             }
         }
     }
+
+    public static void eliminarDatosArchivo(String ruta){
+        try(FileWriter fileWriter = new FileWriter(ruta, false)){
+        // Escribe una cadena vacía para borrar el contenido del archivo
+            fileWriter.write("");
+        }catch (IOException e){
+            System.err.println("Error al borrar el contenido del archivo: " + e.getMessage());
+        }
+    }
+
+    public static void escribirCargaAvion(ObservableList<GanadorPremio> ganadores,String ruta){
+        try (FileWriter fw = new FileWriter(ruta, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+
+            for (GanadorPremio ganador : ganadores) {
+                // Construir la línea CSV a partir de la factura
+                StringBuilder lineaCSV = new StringBuilder();
+                lineaCSV.append(ganador.getIdFactura()).append(";")
+                        .append(ganador.getIdCliente()).append(";")
+                        .append(ganador.getPais()).append(";")
+                        .append(ganador.getCiudad()).append(";")
+                        .append(ganador.getTipoProducto()).append(";")
+                        .append(ganador.getPremio()).append(";");
+
+
+                // Escribir la línea en el archivo CSV
+                pw.println(lineaCSV.toString());
+            }
+
+            System.out.println("Ganadores escritos en el archivo CSV correctamente.");
+
+        } catch (IOException e) {
+            System.err.println("Error al escribir los ganadores  en el archivo CSV: " + e.getMessage());
+        }
+    }
+
+
 }
