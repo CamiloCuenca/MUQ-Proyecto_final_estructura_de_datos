@@ -296,7 +296,7 @@ public class GeneradorFacturas {
         // Programa la generación de facturas cada 5 minutos
         scheduler.scheduleAtFixedRate(() -> {
             List<Factura> nuevasFacturas = generarFacturas();
-            DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.txt");
+            DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.csv");
             //VentanaAdministradores.actualizarTabla(nuevasFacturas);
             Platform.runLater(() -> {
                 VentanaAdministradores.listaFacturas.addAll(nuevasFacturas);

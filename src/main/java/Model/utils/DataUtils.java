@@ -189,7 +189,7 @@ public class DataUtils {
     }
 
     public static void main(String[] args) {
-        registrarClientes("src/main/resources/CSVFiles/Facturas.txt", "src/main/resources/CSVFiles/Clientes.txt");
+        registrarClientes("src/main/resources/CSVFiles/Facturas.csv", "src/main/resources/CSVFiles/Clientes.csv");
     }
 
     /**

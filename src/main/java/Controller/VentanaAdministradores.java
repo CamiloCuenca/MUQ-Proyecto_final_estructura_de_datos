@@ -100,7 +100,7 @@ public class VentanaAdministradores implements Initializable {
     private Label lblReloj;
 
     // ObservableList para cargar las facturas desde un archivo CSV
-    public static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
+    public static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.csv"));
     //public static  ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
 
     // Método para cargar un archivo CSV
@@ -144,13 +144,13 @@ public class VentanaAdministradores implements Initializable {
         lblTexto.setText("Proceso Completado");
         CoreMethod.mostrarErrorTemporalmente(lblTexto);
 
-        ArrayList<Factura> facturas = DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt");
-        DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.txt");
+        ArrayList<Factura> facturas = DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.csv");
+        DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.csv");
 
         //Registrar  los clientes
-        DataUtils.registrarClientes("src/main/resources/CSVFiles/Facturas.txt", "src/main/resources/CSVFiles/Clientes.txt");
+        DataUtils.registrarClientes("src/main/resources/CSVFiles/Facturas.csv", "src/main/resources/CSVFiles/Clientes.csv");
 
-        DataUtils.eliminarDatosArchivo("src/main/resources/CSVFiles/Facturas.txt");
+        DataUtils.eliminarDatosArchivo("src/main/resources/CSVFiles/Facturas.csv");
 
     }
 

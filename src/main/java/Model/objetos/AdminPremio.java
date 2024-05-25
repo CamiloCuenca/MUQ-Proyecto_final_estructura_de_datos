@@ -186,7 +186,7 @@ public class AdminPremio extends Usuario{
     public static ArrayList<Factura> lectorTXT (){
 
         ArrayList<Factura>facturaArrayList=new ArrayList<>();
-        String filePath = "src/main/resources/CSVFiles/FacturasProcesadas.txt"; // Ruta al archivo de texto
+        String filePath = "src/main/resources/CSVFiles/FacturasProcesadas.csv"; // Ruta al archivo de texto
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
