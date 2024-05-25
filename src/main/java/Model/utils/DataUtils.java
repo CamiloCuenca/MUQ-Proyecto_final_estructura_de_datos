@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataUtils {
     public static String tipoAdmin;
@@ -269,6 +270,47 @@ public class DataUtils {
             fileWriter.write("");
         }catch (IOException e){
             System.err.println("Error al borrar el contenido del archivo: " + e.getMessage());
+        }
+    }
+
+
+    public static void eliminarGanadores(ObservableList<GanadorPremio> ganadores, String ruta) {
+        List<String> lineasRestantes = new ArrayList<>();
+
+        // Leer el archivo CSV
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                boolean esGanador = false;
+                String[] fields = line.split(";");
+                String idFactura = fields[0];
+
+                // Verificar si la línea corresponde a un ganador
+                for (GanadorPremio ganador : ganadores) {
+                    if (ganador.getIdFactura().equals(idFactura)) {
+                        esGanador = true;
+                        break;
+                    }
+                }
+
+                // Si la línea no es de un ganador, añadirla a las líneas restantes
+                if (!esGanador) {
+                    lineasRestantes.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+
+        // Escribir las líneas restantes de vuelta en el archivo CSV
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ruta))) {
+            for (String remainingLine : lineasRestantes) {
+                bw.write(remainingLine);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
         }
     }
 

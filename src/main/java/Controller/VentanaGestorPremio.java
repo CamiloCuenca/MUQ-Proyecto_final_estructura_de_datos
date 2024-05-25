@@ -213,5 +213,6 @@ public class VentanaGestorPremio implements Initializable {
         ObservableList<GanadorPremio> listaGanadores = FXCollections.observableArrayList(ganadorPremios);
         tblPremios.setItems(listaGanadores);
         DataUtils.escribirCargaAvion(listaGanadores,"src/main/resources/CSVFiles/CargaAvion");
+        DataUtils.eliminarGanadores(listaGanadores,"src/main/resources/CSVFiles/FacturasProcesadas.txt");
     }
 }
