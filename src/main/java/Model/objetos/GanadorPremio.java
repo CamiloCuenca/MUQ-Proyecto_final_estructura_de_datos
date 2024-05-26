@@ -22,6 +22,9 @@ public class GanadorPremio {
     private Genero sexo;
     private Paises pais;
     private String ciudad;
+    private TipoProducto tipoProducto;
+    private String premio;
+
 
     public String getIdFactura() {
         return idFactura;
@@ -87,7 +90,6 @@ public class GanadorPremio {
         this.tipoProducto = tipoProducto;
     }
 
-    private String premio;
 
     @Override
     public String toString() {
@@ -104,7 +106,7 @@ public class GanadorPremio {
                 '}';
     }
 
-    private TipoProducto tipoProducto;
+
 
 
 

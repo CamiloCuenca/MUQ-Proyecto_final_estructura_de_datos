@@ -10,6 +10,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class VisualizadorGrafo<T> extends JFrame {
 
@@ -121,5 +122,9 @@ public class VisualizadorGrafo<T> extends JFrame {
         SwingUtilities.invokeLater(() -> {
             setVisible(true); // Hace visible la ventana
         });
+    }
+    public static int numeroAleatorio() {
+        Random random = new Random();
+        return random.nextInt(91) + 10; // 91 porque nextInt(91) genera un número entre 0 y 90
     }
 }
