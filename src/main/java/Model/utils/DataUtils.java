@@ -10,7 +10,9 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DataUtils {
     public static String tipoAdmin;
@@ -340,5 +342,24 @@ public class DataUtils {
         }
     }
 
+    public static Set<String> leerDestinos(String ruta)  {
+        Set<String> destinos = new HashSet<>();
+        // Leer el archivo CSV
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            String line;
 
+            while ((line = br.readLine()) != null) {
+                boolean esGanador = false;
+                String[] fields = line.split(";");
+                String pais = fields[2];
+                destinos.add(pais);
+            }
+
+
+        }catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return destinos;
+
+    }
 }

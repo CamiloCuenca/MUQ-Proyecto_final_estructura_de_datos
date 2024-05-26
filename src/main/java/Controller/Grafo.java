@@ -1,190 +1,229 @@
 package Controller;
 
 import Model.enums.Paises;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
+import java.util.*;
+
+
 
 public class Grafo {
+    private int cantidadVertices;
+    private Paises[] nodos;
+    private int[][] matrizAdyacencia;
 
-    private int MAXIMO_VERTICES;
-    private int MAXIMO_ARISTAS;
-    private int aristas;
-    private int[][] matrix;
+    private final double radioCirculo = 150;
+    private final double centerX = 250;
+    private final double centerY = 250;
 
-    public Grafo() {}
+    public Grafo(Paises[] nodos) {
+        this.nodos = nodos;
+        this.cantidadVertices = nodos.length;
+        this.matrizAdyacencia = new int[cantidadVertices][cantidadVertices];
+        inicializarMatriz();
+        generarPesosAleatorios();
+    }
 
-    public Grafo(int nroVertices, int nroAristas) {
-        MAXIMO_VERTICES = nroVertices;
-        MAXIMO_ARISTAS = nroAristas;
-        this.aristas = 0;
-        matrix = new int[MAXIMO_VERTICES][MAXIMO_VERTICES];
-        for (int i = 0; i < getMAX_VERTICES(); i++) {
-            for (int j = 0; j < getMAX_VERTICES(); j++) {
-                matrix[i][j] = 0;
+    private void inicializarMatriz() {
+        for (int i = 0; i < cantidadVertices; i++) {
+            for (int j = 0; j < cantidadVertices; j++) {
+                if (i == j) {
+                    matrizAdyacencia[i][j] = 0;
+                } else {
+                    Random random = new Random();
+                    matrizAdyacencia[i][j] = random.nextInt(10) + 1; ;
+                }
             }
         }
     }
 
-    public int getMAX_VERTICES() {
-        return MAXIMO_VERTICES;
-    }
-
-    public int getMAX_ARISTAS() {
-        return MAXIMO_ARISTAS;
-    }
-
-    public void insertaArista(String v1, String v2, int dist) throws ArrayIndexOutOfBoundsException, UnsupportedOperationException {
-        int indexV1 = getIndexFromVertex(v1);
-        int indexV2 = getIndexFromVertex(v2);
-
-        if (indexV1 < 0 || indexV1 >= MAXIMO_VERTICES || indexV2 < 0 || indexV2 >= MAXIMO_VERTICES) {
-            throw new ArrayIndexOutOfBoundsException("Vertices inválidos, fuera de rango. Rango de vértices: 0 - " + (getMAX_VERTICES() - 1));
-        } else if (aristas == MAXIMO_ARISTAS) {
-            throw new UnsupportedOperationException("No se puede añadir más aristas");
-        } else {
-            matrix[indexV1][indexV2] = dist;
-            this.aristas++;
-        }
-    }
-
-    public void impMatrix() {
-        System.out.print("  ");
-        for (int i = 0; i < MAXIMO_VERTICES; i++) {
-            System.out.printf("%-12s", getCountryFromIndex(i));
+    public void imprimirMatriz() {
+        System.out.print("    ");
+        for (int i = 0; i < cantidadVertices; i++) {
+            System.out.print(nodos[i] + " ");
         }
         System.out.println();
-        for (int i = 0; i < MAXIMO_VERTICES; i++) {
-            System.out.printf("%-12s", getCountryFromIndex(i));
-            for (int j = 0; j < MAXIMO_VERTICES; j++) {
-                System.out.printf("%-12d", matrix[i][j]);
+        for (int i = 0; i < cantidadVertices; i++) {
+            System.out.print(nodos[i] + " ");
+            for (int j = 0; j < cantidadVertices; j++) {
+                System.out.print(matrizAdyacencia[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    private int getIndexFromVertex(String country) {
-        for (Paises pais : Paises.values()) {
-            if (pais.name().equalsIgnoreCase(country)) {
-                return pais.ordinal();
-            }
+    public void dijkstraConRuta(int nodoOrigen, Set<String> nodosPasados) {
+        int[] distancia = new int[cantidadVertices];
+        boolean[] visitado = new boolean[cantidadVertices];
+        int[] padre = new int[cantidadVertices];
+
+        // Inicializar distancias como infinito e inicializar el nodo de origen como 0
+        for (int i = 0; i < cantidadVertices; i++) {
+            distancia[i] = Integer.MAX_VALUE;
+            visitado[i] = false;
         }
-        return -1;
-    }
+        distancia[nodoOrigen] = 0;
+        padre[nodoOrigen] = -1;
 
-    String getCountryFromIndex(int index) {
-        Paises[] countries = Paises.values();
-        if (index >= 0 && index < countries.length) {
-            return countries[index].name();
-        } else {
-            return "Desconocido";
-        }
-    }
+        // Lista para almacenar los nodos visitados en el orden correcto
+        List<Paises> rutaOrdenada = new ArrayList<>();
 
-    public ResultadosDijkstra dijkstra(String origen) {
-        int[] distancias = new int[MAXIMO_VERTICES];
-        boolean[] visitados = new boolean[MAXIMO_VERTICES];
-        int origenIndex = getIndexFromVertex(origen);
-        String[] rutas = new String[MAXIMO_VERTICES];
+        // Encontrar el camino más corto para todos los vértices
+        for (int count = 0; count < cantidadVertices - 1; count++) {
+            int u = minimaDistancia(distancia, visitado);
+            visitado[u] = true;
 
-        if (origenIndex == -1) {
-            return new ResultadosDijkstra(distancias, rutas);
-        }
-
-        for (int i = 0; i < MAXIMO_VERTICES; i++) {
-            distancias[i] = Integer.MAX_VALUE;
-            rutas[i] = "";
-            visitados[i] = false;
-        }
-
-        distancias[origenIndex] = 0;
-
-        for (int count = 0; count < MAXIMO_VERTICES - 1; count++) {
-            int u = minDistance(distancias, visitados);
-            visitados[u] = true;
-            for (int v = 0; v < MAXIMO_VERTICES; v++) {
-                if (!visitados[v] && matrix[u][v] != 0 && distancias[u] != Integer.MAX_VALUE && distancias[u] + matrix[u][v] < distancias[v]) {
-                    distancias[v] = distancias[u] + matrix[u][v];
-                    rutas[v] = rutas[u].isEmpty() ? getCountryFromIndex(v) : rutas[u] + " -> " + getCountryFromIndex(v);
+            for (int v = 0; v < cantidadVertices; v++) {
+                if (!visitado[v] && matrizAdyacencia[u][v] != 0 && distancia[u] != Integer.MAX_VALUE &&
+                        distancia[u] + matrizAdyacencia[u][v] < distancia[v]) {
+                    distancia[v] = distancia[u] + matrizAdyacencia[u][v];
+                    padre[v] = u;
                 }
             }
         }
-        return new ResultadosDijkstra(distancias, rutas);
+
+        imprimirRuta(nodoOrigen,nodosPasados,padre,distancia);
     }
 
-    private int minDistance(int[] distancias, boolean[] visitados) {
+    private int minimaDistancia(int[] distancia, boolean[] visitado) {
         int min = Integer.MAX_VALUE, minIndex = -1;
-        for (int v = 0; v < MAXIMO_VERTICES; v++) {
-            if (!visitados[v] && distancias[v] <= min) {
-                min = distancias[v];
+
+        for (int v = 0; v < cantidadVertices; v++) {
+            if (!visitado[v] && distancia[v] <= min) {
+                min = distancia[v];
                 minIndex = v;
             }
         }
         return minIndex;
     }
 
-    void displayGraph(AnchorPane pane, Grafo grafo) {
-        int numVertices = grafo.getMAX_VERTICES();
-        double[] posX = new double[numVertices];
-        double[] posY = new double[numVertices];
-        double centerX = 300;
-        double centerY = 200;
-        double radius = 100;
-        double angleIncrement = 2 * Math.PI / numVertices;
 
-        for (int i = 0; i < numVertices; i++) {
-            double angle = i * angleIncrement;
-            posX[i] = centerX + radius * Math.cos(angle);
-            posY[i] = centerY + radius * Math.sin(angle);
+    private int getIndex(Paises nodo) {
+        for (int i = 0; i < cantidadVertices; i++) {
+            if (nodos[i] == nodo) {
+                return i;
+            }
         }
-
-        Circle[] circles = new Circle[grafo.getMAX_VERTICES()];
-        for (int i = 0; i < grafo.getMAX_VERTICES(); i++) {
-            double x = posX[i];
-            double y = posY[i];
-            Circle circle = new Circle(x, y, 10);
-            circle.setStroke(Color.BLACK);
-            circle.setFill(Color.YELLOW);
-            circles[i] = circle;
-            pane.getChildren().add(circle);
-
-            Label label = new Label(grafo.getCountryFromIndex(i));
-            label.setLayoutX(x - 30);
-            label.setLayoutY(y + 15);
-            pane.getChildren().add(label);
-        }
-
-        drawWeightedEdges(pane, circles, grafo);
+        return -1;
     }
-
-    private void drawWeightedEdges(Pane pane, Circle[] circles, Grafo grafo) {
-        for (int i = 0; i < grafo.getMAX_VERTICES(); i++) {
-            for (int j = 0; j < grafo.getMAX_VERTICES(); j++) {
-                int weight = grafo.matrix[i][j];
-                if (weight != 0) {
-                    double x1 = circles[i].getCenterX();
-                    double y1 = circles[i].getCenterY();
-                    double x2 = circles[j].getCenterX();
-                    double y2 = circles[j].getCenterY();
-
-                    Line line = new Line(x1, y1, x2, y2);
-                    pane.getChildren().add(line);
-
-                    double weightX = (x1 + x2) / 2;
-                    double weightY = (y1 + y2) / 2;
-
-                    Label weightLabel = new Label(String.valueOf(weight));
-                    weightLabel.setLayoutX(weightX);
-                    weightLabel.setLayoutY(weightY);
-                    weightLabel.setFont(Font.font("Arial", 12));
-                    weightLabel.setTextFill(Color.BLUE);
-                    pane.getChildren().add(weightLabel);
+    private void generarPesosAleatorios() {
+        Random random = new Random();
+        for (int i = 0; i < cantidadVertices; i++) {
+            for (int j = 0; j < cantidadVertices; j++) {
+                if (i == j) {
+                    matrizAdyacencia[i][j] = 0;
+                } else if (matrizAdyacencia[i][j] == 0) {
+                    matrizAdyacencia[i][j] = random.nextInt(10) + 1; // Genera un peso aleatorio entre 1 y 10
+                    matrizAdyacencia[j][i] = matrizAdyacencia[i][j]; // El grafo es no dirigido
                 }
             }
         }
     }
+
+    public AnchorPane dibujarGrafo() {
+        AnchorPane grafoPane = new AnchorPane();
+
+        // Calcular las posiciones de los nodos en el círculo
+        double angleIncrement = 360.0 / cantidadVertices;
+        double angle = 0;
+
+        Map<Paises, double[]> posicionesNodos = new HashMap<>();
+
+        for (Paises nodo : nodos) {
+            double x = centerX + radioCirculo * Math.cos(Math.toRadians(angle));
+            double y = centerY + radioCirculo * Math.sin(Math.toRadians(angle));
+
+            posicionesNodos.put(nodo, new double[]{x, y});
+
+            Circle circle = new Circle(x, y, 15, Color.BLUE);
+            Text text = new Text(x - 5, y + 5, nodo.toString());
+
+            grafoPane.getChildren().addAll(circle, text);
+
+            angle += angleIncrement;
+        }
+
+        // Dibujar las aristas
+        for (int i = 0; i < cantidadVertices; i++) {
+            for (int j = i + 1; j < cantidadVertices; j++) {
+                if (matrizAdyacencia[i][j] != 0) {
+                    double[] posA = posicionesNodos.get(nodos[i]);
+                    double[] posB = posicionesNodos.get(nodos[j]);
+
+                    Line line = new Line(posA[0], posA[1], posB[0], posB[1]);
+
+                    grafoPane.getChildren().add(line);
+                }
+            }
+        }
+
+
+       // ApGrafo.getChildren().add(grafoPane);
+        return grafoPane;
+    }
+
+    private void imprimirRuta(int nodoOrigen, Set<String> nodosPasados, int[] padre, int[] distancia) {
+        List<Paises> rutaCompleta = new ArrayList<>();
+        Paises nodoInicio = nodos[nodoOrigen];
+
+        // Conjunto para mantener los nodos visitados en la ruta completa
+        Set<Paises> nodosVisitados = new HashSet<>();
+
+        for (String destino : nodosPasados) {
+            if (!nodosPasados.contains(nodos[nodoOrigen].toString())) {
+                System.out.println("No se puede llegar al nodo de destino desde el nodo de origen.");
+                return;
+            }
+            List<Paises> ruta = new ArrayList<>();
+            int nodoActual = getIndex(Paises.valueOf(destino));
+
+            while (nodoActual != -1) {
+                ruta.add(nodos[nodoActual]);
+                nodoActual = padre[nodoActual];
+            }
+
+            Collections.reverse(ruta);
+
+            // Agregar la ruta de la iteración a la ruta completa
+            rutaCompleta.addAll(ruta);
+
+            // Imprimir la ruta de la iteración
+            StringBuilder rutaString = new StringBuilder("[");
+            for (int i = 0; i < ruta.size(); i++) {
+                rutaString.append(ruta.get(i));
+                if (i < ruta.size() - 1) {
+                    rutaString.append(", ");
+                }
+            }
+            rutaString.append("]");
+            System.out.println("Ruta más corta desde " + nodoInicio + " hasta " + destino + ":");
+            System.out.println(rutaString.toString() + " ---- TOTAL distancia = " + distancia[getIndex(Paises.valueOf(destino))]);
+
+            // Agregar la ruta de la iteración al conjunto de nodos visitados en la ruta completa
+            nodosVisitados.addAll(ruta);
+
+            // Establecer el nodo de origen para la próxima iteración como el último nodo visitado
+            nodoOrigen = getIndex(Paises.valueOf(destino));
+        }
+
+        // Agregar los nodos visitados en la ruta completa a la lista completa
+        rutaCompleta.addAll(nodosVisitados);
+
+        // Imprimir la ruta completa
+        StringBuilder rutaCompletaString = new StringBuilder("[");
+        for (int i = 0; i < rutaCompleta.size(); i++) {
+            rutaCompletaString.append(rutaCompleta.get(i));
+            if (i < rutaCompleta.size() - 1) {
+                rutaCompletaString.append(", ");
+            }
+        }
+        rutaCompletaString.append("]");
+        System.out.println("Ruta completa: " + rutaCompletaString.toString());
+    }
+
+
 }
