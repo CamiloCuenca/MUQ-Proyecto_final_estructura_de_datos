@@ -1,10 +1,8 @@
 package Model.objetos;
 
-import Controller.VentanaOptionPremio;
 import Model.enums.Genero;
 import Model.enums.Paises;
 import Model.enums.TipoProducto;
-import Model.utils.GeneradorFacturas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class GanadorPremio {
 

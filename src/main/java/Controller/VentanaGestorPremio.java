@@ -9,19 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +26,7 @@ public class VentanaGestorPremio implements Initializable {
     // Lista de personaPremios y facturas obtenidas al inicio
     private ArrayList<PersonaPremio> personaPremios = AdminPremio.FacturaToPersonaPremio();
     private ArrayList<Factura> facturas = AdminPremio.convertirFactura(personaPremios);
+    public static ObservableList<GanadorPremio> ganadorPremioObservableList2;
 
     // Indicador de si se han cargado las facturas
     public static boolean aux = false;
@@ -88,29 +83,28 @@ public class VentanaGestorPremio implements Initializable {
     private TableColumn<GanadorPremio, String> colPremioFacturaid;
 
     @FXML
-    private TableColumn<GanadorPremio,  String> colPremio;
+    private TableColumn<GanadorPremio, String> colPremio;
 
     @FXML
-    private TableColumn<GanadorPremio,  String> colPremioCiudad;
+    private TableColumn<GanadorPremio, String> colPremioCiudad;
 
     @FXML
-    private TableColumn<GanadorPremio,  String> colPremioCliente;
+    private TableColumn<GanadorPremio, String> colPremioCliente;
 
     @FXML
-    private TableColumn<GanadorPremio,  String> colPremioClienteid;
+    private TableColumn<GanadorPremio, String> colPremioClienteid;
 
     @FXML
-    private TableColumn<GanadorPremio,  String> colPremioEdad;
+    private TableColumn<GanadorPremio, String> colPremioEdad;
 
     @FXML
-    private TableColumn<GanadorPremio,  String> colPremioGenero;
+    private TableColumn<GanadorPremio, String> colPremioGenero;
 
     @FXML
-    private TableColumn<GanadorPremio,  String> colPremioPais;
+    private TableColumn<GanadorPremio, String> colPremioPais;
 
     @FXML
-    private TableColumn<GanadorPremio,  String> colPremioTipoPremio;
-
+    private TableColumn<GanadorPremio, String> colPremioTipoPremio;
 
 
     // Lista observable para almacenar las facturas
@@ -186,33 +180,49 @@ public class VentanaGestorPremio implements Initializable {
     }
 
     private void generarPremio() {
+        // Se inicializan dos ArrayLists, uno para las facturas y otro para los ganadores
         ArrayList<PersonaPremio> facturaArrayList = new ArrayList<>();
         ArrayList<Factura> facturaArrayList3 = new ArrayList<>();
+
+        // Se crea una instancia de AdminPremio
         AdminPremio adminPremio = new AdminPremio("Santiago", "123", "1234", facturaArrayList3);
 
+        // Se obtiene una lista de PersonaPremio a partir de las facturas
         facturaArrayList = adminPremio.FacturaToPersonaPremio();
-        // aquí se obtienen las facturas en ArrayList <Factura>
 
+        // Se obtiene una lista de Factura
         ArrayList<Factura> facturaArrayList1 = adminPremio.convertirFactura(facturaArrayList);
 
+        // Se imprime la lista de facturas
         System.out.println("GANADORES");
         System.out.println(facturaArrayList1);
-
         System.out.println("Con Premio");
 
+        // Se obtiene una lista de GanadorPremio
         ArrayList<GanadorPremio> ganadorPremios = adminPremio.devolverGanadorConPremio(facturaArrayList1);
 
-        VentanaOptionPremio.aux = true;
+        // Se establece la variable auxiliar como verdadera
+        aux = true;
 
+        // Se imprime la lista de ganadores
         System.out.println(ganadorPremios);
 
-        // Actualizar la tabla de premios
-        VentanaOptionPremio.ActualizarDatosTabla(ganadorPremios);
+        // Se actualiza la tabla de premios
+        ActualizarDatosTabla(ganadorPremios);
 
-        // Mostrar los ganadores en la tabla de premios
+        // Se muestra la lista de ganadores en la tabla de premios
         ObservableList<GanadorPremio> listaGanadores = FXCollections.observableArrayList(ganadorPremios);
         tblPremios.setItems(listaGanadores);
         DataUtils.escribirCargaAvion(listaGanadores,"src/main/resources/CSVFiles/CargaAvion.csv");
         DataUtils.eliminarGanadores(listaGanadores,"src/main/resources/CSVFiles/FacturasProcesadas.csv");
+    }
+
+    /**
+     * Actualiza los datos de la tabla de premios con una nueva lista de ganadores de premios.
+     * @param ganadorPremioArrayList La lista de ganadores de premios que se utilizará para actualizar la tabla.
+     */
+    public static void ActualizarDatosTabla(ArrayList<GanadorPremio> ganadorPremioArrayList) {
+        // Se convierte la lista de ganadores de premios en un ObservableList
+        ganadorPremioObservableList2 = FXCollections.observableArrayList(ganadorPremioArrayList);
     }
 }
