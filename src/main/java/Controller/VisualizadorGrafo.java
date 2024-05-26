@@ -2,6 +2,8 @@ package Controller;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.DirectedMultigraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +14,7 @@ import java.util.Map;
 public class VisualizadorGrafo<T> extends JFrame {
 
     // Grafo que se visualizará
-    private Graph<T, DefaultEdge> graph;
+    private DirectedMultigraph<T, DefaultWeightedEdge> graph;
     // Mapa que almacena las posiciones de los vértices en el plano
     private Map<T, Point> vertexPositions;
     // Lista del camino más corto a resaltar
@@ -24,7 +26,7 @@ public class VisualizadorGrafo<T> extends JFrame {
      * @param graph Grafo a visualizar.
      * @param shortestPath Lista del camino más corto a resaltar.
      */
-    public VisualizadorGrafo(Graph<T, DefaultEdge> graph, List<T> shortestPath) {
+    public VisualizadorGrafo(DirectedMultigraph<T, DefaultWeightedEdge> graph, List<T> shortestPath) {
         this.graph = graph; // Inicializa el grafo
         this.shortestPath = shortestPath; // Inicializa el camino más corto
         this.vertexPositions = new HashMap<>(); // Inicializa el mapa de posiciones de vértices
@@ -68,7 +70,7 @@ public class VisualizadorGrafo<T> extends JFrame {
     // Método para dibujar el grafo
     private void drawGraph(Graphics2D g) {
         // Dibuja las aristas y vértices del grafo
-        for (DefaultEdge edge : graph.edgeSet()) {
+        for (DefaultWeightedEdge edge : graph.edgeSet()) {
             T source = graph.getEdgeSource(edge); // Obtiene el vértice de origen
             T target = graph.getEdgeTarget(edge); // Obtiene el vértice de destino
 

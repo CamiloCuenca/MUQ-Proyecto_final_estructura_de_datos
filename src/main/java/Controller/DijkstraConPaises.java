@@ -6,12 +6,14 @@ import Model.objetos.Arista;
 import Model.objetos.Vertice;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
 import java.util.*;
 
 public class DijkstraConPaises {
-    private final Graph<Paises, DefaultEdge> graph; // Grafo
+    private final DirectedMultigraph<Paises, DefaultWeightedEdge> graph; // Grafo
     private final Map<Paises, Double> distancias; // Distancias mínimas desde el origen
     private final Map<Paises, Paises> predecesores; // Predecesores en el camino más corto
 
@@ -23,8 +25,8 @@ public class DijkstraConPaises {
     }
 
     // Método estático para crear un grafo a partir de una lista de aristas
-    static Graph<Paises, DefaultEdge> crearGrafo(List<Arista<Paises>> aristas) {
-        Graph<Paises, DefaultEdge> grafo = new SimpleWeightedGraph<>(DefaultEdge.class); // Crea un grafo ponderado
+    static DirectedMultigraph<Paises, DefaultWeightedEdge> crearGrafo(List<Arista<Paises>> aristas) {
+        DirectedMultigraph<Paises, DefaultWeightedEdge> grafo = new DirectedMultigraph<>(DefaultWeightedEdge.class); // Crea un grafo ponderado
         for (Arista<Paises> arista : aristas) {
             Paises origen = arista.getOrigen().getValor(); // Obtiene el vértice origen de la arista
             Paises destino = arista.getDestino().getValor(); // Obtiene el vértice destino de la arista
@@ -33,7 +35,10 @@ public class DijkstraConPaises {
             grafo.addVertex(origen); // Agrega el vértice origen al grafo
             grafo.addVertex(destino); // Agrega el vértice destino al grafo
 
-            grafo.addEdge(origen, destino); // Agrega la arista al grafo
+             // Agrega la arista al grafo
+            grafo.setEdgeWeight(grafo.addEdge(origen, destino),peso);
+
+
         }
         return grafo; // Devuelve el grafo creado
     }
@@ -53,7 +58,7 @@ public class DijkstraConPaises {
             verticesVisitados.add(actual); // Marca el vértice como visitado
 
             // Itera sobre los vecinos del vértice actual
-            for (DefaultEdge edge : graph.edgesOf(actual)) {
+            for (DefaultWeightedEdge edge : graph.edgesOf(actual)) {
                 Paises vecino = graph.getEdgeTarget(edge); // Obtiene el vecino de la arista
                 if (vecino.equals(actual)) {
                     vecino = graph.getEdgeSource(edge); // Si el vecino es igual al actual, obtiene el origen de la arista
