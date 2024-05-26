@@ -5,6 +5,7 @@ module project.muq {
     requires jgrapht.core;
 
 
+
     opens Controller to javafx.fxml;
 
     exports Controller;
