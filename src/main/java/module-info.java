@@ -2,6 +2,7 @@ module project.muq {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
+    requires jgrapht.core;
 
 
     opens Controller to javafx.fxml;
