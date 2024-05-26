@@ -4,6 +4,7 @@ package Controller;
 import Model.enums.Paises;
 import Model.objetos.Arista;
 import Model.objetos.Vertice;
+import Model.utils.DataUtils;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -81,6 +82,7 @@ public class DijkstraConPaises {
         return distancias.getOrDefault(destino, Double.POSITIVE_INFINITY); // Devuelve la distancia mínima o infinito si no hay camino
     }
 
+
     // Método para obtener el camino más corto hasta un nodo destino
     public List<Paises> obtenerCaminoMasCorto(Paises destino) {
         List<Paises> camino = new LinkedList<>(); // Lista para almacenar el camino más corto
@@ -100,38 +102,72 @@ public class DijkstraConPaises {
         return camino; // Devuelve el camino más corto
     }
 
+
     // Método para visualizar los resultados (camino más corto y distancia mínima)
-    public void visualizarResultados(Paises destino) {
-        List<Paises> camino = obtenerCaminoMasCorto(destino); // Obtiene el camino más corto hasta el destino
-        System.out.println("Camino más corto a " + destino + ": " + camino); // Imprime el camino más corto
-        System.out.println("Distancia mínima a " + destino + ": " + obtenerDistanciaMinima(destino)); // Imprime la distancia mínima
+    public void visualizarResultados(Set<Paises> destino) {
+        List<Paises> camino = null;
+        List<Paises> visitados = new ArrayList<>();
+        double distancia = 0;
+
+        for(Paises pais:destino){
+
+            camino = obtenerCaminoMasCorto(pais); // Obtiene el camino más corto hasta el destino
+            //camino.remove(pais);
+            visitados.add(pais);
+
+            System.out.println("Camino más corto a " + pais + ": " + camino); // Imprime el camino más corto
+            distancia += obtenerDistanciaMinima(pais);
+            System.out.println("Distancia mínima a " + pais + ": " + obtenerDistanciaMinima(pais)); // Imprime la distancia mínima
+
+        }
 
         VisualizadorGrafo<Paises> visualizador = new VisualizadorGrafo<>(graph, camino); // Crea un visualizador de grafo
         visualizador.visualize(); // Visualiza el grafo resaltando el camino más corto
     }
 
     public static void main(String[] args) {
-        Vertice<Paises> argentina = new Vertice<>(Paises.ARGENTINA);
-        Vertice<Paises> colombia = new Vertice<>(Paises.COLOMBIA);
-        Vertice<Paises> australia = new Vertice<>(Paises.AUSTRALIA);
+        List<Vertice<Paises>> vertices = new ArrayList<>();
+        for (Paises pais : Paises.values()) {
+            vertices.add(new Vertice<>(pais));
+        }
 
-        // Crear aristas
-
-        Arista<Paises> arista2 = new Arista<>(argentina, colombia, 4.0);
-
-        Arista<Paises> arista4 = new Arista<>(colombia, australia, 3.0);
-
-        // Lista de aristas
-        List<Arista<Paises>> aristas = Arrays.asList( arista2,arista4);
-
-        // Crear objeto DijkstraConPaises
+        List<Arista<Paises>> aristas = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = i + 1; j < vertices.size(); j++) {
+                int peso = numeroAleatorio();
+                aristas.add(new Arista<>(vertices.get(i), vertices.get(j), peso));
+            }
+        }
+        Paises origen = Paises.CHILE;
         DijkstraConPaises dijkstra = new DijkstraConPaises(aristas);
 
-        // Ejecutar Dijkstra desde Argentina
-        dijkstra.ejecutarDijkstra(Paises.ARGENTINA);
+        dijkstra.ejecutarDijkstra(Paises.USA);
 
-        // Visualizar resultados para llegar a Australia
-        dijkstra.visualizarResultados(Paises.AUSTRALIA);
+        Set<String> nombresPaises = DataUtils.leerDestinos("src/main/resources/CSVFiles/CargaAvion.csv");
+        // Convertir el Set de String a un Set de Paises
+        Set<Paises> paisesDestino = new HashSet<>();
+        //paisesDestino.add(origen);
+        for (String nombrePais : nombresPaises) {
+
+            paisesDestino.add(convertirAPaises(nombrePais));
+        }
+
+
+
+        dijkstra.visualizarResultados(paisesDestino);
+       // dijkstra.visualizarResultados(Paises.USA);
+
+
+
     }
 
+    public static int numeroAleatorio() {
+        Random random = new Random();
+        return random.nextInt(91) + 10; // 91 porque nextInt(91) genera un número entre 0 y 90
+    }
+
+    public static Paises convertirAPaises(String nombrePais) {
+        return Paises.valueOf(nombrePais.toUpperCase());
+    }
 }

@@ -6,6 +6,7 @@ import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
 import Model.objetos.GanadorPremio;
+import Model.objetos.RutaGandor;
 import javafx.collections.ObservableList;
 
 import java.io.*;
@@ -362,4 +363,60 @@ public class DataUtils {
         return destinos;
 
     }
+
+    /** Función para leer un archivo CSV y generar una lista de rutas
+     *
+     * @param rutaArchivo
+     * @return lista de las rutas
+     */
+    public static ArrayList<RutaGandor> leerRutasDesdeCSV(String rutaArchivo) {
+        ArrayList<RutaGandor> rutas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+            int numeroRuta = 1; // Contador para el número de ruta
+
+            // Leer las líneas del archivo
+            while ((linea = br.readLine()) != null) {
+                // Imprimir el número de ruta actual
+                System.out.print("Ruta " + numeroRuta + ": ");
+
+                // Dividir la línea en campos utilizando el separador ";"
+                String[] campos = linea.split(";");
+                // Imprimir cada campo en una línea separada
+                for (String campo : campos) {
+                    System.out.print(campo + ", ");
+                }
+
+                // Crear objeto RutaGandor
+                RutaGandor ruta = crearRutaDesdeCampos(campos);
+                rutas.add(ruta);
+
+                // Aumentar el contador de ruta para la siguiente ruta
+                numeroRuta++;
+            }
+
+            System.out.println("Rutas leídas del archivo CSV correctamente.");
+
+        } catch (IOException e) {
+            // **Se debe poner una alerta de error**
+            System.err.println("Error al leer el archivo CSV: " + e.getMessage());
+        }
+
+        return rutas;
+    }
+
+    // Función para crear un objeto RutaGandor desde un array de campos
+    private static RutaGandor crearRutaDesdeCampos(String[] campos) {
+        String idFactura = campos[0];
+        String idCliente = campos[1];
+        Paises pais = Paises.valueOf(campos[2].toUpperCase());
+        String ciudad = campos[3];
+        TipoProducto tipoProducto = TipoProducto.valueOf(campos[4].toUpperCase());
+        String premio = campos[5];
+
+        return new RutaGandor(idFactura, idCliente, pais, ciudad, tipoProducto, premio);
+    }
+
+
+
 }
