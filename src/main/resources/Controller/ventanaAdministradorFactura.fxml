@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="458.0" prefWidth="1160.0" style="-fx-background-color: #211E1E;" stylesheets="@../Style/EstiloAdministradores.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VentanaAdministradores">
    <children>
-      <Button id="btnRegresar" fx:id="btnRegresar" layoutX="8.0" layoutY="410.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="WHITE">
+      <Button id="btnRegresar" fx:id="btnRegresar" layoutX="-2.0" layoutY="417.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 15;" stylesheets="@../Style/EstiloAdministradores.css" text="Regresar" textFill="#3dcdbc">
          <font>
             <Font name="System Bold" size="8.0" />
          </font>
@@ -26,7 +26,7 @@
             <Image url="@../img/pngegg.png" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutX="17.0" layoutY="235.0" opacity="0.89" prefHeight="155.0" prefWidth="167.0" style="-fx-spacing: 15;">
+      <VBox alignment="CENTER" layoutX="16.0" layoutY="255.0" opacity="0.89" prefHeight="155.0" prefWidth="167.0" style="-fx-spacing: 15;">
          <children>
             <Button fx:id="btnHilo" mnemonicParsing="false" onAction="#controlHilo" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: #3dcdbc; -fx-background-radius: 15;" text="Control" textFill="WHITE">
                <font>
@@ -87,7 +87,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="lblTexto" alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="368.0" textAlignment="CENTER" textFill="#3dcdbc" textOverrun="CENTER_ELLIPSIS">
+      <Label fx:id="lblTexto" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="220.0" prefHeight="30.0" prefWidth="167.0" textAlignment="CENTER" textFill="#3dcdbc" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
