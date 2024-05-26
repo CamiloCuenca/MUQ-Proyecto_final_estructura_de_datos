@@ -279,30 +279,6 @@ public class GeneradorFacturas {
      * @param pais país para el cual se genera la ciudad.
      * @return ciudad aleatoria generada.
      */
-   /* public static String generarCiudadesPaises(Paises pais) {
-        String[] ciudades;
-        switch (pais) {
-            case INDIA:
-                ciudades = ciudadIndia;
-                break;
-            case CHILE:
-                ciudades = ciudadChile;
-                break;
-            case COLOMBIA:
-                ciudades = ciudadColombia;
-                break;
-            case AUSTRALIA:
-                ciudades = ciudadAustralia;
-                break;
-            case ARGENTINA:
-                ciudades = ciudadArgentina;
-                break;
-            default:
-                ciudades = new String[]{};
-        }
-        return ciudades[random.nextInt(ciudades.length)];
-    }*/
-    // Genera una ciudad aleatoria según el país especificado
     public static String generarCiudadesPaises(Paises pais) {
         String[] ciudades = ciudadesPorPais.get(pais);
         if (ciudades != null && ciudades.length > 0) {
@@ -312,19 +288,6 @@ public class GeneradorFacturas {
         return "Desconocido";
     }
 
-    /**
-     * Imprime las facturas en la consola.
-     * @param listaFacturas lista de facturas a imprimir.
-     */
-    private static void imprimirFacturas(List<Factura> listaFacturas) {
-        for (int i = 0; i < listaFacturas.size(); i++) {
-            System.out.println("Factura " + (i + 1) + ": " + listaFacturas.get(i));
-        }
-    }
-
-    //  Main provisional para hacer pruebas
-    public static void main(String[] args) {
-    }
 
     /**
      * Hilo que se encarga de generarme las facturas,Escribirlas,y Actualizarlas.
@@ -333,7 +296,7 @@ public class GeneradorFacturas {
         // Programa la generación de facturas cada 5 minutos
         scheduler.scheduleAtFixedRate(() -> {
             List<Factura> nuevasFacturas = generarFacturas();
-            DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.txt");
+            DataUtils.escribirFacturaCSV((ArrayList<Factura>) nuevasFacturas, "src/main/resources/CSVFiles/Facturas.csv");
             //VentanaAdministradores.actualizarTabla(nuevasFacturas);
             Platform.runLater(() -> {
                 VentanaAdministradores.listaFacturas.addAll(nuevasFacturas);

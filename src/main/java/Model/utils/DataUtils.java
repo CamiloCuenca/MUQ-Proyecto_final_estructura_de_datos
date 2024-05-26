@@ -5,9 +5,14 @@ import Model.enums.Paises;
 import Model.enums.TipoProducto;
 import Model.objetos.Cliente;
 import Model.objetos.Factura;
+import Model.objetos.GanadorPremio;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class DataUtils {
     public static String tipoAdmin;
@@ -185,13 +190,8 @@ public class DataUtils {
         return factura;
     }
 
-    //Main provisional para hacer pruebas
-    /**public static void main(String[] args) {
-        System.out.println(leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
-    }**/
-
     public static void main(String[] args) {
-        registrarClientes("src/main/resources/CSVFiles/Facturas.txt", "src/main/resources/CSVFiles/Clientes.txt");
+        registrarClientes("src/main/resources/CSVFiles/Facturas.csv", "src/main/resources/CSVFiles/Clientes.csv");
     }
 
     /**
@@ -264,5 +264,102 @@ public class DataUtils {
                 System.err.println("Error al cerrar el archivo: " + e.getMessage());
             }
         }
+    }
+
+    public static void eliminarDatosArchivo(String ruta){
+        try(FileWriter fileWriter = new FileWriter(ruta, false)){
+        // Escribe una cadena vacía para borrar el contenido del archivo
+            fileWriter.write("");
+        }catch (IOException e){
+            System.err.println("Error al borrar el contenido del archivo: " + e.getMessage());
+        }
+    }
+
+
+    public static void eliminarGanadores(ObservableList<GanadorPremio> ganadores, String ruta) {
+        List<String> lineasRestantes = new ArrayList<>();
+
+        // Leer el archivo CSV
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                boolean esGanador = false;
+                String[] fields = line.split(";");
+                String idFactura = fields[0];
+
+                // Verificar si la línea corresponde a un ganador
+                for (GanadorPremio ganador : ganadores) {
+                    if (ganador.getIdFactura().equals(idFactura)) {
+                        esGanador = true;
+                        break;
+                    }
+                }
+
+                // Si la línea no es de un ganador, añadirla a las líneas restantes
+                if (!esGanador) {
+                    lineasRestantes.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+
+        // Escribir las líneas restantes de vuelta en el archivo CSV
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ruta))) {
+            for (String remainingLine : lineasRestantes) {
+                bw.write(remainingLine);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
+
+    public static void escribirCargaAvion(ObservableList<GanadorPremio> ganadores,String ruta){
+        try (FileWriter fw = new FileWriter(ruta, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+
+            for (GanadorPremio ganador : ganadores) {
+                // Construir la línea CSV a partir de la factura
+                StringBuilder lineaCSV = new StringBuilder();
+                lineaCSV.append(ganador.getIdFactura()).append(";")
+                        .append(ganador.getIdCliente()).append(";")
+                        .append(ganador.getPais()).append(";")
+                        .append(ganador.getCiudad()).append(";")
+                        .append(ganador.getTipoProducto()).append(";")
+                        .append(ganador.getPremio()).append(";");
+
+
+                // Escribir la línea en el archivo CSV
+                pw.println(lineaCSV.toString());
+            }
+
+            System.out.println("Ganadores escritos en el archivo CSV correctamente.");
+
+        } catch (IOException e) {
+            System.err.println("Error al escribir los ganadores  en el archivo CSV: " + e.getMessage());
+        }
+    }
+
+    public static Set<String> leerDestinos(String ruta)  {
+        Set<String> destinos = new HashSet<>();
+        // Leer el archivo CSV
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                boolean esGanador = false;
+                String[] fields = line.split(";");
+                String pais = fields[2];
+                destinos.add(pais);
+            }
+
+
+        }catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return destinos;
+
     }
 }

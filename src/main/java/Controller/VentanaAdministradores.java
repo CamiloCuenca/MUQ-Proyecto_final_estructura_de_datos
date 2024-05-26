@@ -100,7 +100,7 @@ public class VentanaAdministradores implements Initializable {
     private Label lblReloj;
 
     // ObservableList para cargar las facturas desde un archivo CSV
-    public static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.txt"));
+    public static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.csv"));
     //public static  ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
 
     // Método para cargar un archivo CSV
@@ -143,6 +143,14 @@ public class VentanaAdministradores implements Initializable {
         VentanaGestorPremio.aux = true;
         lblTexto.setText("Proceso Completado");
         CoreMethod.mostrarErrorTemporalmente(lblTexto);
+
+        ArrayList<Factura> facturas = DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.csv");
+        DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.csv");
+
+        //Registrar  los clientes
+        DataUtils.registrarClientes("src/main/resources/CSVFiles/Facturas.csv", "src/main/resources/CSVFiles/Clientes.csv");
+
+        DataUtils.eliminarDatosArchivo("src/main/resources/CSVFiles/Facturas.csv");
 
     }
 
@@ -210,6 +218,12 @@ public class VentanaAdministradores implements Initializable {
         colDia.setCellValueFactory(new PropertyValueFactory<>("DIA"));
         colMes.setCellValueFactory(new PropertyValueFactory<>("MES"));
         colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
+    }
+    @FXML
+    void generarFactura(ActionEvent event) {
+        // Inicia el hilo de generar facturas
+        GeneradorFacturas.iniciarHiloGeneradorFacturas();
+
     }
 
 
