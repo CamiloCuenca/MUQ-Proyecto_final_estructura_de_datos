@@ -1,16 +1,17 @@
 package Controller;
 
 import Model.enums.Paises;
+import Model.utils.DataUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class VentanaAdministradorRuta implements Initializable {
     @FXML
@@ -23,59 +24,44 @@ public class VentanaAdministradorRuta implements Initializable {
 
     private Grafo grafo;
 
-    @FXML
-    void generaRuta() {
 
-
-        String origen = txtIncio.getText().toUpperCase(Locale.ROOT);
-        System.out.println(origen);
-        ResultadosDijkstra resultados = grafo.dijkstra(origen);
-        int[] distancias = resultados.getDistancias();
-        String[] rutas = resultados.getRutas();
-
-        // Imprimir las distancias más cortas y las rutas
-        System.out.println("Distancias más cortas desde " + origen + ":");
-        for (int i = 0; i < distancias.length; i++) {
-            System.out.println(grafo.getCountryFromIndex(i) + ": " + distancias[i] + " km");
-            lblRuta.setText(grafo.getCountryFromIndex(i) + ": " + distancias[i] + " km\n");
-        }
-
-        System.out.println("\nRutas desde " + origen + ":");
-        for (int i = 0; i < rutas.length; i++) {
-            System.out.println(grafo.getCountryFromIndex(i) + ": " + origen + rutas[i]);
-            lblRuta.setText(grafo.getCountryFromIndex(i) + ": " + origen + rutas[i]+"\n");
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        grafo = new Grafo(8,20);
-
-        // Insertar aristas con distancias aleatorias
+       /* grafo = new Grafo(8, 20);
         try {
-
-            grafo.insertaArista(String.valueOf(Paises.COLOMBIA), String.valueOf(Paises.INDIA), generarDistanciaAleatoria());
-            grafo.insertaArista(String.valueOf(Paises.INDIA), String.valueOf(Paises.ARGENTINA), generarDistanciaAleatoria());
-            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.AUSTRALIA), generarDistanciaAleatoria());
-            grafo.insertaArista(String.valueOf(Paises.AUSTRALIA), String.valueOf(Paises.ARGENTINA), generarDistanciaAleatoria());
-            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.PERU), generarDistanciaAleatoria());
-            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.USA), generarDistanciaAleatoria());
-            grafo.insertaArista(String.valueOf(Paises.USA), String.valueOf(Paises.CANADA), generarDistanciaAleatoria());
-            grafo.insertaArista(String.valueOf(Paises.CANADA), String.valueOf(Paises.PERU), generarDistanciaAleatoria());
-
+            grafo.insertaArista(String.valueOf(Paises.COLOMBIA), String.valueOf(Paises.INDIA), 1);
+            grafo.insertaArista(String.valueOf(Paises.INDIA), String.valueOf(Paises.ARGENTINA), 2);
+            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.AUSTRALIA), 3);
+            grafo.insertaArista(String.valueOf(Paises.AUSTRALIA), String.valueOf(Paises.ARGENTINA), 4);
+            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.PERU), 5);
+            grafo.insertaArista(String.valueOf(Paises.CHILE), String.valueOf(Paises.USA), 6);
+            grafo.insertaArista(String.valueOf(Paises.USA), String.valueOf(Paises.CANADA), 7);
+            grafo.insertaArista(String.valueOf(Paises.CANADA), String.valueOf(Paises.PERU), 8);
         } catch (ArrayIndexOutOfBoundsException | UnsupportedOperationException e) {
             System.err.println("Error al insertar arista: " + e.getMessage());
         }
 
+        grafo.displayGraph(ApGrafo, grafo);
+        grafo.impMatrix();*/
 
-        // Visualizar el grafo utilizando JavaFX
-        grafo.displayGraph(ApGrafo,grafo);
-        grafo.impMatrix();
+        Paises[] nodos = Paises.values();
+        Grafo grafo = new Grafo(nodos);
+
+
+        System.out.println("Matriz de adyacencia del grafo:");
+        grafo.imprimirMatriz();
+
+        int nodoOrigen = 1; // El nodo de origen es CHILE
+        String nodoTex = "CHILE";
+        Set<String> nodosPasados = DataUtils.leerDestinos("src/main/resources/CSVFiles/CargaAvion.csv");
+       nodosPasados.add(nodoTex);
+        grafo.dijkstraConRuta(nodoOrigen, nodosPasados);
+
+        ApGrafo.getChildren().add(grafo.dibujarGrafo());
     }
 
 
-    // Método para generar distancias aleatorias entre 1 y 10 (para fines de demostración)
-    private static int generarDistanciaAleatoria() {
-        return (int) (Math.random() * 10) + 1;
+    public void generaRuta(ActionEvent actionEvent) {
     }
 }

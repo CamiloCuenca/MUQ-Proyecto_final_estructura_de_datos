@@ -22,5 +22,5 @@ Las contribuciones son bienvenidas. Si deseas contribuir al proyecto, sigue esto
 5. Crea un nuevo pull request.
 
 ## Autor
-Juan Camilo Cuenca,Brandon Montealegre,Diego alexander jimenez,Santiago Arbelaez
+Juan Camilo Cuenca, Brandon Montealegre, Santiago Arbelaez, Diego alexander jimenez.
 

@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
     @FXML
     void ingresar(ActionEvent event) {
         try {
-            String rutaAdministradores = "src/main/resources/CSVFiles/Administradores.txt";
+            String rutaAdministradores = "src/main/resources/CSVFiles/Administradores.csv";
 
             // Verifica si el administrador está registrado
             String nombre = txtUsuario.getText();
@@ -89,8 +89,7 @@ public class LoginController implements Initializable {
             CoreMethod.mostrarErrorTemporalmente(lblMensaje);
         }
 
-        // Inicia el hilo de generar facturas
-        GeneradorFacturas.iniciarHiloGeneradorFacturas();
+
     }
 
     private void cargarVentana(String fxmlPath, ActionEvent event) throws IOException {
