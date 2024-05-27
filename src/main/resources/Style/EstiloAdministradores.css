@@ -17,7 +17,9 @@
     -fx-text-fill: #ffffff;
 }
 
-
+#tblRutas .column-header .label {
+    -fx-text-fill: #ffffff;
+}
 
 #tblPremios .column-header .label {
     -fx-text-fill: #ffffff;

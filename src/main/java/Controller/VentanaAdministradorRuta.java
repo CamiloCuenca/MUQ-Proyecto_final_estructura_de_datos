@@ -7,16 +7,15 @@ import Model.objetos.Factura;
 import Model.objetos.RutaGandor;
 import Model.objetos.Vertice;
 import Model.utils.DataUtils;
+import Model.utils.SceneUtils;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -34,6 +33,10 @@ public class VentanaAdministradorRuta implements Initializable {
 
     @FXML
     private AnchorPane ApGrafo;
+
+
+    @FXML
+    private Button btnGenerarRuta;
 
     @FXML
     private TableColumn<RutaGandor, String> colCiudades;
@@ -53,6 +56,10 @@ public class VentanaAdministradorRuta implements Initializable {
     @FXML
     private TableColumn<RutaGandor, String> colFactura;
 
+    @FXML
+    private Button btnRegresar;
+
+
     public static final ObservableList<RutaGandor> listaFacturas = FXCollections.observableArrayList(DataUtils.leerRutasDesdeCSV("src/main/resources/CSVFiles/CargaAvion.csv"));
 
 
@@ -66,6 +73,8 @@ public class VentanaAdministradorRuta implements Initializable {
         colCiudades.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCiudad()));
         colPremios.setCellValueFactory(new PropertyValueFactory<>("premio"));
         colTipoPremios.setCellValueFactory(new PropertyValueFactory<>("tipoProducto"));
+        CoreMethod.animarComponente(btnRegresar);
+        CoreMethod.animarComponente(btnGenerarRuta);
     }
 
 
@@ -111,5 +120,12 @@ public class VentanaAdministradorRuta implements Initializable {
     }
     public static Paises convertirAPaises(String nombrePais) {
         return Paises.valueOf(nombrePais.toUpperCase());
+    }
+
+
+    @FXML
+    void Regresar(ActionEvent event) throws IOException {
+        SceneUtils.cargarVentana("/Controller/login.fxml");
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 }
