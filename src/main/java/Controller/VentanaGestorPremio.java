@@ -3,6 +3,7 @@ package Controller;
 import Model.enums.TipoProducto;
 import Model.objetos.*;
 import Model.utils.DataUtils;
+import Model.utils.GenerarExcel;
 import Model.utils.SceneUtils;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,11 +12,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,6 +46,9 @@ public class VentanaGestorPremio implements Initializable {
 
     @FXML
     private Button btnSalir;
+
+    @FXML
+    private Button btnGenerarExcel;
 
     // Columnas de la tabla de facturas
     @FXML
@@ -72,6 +79,7 @@ public class VentanaGestorPremio implements Initializable {
     private TableColumn<Factura, Double> colValorTotal;
     @FXML
     private TableView<Factura> tblFacturas;
+
 
 
     //Tabla Premios:
@@ -105,6 +113,10 @@ public class VentanaGestorPremio implements Initializable {
 
     @FXML
     private TableColumn<GanadorPremio, String> colPremioTipoPremio;
+
+    @FXML
+    private Label lblTexto;
+
 
 
     // Lista observable para almacenar las facturas
@@ -224,5 +236,40 @@ public class VentanaGestorPremio implements Initializable {
     public static void ActualizarDatosTabla(ArrayList<GanadorPremio> ganadorPremioArrayList) {
         // Se convierte la lista de ganadores de premios en un ObservableList
         ganadorPremioObservableList2 = FXCollections.observableArrayList(ganadorPremioArrayList);
+    }
+
+    @FXML
+    void OnGenerarExcel(ActionEvent event) {
+        String csvFilePath = "src/main/resources/CSVFiles/FacturasProcesadas.csv";
+        String excelFilePath = "planilla_carga.xlsx";
+
+        try {
+            // Leer datos del CSV y escribir en Excel
+            GenerarExcel.writeExcel(GenerarExcel.readCsv(csvFilePath), excelFilePath);
+            System.out.println("Archivo Excel generado exitosamente.");
+
+            // Abrir el archivo Excel con el programa predeterminado
+            abrirArchivoConProgramaPredeterminado(excelFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Abre el archivo especificado con el programa predeterminado del sistema.
+     * @param filePath La ruta del archivo a abrir.
+     */
+    private void abrirArchivoConProgramaPredeterminado(String filePath) {
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                Desktop.getDesktop().open(file);
+            } else {
+                System.out.println("El archivo no existe: " + filePath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

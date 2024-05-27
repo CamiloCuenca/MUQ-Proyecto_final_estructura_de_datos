@@ -3,7 +3,8 @@ module project.muq {
     requires javafx.fxml;
     requires java.desktop;
     requires jgrapht.core;
-
+    requires org.apache.poi.poi;
+    requires org.apache.poi.ooxml;
 
 
     opens Controller to javafx.fxml;

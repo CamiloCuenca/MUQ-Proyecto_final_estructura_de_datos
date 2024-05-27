@@ -1,6 +1,5 @@
 package Controller;
 
-
 import Model.enums.Paises;
 import Model.objetos.Arista;
 import Model.objetos.Vertice;
@@ -36,7 +35,7 @@ public class DijkstraConPaises {
             grafo.addVertex(origen); // Agrega el vértice origen al grafo
             grafo.addVertex(destino); // Agrega el vértice destino al grafo
 
-             // Agrega la arista al grafo
+            // Agrega la arista al grafo
             grafo.setEdgeWeight(grafo.addEdge(origen, destino),peso);
 
 
@@ -156,7 +155,7 @@ public class DijkstraConPaises {
 
 
         dijkstra.visualizarResultados(paisesDestino);
-       // dijkstra.visualizarResultados(Paises.USA);
+        // dijkstra.visualizarResultados(Paises.USA);
 
 
 
