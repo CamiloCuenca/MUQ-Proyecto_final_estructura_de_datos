@@ -164,6 +164,7 @@ public class VentanaGestorPremio implements Initializable {
         CoreMethod.animarComponente(btnSalir);
         CoreMethod.animarComponente(btnBuscar);
         CoreMethod.animarComponente(btnGenerarPremio);
+        CoreMethod.animarComponente(btnGenerarExcel);
 
         // Se escribe la lista de facturas en un archivo CSV
         //DataUtils.escribirFacturaCSV(facturas, "src/main/resources/CSVFiles/CargaAvion.csv");
@@ -199,34 +200,50 @@ public class VentanaGestorPremio implements Initializable {
         // Se crea una instancia de AdminPremio
         AdminPremio adminPremio = new AdminPremio("Santiago", "123", "1234", facturaArrayList3);
 
-        // Se obtiene una lista de PersonaPremio a partir de las facturas
-        facturaArrayList = adminPremio.FacturaToPersonaPremio();
+        try {
+            // Se obtiene una lista de PersonaPremio a partir de las facturas
+            facturaArrayList = adminPremio.FacturaToPersonaPremio();
 
-        // Se obtiene una lista de Factura
-        ArrayList<Factura> facturaArrayList1 = adminPremio.convertirFactura(facturaArrayList);
+            // Se obtiene una lista de Factura
+            ArrayList<Factura> facturaArrayList1 = adminPremio.convertirFactura(facturaArrayList);
 
-        // Se imprime la lista de facturas
-        System.out.println("GANADORES");
-        System.out.println(facturaArrayList1);
-        System.out.println("Con Premio");
+            // Verifica si hay facturas disponibles
+            if (facturaArrayList1.isEmpty()) {
+                lblTexto.setText("No hay facturas disponibles para generar los premios.");
+                return;
+            }
 
-        // Se obtiene una lista de GanadorPremio
-        ArrayList<GanadorPremio> ganadorPremios = adminPremio.devolverGanadorConPremio(facturaArrayList1);
+            // Se imprime la lista de facturas
+            System.out.println("GANADORES");
+            System.out.println(facturaArrayList1);
+            System.out.println("Con Premio");
 
-        // Se establece la variable auxiliar como verdadera
-        aux = true;
+            // Se obtiene una lista de GanadorPremio
+            ArrayList<GanadorPremio> ganadorPremios = adminPremio.devolverGanadorConPremio(facturaArrayList1);
 
-        // Se imprime la lista de ganadores
-        System.out.println(ganadorPremios);
+            // Se establece la variable auxiliar como verdadera
+            aux = true;
 
-        // Se actualiza la tabla de premios
-        ActualizarDatosTabla(ganadorPremios);
+            // Se imprime la lista de ganadores
+            System.out.println(ganadorPremios);
 
-        // Se muestra la lista de ganadores en la tabla de premios
-        ObservableList<GanadorPremio> listaGanadores = FXCollections.observableArrayList(ganadorPremios);
-        tblPremios.setItems(listaGanadores);
-        DataUtils.escribirCargaAvion(listaGanadores,"src/main/resources/CSVFiles/CargaAvion.csv");
-        DataUtils.eliminarGanadores(listaGanadores,"src/main/resources/CSVFiles/FacturasProcesadas.csv");
+            // Se actualiza la tabla de premios
+            ActualizarDatosTabla(ganadorPremios);
+
+            // Se muestra la lista de ganadores en la tabla de premios
+            ObservableList<GanadorPremio> listaGanadores = FXCollections.observableArrayList(ganadorPremios);
+            tblPremios.setItems(listaGanadores);
+            DataUtils.escribirCargaAvion(listaGanadores, "src/main/resources/CSVFiles/CargaAvion.csv");
+            DataUtils.eliminarGanadores(listaGanadores, "src/main/resources/CSVFiles/FacturasProcesadas.csv");
+
+            // Actualiza el label con un mensaje de éxito
+            lblTexto.setText("Premios generados exitosamente.");
+
+        } catch (Exception e) {
+            // Manejo de cualquier excepción no esperada
+            lblTexto.setText("Ocurrió un error al generar los premios: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

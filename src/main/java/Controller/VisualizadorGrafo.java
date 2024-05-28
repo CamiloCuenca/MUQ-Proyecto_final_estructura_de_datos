@@ -24,7 +24,7 @@ public class VisualizadorGrafo<T> extends JFrame {
     /**
      * Constructor de la clase VisualizadorGrafo.
      *
-     * @param graph Grafo a visualizar.
+     * @param graph        Grafo a visualizar.
      * @param shortestPath Lista del camino más corto a resaltar.
      */
     public VisualizadorGrafo(DirectedMultigraph<T, DefaultWeightedEdge> graph, List<T> shortestPath) {
@@ -123,6 +123,7 @@ public class VisualizadorGrafo<T> extends JFrame {
             setVisible(true); // Hace visible la ventana
         });
     }
+
     public static int numeroAleatorio() {
         Random random = new Random();
         return random.nextInt(91) + 10; // 91 porque nextInt(91) genera un número entre 0 y 90
