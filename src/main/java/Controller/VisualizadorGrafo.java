@@ -37,7 +37,6 @@ public class VisualizadorGrafo<T> extends JFrame {
 
     // Método para inicializar la interfaz gráfica
     private void initialize() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Configura la operación de cierre
         setSize(800, 600); // Establece el tamaño de la ventana
 
         JPanel panel = new JPanel() {
@@ -49,6 +48,7 @@ public class VisualizadorGrafo<T> extends JFrame {
         };
 
         add(panel); // Añade el panel a la ventana
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //
     }
 
     // Método para calcular las posiciones de los vértices en el plano

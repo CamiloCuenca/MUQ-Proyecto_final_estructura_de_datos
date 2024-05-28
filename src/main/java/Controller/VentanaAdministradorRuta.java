@@ -3,7 +3,6 @@ package Controller;
 import Model.enums.Paises;
 import Model.enums.TipoProducto;
 import Model.objetos.Arista;
-import Model.objetos.Factura;
 import Model.objetos.RutaGandor;
 import Model.objetos.Vertice;
 import Model.utils.DataUtils;
@@ -27,13 +26,13 @@ public class VentanaAdministradorRuta implements Initializable {
     @FXML
     public Label lblRuta;
 
+    @FXML
     public TextField txtIncio;
     @FXML
     public TableView<RutaGandor> tblRutas;
 
     @FXML
     private AnchorPane ApGrafo;
-
 
     @FXML
     private Button btnGenerarRuta;
@@ -59,10 +58,7 @@ public class VentanaAdministradorRuta implements Initializable {
     @FXML
     private Button btnRegresar;
 
-
     public static final ObservableList<RutaGandor> listaFacturas = FXCollections.observableArrayList(DataUtils.leerRutasDesdeCSV("src/main/resources/CSVFiles/CargaAvion.csv"));
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,55 +73,77 @@ public class VentanaAdministradorRuta implements Initializable {
         CoreMethod.animarComponente(btnGenerarRuta);
     }
 
-
+    @FXML
     public void generaRuta(ActionEvent actionEvent) {
-        List<Vertice<Paises>> vertices = new ArrayList<>();
-        for (Paises pais : Paises.values()) {
-            vertices.add(new Vertice<>(pais));
-        }
-
-        List<Arista<Paises>> aristas = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < vertices.size(); i++) {
-            for (int j = i + 1; j < vertices.size(); j++) {
-                int peso = numeroAleatorio();
-                aristas.add(new Arista<>(vertices.get(i), vertices.get(j), peso));
+        try {
+            String inicioText = txtIncio.getText().trim().toUpperCase();
+            if (inicioText.isEmpty()) {
+                mostrarMensajeError("Ingrese un país de inicio válido.");
+                return;
             }
+
+            Paises origen = convertirAPaises(inicioText);
+            if (origen == null) {
+                mostrarMensajeError("País de inicio no válido.");
+                return;
+            }
+
+            List<Vertice<Paises>> vertices = new ArrayList<>();
+            for (Paises pais : Paises.values()) {
+                vertices.add(new Vertice<>(pais));
+            }
+
+            List<Arista<Paises>> aristas = new ArrayList<>();
+            for (int i = 0; i < vertices.size(); i++) {
+                for (int j = i + 1; j < vertices.size(); j++) {
+                    int peso = numeroAleatorio();
+                    aristas.add(new Arista<>(vertices.get(i), vertices.get(j), peso));
+                }
+            }
+
+            DijkstraConPaises dijkstra = new DijkstraConPaises(aristas);
+            dijkstra.ejecutarDijkstra(origen);
+
+            Set<String> nombresPaises = DataUtils.leerDestinos("src/main/resources/CSVFiles/CargaAvion.csv");
+            Set<Paises> paisesDestino = new HashSet<>();
+            for (String nombrePais : nombresPaises) {
+                Paises pais = convertirAPaises(nombrePais);
+                if (pais != null) {
+                    paisesDestino.add(pais);
+                }
+            }
+
+            dijkstra.visualizarResultados(paisesDestino);
+        } catch (Exception e) {
+            mostrarMensajeError("Error al generar la ruta: " + e.getMessage());
+            e.printStackTrace();
         }
+    }
 
-        Paises origen = Paises.valueOf(txtIncio.getText().toUpperCase());
-        DijkstraConPaises dijkstra = new DijkstraConPaises(aristas);
-
-        dijkstra.ejecutarDijkstra(Paises.USA);
-
-        Set<String> nombresPaises = DataUtils.leerDestinos("src/main/resources/CSVFiles/CargaAvion.csv");
-        // Convertir el Set de String a un Set de Paises
-        Set<Paises> paisesDestino = new HashSet<>();
-        //paisesDestino.add(origen);
-        for (String nombrePais : nombresPaises) {
-
-            paisesDestino.add(convertirAPaises(nombrePais));
-        }
-
-
-
-        dijkstra.visualizarResultados(paisesDestino);
-        // dijkstra.visualizarResultados(Paises.USA);
-
+    @FXML
+    void Regresar(ActionEvent event) throws IOException {
+        SceneUtils.cargarVentana("/Controller/login.fxml");
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     public static int numeroAleatorio() {
         Random random = new Random();
         return random.nextInt(91) + 10; // 91 porque nextInt(91) genera un número entre 0 y 90
     }
+
     public static Paises convertirAPaises(String nombrePais) {
-        return Paises.valueOf(nombrePais.toUpperCase());
+        try {
+            return Paises.valueOf(nombrePais.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
-
-    @FXML
-    void Regresar(ActionEvent event) throws IOException {
-        SceneUtils.cargarVentana("/Controller/login.fxml");
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+    private void mostrarMensajeError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }

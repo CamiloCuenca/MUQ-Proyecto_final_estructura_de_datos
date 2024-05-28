@@ -9,7 +9,6 @@ import Model.utils.GeneradorFacturas;
 import Model.utils.SceneUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +25,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.text.Utilities;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,9 +33,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class VentanaAdministradores implements Initializable {
 
@@ -101,9 +96,7 @@ public class VentanaAdministradores implements Initializable {
 
     // ObservableList para cargar las facturas desde un archivo CSV
     public static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.csv"));
-    //public static  ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
 
-    // Método para cargar un archivo CSV
     @FXML
     void cargarFactura(ActionEvent event) {
         cargarArchivoCSV();
@@ -125,41 +118,53 @@ public class VentanaAdministradores implements Initializable {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                mostrarMensajeError("Error al cargar el archivo: " + e.getMessage());
             }
         } else {
-            System.out.println("No se seleccionó ningún archivo.");
+            mostrarMensajeError("No se seleccionó ningún archivo.");
         }
     }
 
     @FXML
     void eliminarFactura(ActionEvent event) {
         // Implementar lógica para eliminar factura
+        Factura facturaSeleccionada = tblFacturas.getSelectionModel().getSelectedItem();
+        if (facturaSeleccionada != null) {
+            listaFacturas.remove(facturaSeleccionada);
+            tblFacturas.refresh();
+        } else {
+            mostrarMensajeError("Seleccione una factura para eliminar.");
+        }
     }
 
     @FXML
     void procesarFactura(ActionEvent event) {
-        // Implementar lógica para procesar factura
-        AdminPremio.lectorTXT();
-        VentanaGestorPremio.aux = true;
-        lblTexto.setText("Proceso Completado");
-        CoreMethod.mostrarErrorTemporalmente(lblTexto);
+        try {
+            AdminPremio.lectorTXT();
+            VentanaGestorPremio.aux = true;
+            lblTexto.setText("Proceso Completado");
+            CoreMethod.mostrarErrorTemporalmente(lblTexto);
 
-        ArrayList<Factura> facturas = DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.csv");
-        DataUtils.escribirFacturaCSV(facturas,"src/main/resources/CSVFiles/FacturasProcesadas.csv");
+            ArrayList<Factura> facturas = DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.csv");
+            DataUtils.escribirFacturaCSV(facturas, "src/main/resources/CSVFiles/FacturasProcesadas.csv");
 
-        //Registrar  los clientes
-        DataUtils.registrarClientes("src/main/resources/CSVFiles/Facturas.csv", "src/main/resources/CSVFiles/Clientes.csv");
+            // Registrar los clientes
+            DataUtils.registrarClientes("src/main/resources/CSVFiles/Facturas.csv", "src/main/resources/CSVFiles/Clientes.csv");
 
-        DataUtils.eliminarDatosArchivo("src/main/resources/CSVFiles/Facturas.csv");
+            // Eliminar las facturas ya procesadas
+            DataUtils.eliminarDatosArchivo("src/main/resources/CSVFiles/Facturas.csv");
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarMensajeError("Error al procesar las facturas: " + e.getMessage());
+        }
     }
 
     @FXML
     void controlHilo(ActionEvent event) {
-
+        // Implementar lógica para controlar el hilo
+        GeneradorFacturas.iniciarHiloGeneradorFacturas();
     }
-
-
 
     private void inicializarReloj() {
         // Crear un objeto Timeline para actualizar el reloj cada segundo
@@ -187,19 +192,14 @@ public class VentanaAdministradores implements Initializable {
         CoreMethod.animarComponente(btnRegresar);
         CoreMethod.animarComponente(btnProcesarFactura);
         // Cargar las facturas desde el archivo CSV al inicializar la ventana
-        // Configurar la tabla
         tblFacturas.setItems(listaFacturas);
         // Ajustar la política de redimensionamiento de columnas de la tabla
         tblFacturas.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         // Configurar el ancho preferido de la tabla
         tblFacturas.setPrefWidth(Region.USE_COMPUTED_SIZE);
         inicializarReloj();
-
-
     }
 
-
-    // Método para configurar las columnas de la tabla
     private void configurarColumnas(TableView<Factura> tabla, TableColumn<Factura, String> colIdFactura, TableColumn<Factura, String> colIdCliente, TableColumn<Factura, String> colCliente,
                                     TableColumn<Factura, String> colEdad, TableColumn<Factura, String> colGenero, TableColumn<Factura, String> colPais, TableColumn<Factura, String> colCiudad,
                                     TableColumn<Producto, String> colProductos, TableColumn<Producto, TipoProducto> colTipoProducto, TableColumn<Factura, Double> colValorTotal,
@@ -219,12 +219,14 @@ public class VentanaAdministradores implements Initializable {
         colMes.setCellValueFactory(new PropertyValueFactory<>("MES"));
         colAnio.setCellValueFactory(new PropertyValueFactory<>("ANIO"));
     }
+
     @FXML
     void generarFactura(ActionEvent event) {
-        // Inicia el hilo de generar facturas
         GeneradorFacturas.iniciarHiloGeneradorFacturas();
-
     }
 
-
+    private void mostrarMensajeError(String mensaje) {
+        lblTexto.setText(mensaje);
+        CoreMethod.mostrarErrorTemporalmente(lblTexto);
+    }
 }
