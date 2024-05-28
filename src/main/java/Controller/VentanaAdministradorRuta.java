@@ -73,7 +73,7 @@ public class VentanaAdministradorRuta implements Initializable {
         colIDClientes.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
         colFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
         colPaises.setCellValueFactory(new PropertyValueFactory<>("pais"));
-        colCiudades.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCiudad()));
+        colCiudades.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
         colPremios.setCellValueFactory(new PropertyValueFactory<>("premio"));
         colTipoPremios.setCellValueFactory(new PropertyValueFactory<>("tipoProducto"));
         CoreMethod.animarComponente(btnRegresar);
