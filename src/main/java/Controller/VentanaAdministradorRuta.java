@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -36,6 +37,12 @@ public class VentanaAdministradorRuta implements Initializable {
 
     @FXML
     private Button btnGenerarRuta;
+
+    @FXML
+    private javafx.scene.image.ImageView img1;
+
+    @FXML
+    private ImageView img2;
 
     @FXML
     private TableColumn<RutaGandor, String> colCiudades;
@@ -71,6 +78,8 @@ public class VentanaAdministradorRuta implements Initializable {
         colTipoPremios.setCellValueFactory(new PropertyValueFactory<>("tipoProducto"));
         CoreMethod.animarComponente(btnRegresar);
         CoreMethod.animarComponente(btnGenerarRuta);
+        CoreMethod.girarImagen(img1);
+        CoreMethod.girarImagen(img2);
     }
 
     @FXML

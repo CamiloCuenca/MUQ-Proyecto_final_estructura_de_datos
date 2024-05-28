@@ -45,7 +45,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CoreMethod.animarComponente(btnIngresar);
         CoreMethod.inicializarEnterKey(txtUsuario, pswContrasena, btnIngresar);
-        CoreMethod.girarImagen(imgLogo);
+        CoreMethod.girarImagen2(imgLogo);
     }
 
     @FXML

@@ -5,6 +5,8 @@ import Model.objetos.*;
 import Model.utils.DataUtils;
 import Model.utils.GenerarExcel;
 import Model.utils.SceneUtils;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,12 +19,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class VentanaGestorPremio implements Initializable {
@@ -81,6 +87,16 @@ public class VentanaGestorPremio implements Initializable {
     private TableView<Factura> tblFacturas;
 
 
+    @FXML
+    private javafx.scene.image.ImageView imgRegalo1;
+
+    @FXML
+    private ImageView imgRegalo2;
+
+
+    @FXML
+    private Label lblReloj;
+
 
     //Tabla Premios:
 
@@ -131,6 +147,17 @@ public class VentanaGestorPremio implements Initializable {
         return aux;
     }
 
+    private void inicializarReloj() {
+        // Crear un objeto Timeline para actualizar el reloj cada segundo
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String horaActual = sdf.format(new Date());
+            lblReloj.setText(horaActual);
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
     @FXML
     void OnBuscar(ActionEvent event) {
         // Lógica para realizar la búsqueda de facturas
@@ -165,6 +192,9 @@ public class VentanaGestorPremio implements Initializable {
         CoreMethod.animarComponente(btnBuscar);
         CoreMethod.animarComponente(btnGenerarPremio);
         CoreMethod.animarComponente(btnGenerarExcel);
+        CoreMethod.girarImagen(imgRegalo1);
+        CoreMethod.girarImagen(imgRegalo2);
+        inicializarReloj();
 
         // Se escribe la lista de facturas en un archivo CSV
         //DataUtils.escribirFacturaCSV(facturas, "src/main/resources/CSVFiles/CargaAvion.csv");

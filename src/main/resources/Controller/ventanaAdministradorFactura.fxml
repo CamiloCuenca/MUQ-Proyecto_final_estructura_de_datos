@@ -74,7 +74,7 @@
             </Button>
          </children>
       </VBox>
-      <Text fill="#3dcdbc" layoutX="589.0" layoutY="47.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="Facturación" textAlignment="CENTER">
+      <Text fill="#3dcdbc" layoutX="589.0" layoutY="41.0" lineSpacing="1.0" stroke="#6e8a86" strokeType="INSIDE" strokeWidth="0.0" text="Facturación" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -121,5 +121,15 @@
             </TableView>
          </content>
       </ScrollPane>
+      <ImageView fx:id="img1" fitHeight="40.0" fitWidth="57.0" layoutX="546.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/money3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img2" fitHeight="40.0" fitWidth="57.0" layoutX="729.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/money3.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

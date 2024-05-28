@@ -11,8 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -39,6 +42,19 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void aplicarEfectoLuzLED(ImageView imageView) {
+        Light.Distant light = new Light.Distant();
+        light.setAzimuth(45.0);
+        light.setElevation(30.0);
+        light.setColor(Color.web("#3dcdbc")); // Usar el color hexadecimal #3dcdbc
+
+        Lighting lighting = new Lighting();
+        lighting.setLight(light);
+        lighting.setSurfaceScale(10);
+
+        imageView.setEffect(lighting);
     }
 
     /**
@@ -88,7 +104,18 @@ public class CoreMethod {// Esta clase se va encargar de almacenar todos los met
     public static void girarImagen(ImageView imageView) {
         RotateTransition rotate = new RotateTransition();
         rotate.setNode(imageView);
-        rotate.setDuration(Duration.millis(1500));
+        rotate.setDuration(Duration.millis(1700));
+        rotate.setCycleCount(TranslateTransition.INDEFINITE);
+        rotate.setInterpolator(Interpolator.LINEAR);
+        rotate.setByAngle(360);
+        rotate.setAxis(Rotate.Y_AXIS);
+        rotate.play();
+    }
+
+    public static void girarImagen2(ImageView imageView) {
+        RotateTransition rotate = new RotateTransition();
+        rotate.setNode(imageView);
+        rotate.setDuration(Duration.millis(3100));
         rotate.setCycleCount(TranslateTransition.INDEFINITE);
         rotate.setInterpolator(Interpolator.LINEAR);
         rotate.setByAngle(360);

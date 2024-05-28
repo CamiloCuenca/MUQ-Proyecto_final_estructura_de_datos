@@ -94,6 +94,12 @@ public class VentanaAdministradores implements Initializable {
     @FXML
     private Label lblReloj;
 
+    @FXML
+    private ImageView img1;
+
+    @FXML
+    private ImageView img2;
+
     // ObservableList para cargar las facturas desde un archivo CSV
     public static final ObservableList<Factura> listaFacturas = FXCollections.observableArrayList(DataUtils.leerFacturasDesdeCSV("src/main/resources/CSVFiles/Facturas.csv"));
 
@@ -186,11 +192,14 @@ public class VentanaAdministradores implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configurarColumnas(tblFacturas, colIdFactura, colIdCliente, colCliente, colEdad, colGenero, colPais, colCiudad,
                 colProductos, colTipoProducto, colValorTotal, colDia, colMes, colAnio);
-        CoreMethod.girarImagen(viwLogo);
+        CoreMethod.girarImagen2(viwLogo);
         CoreMethod.animarComponente(btnCargarfactura);
         CoreMethod.animarComponente(btnHilo);
         CoreMethod.animarComponente(btnRegresar);
         CoreMethod.animarComponente(btnProcesarFactura);
+        CoreMethod.girarImagen(img1);
+        CoreMethod.girarImagen(img2);
+
         // Cargar las facturas desde el archivo CSV al inicializar la ventana
         tblFacturas.setItems(listaFacturas);
         // Ajustar la política de redimensionamiento de columnas de la tabla
