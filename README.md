@@ -5,6 +5,64 @@ Este proyecto se centra en la automatización de la generación y envío de prem
 ## Descripción
 
 Se requiere automatizar el análisis de facturas, la generación de premios, el enturnado de envíos, la generación de paquetes de carga y la planificación de rutas aéreas de envío. De esta manera, se optimizará el proceso aprovechando el recurso tecnológico y liberando el recurso humano para otras tareas.
+## Librerías Utilizadas
+
+Este proyecto utiliza las siguientes librerías:
+
+- **JGrapht**
+- **JGraphX**
+- **Apache POI**
+- **JavaFX**
+
+## Dependencias de Maven
+
+Para utilizar estas librerías, asegúrate de incluir las siguientes dependencias en tu archivo `pom.xml`:
+
+<dependencies>
+    <dependency>
+        <groupId>org.controlsfx</groupId>
+        <artifactId>controlsfx</artifactId>
+        <version>11.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>5.2.3</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>21</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>21</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.jgrapht</groupId>
+        <artifactId>jgrapht-core</artifactId>
+        <version>1.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.jgrapht</groupId>
+        <artifactId>jgrapht-ext</artifactId>
+        <version>1.0.1</version>
+    </dependency>
+</dependencies>
+
 ## Instrucciones de uso
 
 1. Clonar el repositorio.
