@@ -1,6 +1,5 @@
 package Controller;
 
-
 import Model.enums.Paises;
 import Model.objetos.Arista;
 import Model.objetos.Vertice;
@@ -20,6 +19,9 @@ public class DijkstraConPaises {
 
     // Constructor
     public DijkstraConPaises(List<Arista<Paises>> aristas) {
+        if (aristas == null || aristas.isEmpty()) {
+            throw new IllegalArgumentException("La lista de aristas no puede ser nula o vacía.");
+        }
         this.graph = crearGrafo(aristas); // Crea el grafo a partir de las aristas
         this.distancias = new HashMap<>(); // Inicializa el mapa de distancias
         this.predecesores = new HashMap<>(); // Inicializa el mapa de predecesores
@@ -29,6 +31,9 @@ public class DijkstraConPaises {
     static DirectedMultigraph<Paises, DefaultWeightedEdge> crearGrafo(List<Arista<Paises>> aristas) {
         DirectedMultigraph<Paises, DefaultWeightedEdge> grafo = new DirectedMultigraph<>(DefaultWeightedEdge.class); // Crea un grafo ponderado
         for (Arista<Paises> arista : aristas) {
+            if (arista == null || arista.getOrigen() == null || arista.getDestino() == null) {
+                throw new IllegalArgumentException("Las aristas y sus vértices no pueden ser nulos.");
+            }
             Paises origen = arista.getOrigen().getValor(); // Obtiene el vértice origen de la arista
             Paises destino = arista.getDestino().getValor(); // Obtiene el vértice destino de la arista
             double peso = arista.getPeso(); // Obtiene el peso de la arista
@@ -36,16 +41,17 @@ public class DijkstraConPaises {
             grafo.addVertex(origen); // Agrega el vértice origen al grafo
             grafo.addVertex(destino); // Agrega el vértice destino al grafo
 
-             // Agrega la arista al grafo
-            grafo.setEdgeWeight(grafo.addEdge(origen, destino),peso);
-
-
+            // Agrega la arista al grafo
+            grafo.setEdgeWeight(grafo.addEdge(origen, destino), peso);
         }
         return grafo; // Devuelve el grafo creado
     }
 
     // Método para ejecutar el algoritmo de Dijkstra
     public void ejecutarDijkstra(Paises origen) {
+        if (!graph.containsVertex(origen)) {
+            throw new IllegalArgumentException("El vértice de origen no existe en el grafo.");
+        }
         PriorityQueue<Paises> cola = new PriorityQueue<>(Comparator.comparingDouble(distancias::get)); // Cola de prioridad para almacenar los vértices a explorar
         Set<Paises> verticesVisitados = new HashSet<>(); // Conjunto de vértices visitados
 
@@ -82,7 +88,6 @@ public class DijkstraConPaises {
         return distancias.getOrDefault(destino, Double.POSITIVE_INFINITY); // Devuelve la distancia mínima o infinito si no hay camino
     }
 
-
     // Método para obtener el camino más corto hasta un nodo destino
     public List<Paises> obtenerCaminoMasCorto(Paises destino) {
         List<Paises> camino = new LinkedList<>(); // Lista para almacenar el camino más corto
@@ -102,23 +107,22 @@ public class DijkstraConPaises {
         return camino; // Devuelve el camino más corto
     }
 
-
     // Método para visualizar los resultados (camino más corto y distancia mínima)
     public void visualizarResultados(Set<Paises> destino) {
+        if (destino == null || destino.isEmpty()) {
+            throw new IllegalArgumentException("El conjunto de destinos no puede ser nulo o vacío.");
+        }
         List<Paises> camino = null;
         List<Paises> visitados = new ArrayList<>();
         double distancia = 0;
 
-        for(Paises pais:destino){
-
+        for (Paises pais : destino) {
             camino = obtenerCaminoMasCorto(pais); // Obtiene el camino más corto hasta el destino
-            //camino.remove(pais);
             visitados.add(pais);
 
             System.out.println("Camino más corto a " + pais + ": " + camino); // Imprime el camino más corto
             distancia += obtenerDistanciaMinima(pais);
             System.out.println("Distancia mínima a " + pais + ": " + obtenerDistanciaMinima(pais)); // Imprime la distancia mínima
-
         }
 
         VisualizadorGrafo<Paises> visualizador = new VisualizadorGrafo<>(graph, camino); // Crea un visualizador de grafo
@@ -139,27 +143,29 @@ public class DijkstraConPaises {
                 aristas.add(new Arista<>(vertices.get(i), vertices.get(j), peso));
             }
         }
-        Paises origen = Paises.CHILE;
+
         DijkstraConPaises dijkstra = new DijkstraConPaises(aristas);
 
         dijkstra.ejecutarDijkstra(Paises.USA);
 
-        Set<String> nombresPaises = DataUtils.leerDestinos("src/main/resources/CSVFiles/CargaAvion.csv");
-        // Convertir el Set de String a un Set de Paises
-        Set<Paises> paisesDestino = new HashSet<>();
-        //paisesDestino.add(origen);
-        for (String nombrePais : nombresPaises) {
-
-            paisesDestino.add(convertirAPaises(nombrePais));
+        Set<String> nombresPaises = null;
+        try {
+            nombresPaises = DataUtils.leerDestinos("src/main/resources/CSVFiles/CargaAvion.csv");
+        } catch (Exception e) {
+            System.err.println("Error leyendo destinos: " + e.getMessage());
+            return;
         }
 
-
+        Set<Paises> paisesDestino = new HashSet<>();
+        for (String nombrePais : nombresPaises) {
+            try {
+                paisesDestino.add(convertirAPaises(nombrePais));
+            } catch (IllegalArgumentException e) {
+                System.err.println("País desconocido: " + nombrePais);
+            }
+        }
 
         dijkstra.visualizarResultados(paisesDestino);
-       // dijkstra.visualizarResultados(Paises.USA);
-
-
-
     }
 
     public static int numeroAleatorio() {
@@ -168,6 +174,10 @@ public class DijkstraConPaises {
     }
 
     public static Paises convertirAPaises(String nombrePais) {
-        return Paises.valueOf(nombrePais.toUpperCase());
+        try {
+            return Paises.valueOf(nombrePais.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("El nombre del país " + nombrePais + " no es válido.");
+        }
     }
 }

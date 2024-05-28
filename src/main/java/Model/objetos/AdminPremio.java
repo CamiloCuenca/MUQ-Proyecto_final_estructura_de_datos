@@ -195,7 +195,18 @@ public class AdminPremio extends Usuario{
 
                             } else if (parts[5].equals("ARGENTINA")) {
                                 pais = Paises.ARGENTINA;
+                            }else if (parts[5].equals("CHILE")) {
+                                pais = Paises.CHILE;
+                            }else if (parts[5].equals("AUSTRALIA")) {
+                                pais = Paises.AUSTRALIA;
+                            }else if (parts[5].equals("PERU")) {
+                                pais = Paises.PERU;
+                            }else if (parts[5].equals("USA")) {
+                                pais = Paises.USA;
+                            }else if (parts[5].equals("CANADA")) {
+                                pais = Paises.CANADA;
                             }
+
                         } else if (i == 6) {
                             ciudad = parts[6];
                         } else if (i == 7) {

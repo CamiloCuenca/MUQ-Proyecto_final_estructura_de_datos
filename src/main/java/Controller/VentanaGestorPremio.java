@@ -3,7 +3,10 @@ package Controller;
 import Model.enums.TipoProducto;
 import Model.objetos.*;
 import Model.utils.DataUtils;
+import Model.utils.GenerarExcel;
 import Model.utils.SceneUtils;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,14 +14,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class VentanaGestorPremio implements Initializable {
@@ -42,6 +52,9 @@ public class VentanaGestorPremio implements Initializable {
 
     @FXML
     private Button btnSalir;
+
+    @FXML
+    private Button btnGenerarExcel;
 
     // Columnas de la tabla de facturas
     @FXML
@@ -72,6 +85,17 @@ public class VentanaGestorPremio implements Initializable {
     private TableColumn<Factura, Double> colValorTotal;
     @FXML
     private TableView<Factura> tblFacturas;
+
+
+    @FXML
+    private javafx.scene.image.ImageView imgRegalo1;
+
+    @FXML
+    private ImageView imgRegalo2;
+
+
+    @FXML
+    private Label lblReloj;
 
 
     //Tabla Premios:
@@ -106,6 +130,10 @@ public class VentanaGestorPremio implements Initializable {
     @FXML
     private TableColumn<GanadorPremio, String> colPremioTipoPremio;
 
+    @FXML
+    private Label lblTexto;
+
+
 
     // Lista observable para almacenar las facturas
     public ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();
@@ -117,6 +145,17 @@ public class VentanaGestorPremio implements Initializable {
             aux.add(facturas.get(i));
         }
         return aux;
+    }
+
+    private void inicializarReloj() {
+        // Crear un objeto Timeline para actualizar el reloj cada segundo
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String horaActual = sdf.format(new Date());
+            lblReloj.setText(horaActual);
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     @FXML
@@ -152,6 +191,10 @@ public class VentanaGestorPremio implements Initializable {
         CoreMethod.animarComponente(btnSalir);
         CoreMethod.animarComponente(btnBuscar);
         CoreMethod.animarComponente(btnGenerarPremio);
+        CoreMethod.animarComponente(btnGenerarExcel);
+        CoreMethod.girarImagen(imgRegalo1);
+        CoreMethod.girarImagen(imgRegalo2);
+        inicializarReloj();
 
         // Se escribe la lista de facturas en un archivo CSV
         //DataUtils.escribirFacturaCSV(facturas, "src/main/resources/CSVFiles/CargaAvion.csv");
@@ -187,34 +230,50 @@ public class VentanaGestorPremio implements Initializable {
         // Se crea una instancia de AdminPremio
         AdminPremio adminPremio = new AdminPremio("Santiago", "123", "1234", facturaArrayList3);
 
-        // Se obtiene una lista de PersonaPremio a partir de las facturas
-        facturaArrayList = adminPremio.FacturaToPersonaPremio();
+        try {
+            // Se obtiene una lista de PersonaPremio a partir de las facturas
+            facturaArrayList = adminPremio.FacturaToPersonaPremio();
 
-        // Se obtiene una lista de Factura
-        ArrayList<Factura> facturaArrayList1 = adminPremio.convertirFactura(facturaArrayList);
+            // Se obtiene una lista de Factura
+            ArrayList<Factura> facturaArrayList1 = adminPremio.convertirFactura(facturaArrayList);
 
-        // Se imprime la lista de facturas
-        System.out.println("GANADORES");
-        System.out.println(facturaArrayList1);
-        System.out.println("Con Premio");
+            // Verifica si hay facturas disponibles
+            if (facturaArrayList1.isEmpty()) {
+                lblTexto.setText("No hay facturas disponibles para generar los premios.");
+                return;
+            }
 
-        // Se obtiene una lista de GanadorPremio
-        ArrayList<GanadorPremio> ganadorPremios = adminPremio.devolverGanadorConPremio(facturaArrayList1);
+            // Se imprime la lista de facturas
+            System.out.println("GANADORES");
+            System.out.println(facturaArrayList1);
+            System.out.println("Con Premio");
 
-        // Se establece la variable auxiliar como verdadera
-        aux = true;
+            // Se obtiene una lista de GanadorPremio
+            ArrayList<GanadorPremio> ganadorPremios = adminPremio.devolverGanadorConPremio(facturaArrayList1);
 
-        // Se imprime la lista de ganadores
-        System.out.println(ganadorPremios);
+            // Se establece la variable auxiliar como verdadera
+            aux = true;
 
-        // Se actualiza la tabla de premios
-        ActualizarDatosTabla(ganadorPremios);
+            // Se imprime la lista de ganadores
+            System.out.println(ganadorPremios);
 
-        // Se muestra la lista de ganadores en la tabla de premios
-        ObservableList<GanadorPremio> listaGanadores = FXCollections.observableArrayList(ganadorPremios);
-        tblPremios.setItems(listaGanadores);
-        DataUtils.escribirCargaAvion(listaGanadores,"src/main/resources/CSVFiles/CargaAvion.csv");
-        DataUtils.eliminarGanadores(listaGanadores,"src/main/resources/CSVFiles/FacturasProcesadas.csv");
+            // Se actualiza la tabla de premios
+            ActualizarDatosTabla(ganadorPremios);
+
+            // Se muestra la lista de ganadores en la tabla de premios
+            ObservableList<GanadorPremio> listaGanadores = FXCollections.observableArrayList(ganadorPremios);
+            tblPremios.setItems(listaGanadores);
+            DataUtils.escribirCargaAvion(listaGanadores, "src/main/resources/CSVFiles/CargaAvion.csv");
+            DataUtils.eliminarGanadores(listaGanadores, "src/main/resources/CSVFiles/FacturasProcesadas.csv");
+
+            // Actualiza el label con un mensaje de éxito
+            lblTexto.setText("Premios generados exitosamente.");
+
+        } catch (Exception e) {
+            // Manejo de cualquier excepción no esperada
+            lblTexto.setText("Ocurrió un error al generar los premios: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -224,5 +283,40 @@ public class VentanaGestorPremio implements Initializable {
     public static void ActualizarDatosTabla(ArrayList<GanadorPremio> ganadorPremioArrayList) {
         // Se convierte la lista de ganadores de premios en un ObservableList
         ganadorPremioObservableList2 = FXCollections.observableArrayList(ganadorPremioArrayList);
+    }
+
+    @FXML
+    void OnGenerarExcel(ActionEvent event) {
+        String csvFilePath = "src/main/resources/CSVFiles/FacturasProcesadas.csv";
+        String excelFilePath = "planilla_carga.xlsx";
+
+        try {
+            // Leer datos del CSV y escribir en Excel
+            GenerarExcel.writeExcel(GenerarExcel.readCsv(csvFilePath), excelFilePath);
+            System.out.println("Archivo Excel generado exitosamente.");
+
+            // Abrir el archivo Excel con el programa predeterminado
+            abrirArchivoConProgramaPredeterminado(excelFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Abre el archivo especificado con el programa predeterminado del sistema.
+     * @param filePath La ruta del archivo a abrir.
+     */
+    private void abrirArchivoConProgramaPredeterminado(String filePath) {
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                Desktop.getDesktop().open(file);
+            } else {
+                System.out.println("El archivo no existe: " + filePath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

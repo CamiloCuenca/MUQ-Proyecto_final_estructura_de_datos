@@ -30,7 +30,7 @@
                   <Font name="System Bold" size="35.0" />
                </font>
                <effect>
-                  <Glow level="0.81" />
+                  <Glow level="1.0" />
                </effect>
             </Text>
          </children>

@@ -58,7 +58,7 @@
 #btnSalir {
     -fx-background-color: transparent; /* Establece el color de fondo como transparente */
     -fx-border-width: 0px; /* Elimina los bordes */
-    -fx-text-fill: #3dcdbc; /* Color del texto */
+    -fx-text-fill: #ffffff; /* Color del texto */
     -fx-font-size: 14px; /* Tamaño de la fuente */
     -fx-padding: 10px 20px; /* Espaciado interno */
     -fx-cursor: hand; /* Cambia el cursor al pasar por encima */

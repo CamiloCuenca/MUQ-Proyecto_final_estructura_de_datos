@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Exception.ExceptionVerificar;
 import Model.utils.DataUtils;
-import Model.utils.GeneradorFacturas;
 import Model.utils.SceneUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,7 +45,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CoreMethod.animarComponente(btnIngresar);
         CoreMethod.inicializarEnterKey(txtUsuario, pswContrasena, btnIngresar);
-        CoreMethod.girarImagen(imgLogo);
+        CoreMethod.girarImagen2(imgLogo);
     }
 
     @FXML
@@ -84,17 +83,25 @@ public class LoginController implements Initializable {
             } else {
                 throw new ExceptionVerificar("Usuario no encontrado");
             }
-        } catch (ExceptionVerificar | IOException e) {
+        } catch (ExceptionVerificar e) {
             lblMensaje.setText(e.getMessage());
             CoreMethod.mostrarErrorTemporalmente(lblMensaje);
+        } catch (IOException e) {
+            lblMensaje.setText("Error al cargar la ventana: " + e.getMessage());
+            CoreMethod.mostrarErrorTemporalmente(lblMensaje);
+        } catch (Exception e) {
+            lblMensaje.setText("Ha ocurrido un error inesperado: " + e.getMessage());
+            CoreMethod.mostrarErrorTemporalmente(lblMensaje);
         }
-
-
     }
 
     private void cargarVentana(String fxmlPath, ActionEvent event) throws IOException {
-        SceneUtils.cargarVentana(fxmlPath);
-        // Esconde la ventana actual
-        ((Node) event.getSource()).getScene().getWindow().hide();
+        try {
+            SceneUtils.cargarVentana(fxmlPath);
+            // Esconde la ventana actual
+            ((Node) event.getSource()).getScene().getWindow().hide();
+        } catch (IOException e) {
+            throw new IOException("No se pudo cargar la ventana: " + fxmlPath, e);
+        }
     }
 }
